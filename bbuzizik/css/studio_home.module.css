@@ -1,0 +1,17 @@
+.studio_header{
+    width: 100%;
+    height: 60px;
+    background-color: var(--orange);
+    display: flex;
+}
+
+.studio_header_maintitle{
+    font-size: 32px;
+    line-height: 60px;
+}
+
+.studio_header_subtitle{
+    font-size: 18px;
+    color: var(--white);
+    line-height: 70px;
+}
