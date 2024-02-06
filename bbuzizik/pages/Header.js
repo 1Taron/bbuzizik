@@ -8,17 +8,17 @@ export default function Header() {
                 <ul>
                     <li>
                         <Link href="/">
-                            <div>홈</div>
+                            <span>홈</span>
                         </Link>
                     </li>
                     <li>
                         <Link href="/about">
-                            <div>소개</div>
+                            <span>소개</span>
                         </Link>
                     </li>
                     <li>
                         <Link href="/contact">
-                            <div>문의</div>
+                            <span>문의</span>
                         </Link>
                     </li>
                 </ul>

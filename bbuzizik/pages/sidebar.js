@@ -1,28 +1,23 @@
-import React from 'react';
-import Link from 'next/link';
+import { useState } from 'react';
 
-export default function sidebar() {
-  return (
-    <aside>
-      <nav>
-        <ul>
-          <li>
-            <Link href="/category1">
-              <div>카테고리 1</div>
-            </Link>
-          </li>
-          <li>
-            <Link href="/category2">
-              <div>카테고리 2</div>
-            </Link>
-          </li>
-          <li>
-            <Link href="/category3">
-              <div>카테고리 3</div>
-            </Link>
-          </li>
-        </ul>
-      </nav>
-    </aside>
-  );
+export default function Sidebar() {
+    const [isExpanded, setIsExpanded] = useState(false);
+
+    const handleToggle = () => {
+        setIsExpanded(!isExpanded);
+    };
+
+    return (
+        <div className={`sidebar ${isExpanded ? 'expanded' : 'collapsed'}`}>
+            <button onClick={handleToggle}>Toggle Sidebar</button>
+            {isExpanded ? (
+                /* 펼쳐진 사이드바 내용 */
+                <div>펼쳐진 사이드바 내용</div>
+            ) : (
+                /* 접혀진 사이드바 내용 */
+                <div>접혀진 사이드바 내용</div>
+            )}
+        </div>
+    );
 };
+
