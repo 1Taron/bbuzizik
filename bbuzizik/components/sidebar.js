@@ -12,10 +12,10 @@ export default function Sidebar() {
             <button onClick={handleToggle}>Toggle Sidebar</button>
             {isExpanded ? (
                 /* 펼쳐진 사이드바 내용 */
-                <div>펼쳐진 사이드바 내용</div>
+                <div className='OpenSidebar'>펼쳐진 사이드바 내용</div>
             ) : (
                 /* 접혀진 사이드바 내용 */
-                <div>접혀진 사이드바 내용</div>
+                <div className='CloseSidebar'>접혀진 사이드바 내용</div>
             )}
         </div>
     );
