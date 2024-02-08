@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import styles from '../css/sidebar.module.css'
 
 export default function Sidebar() {
     const [isExpanded, setIsExpanded] = useState(false);
@@ -9,13 +10,19 @@ export default function Sidebar() {
 
     return (
         <div className={`sidebar ${isExpanded ? 'expanded' : 'collapsed'}`}>
-            <button onClick={handleToggle}>Toggle Sidebar</button>
+            <button onClick={handleToggle} className={styles.button}>
+                <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                    <rect x="11" y="13" width="18" height="2" rx="1" fill="#DFE2EA"></rect>
+                    <rect x="11" y="19" width="18" height="2" rx="1" fill="#DFE2EA"></rect>
+                    <rect x="11" y="25" width="18" height="2" rx="1" fill="#DFE2EA"></rect>
+                </svg>
+            </button>
             {isExpanded ? (
                 /* 펼쳐진 사이드바 내용 */
-                <div className='OpenSidebar'>펼쳐진 사이드바 내용</div>
+                <div className={styles.OpenSidebar}>펼쳐진 사이드바 내용</div>
             ) : (
                 /* 접혀진 사이드바 내용 */
-                <div className='CloseSidebar'>접혀진 사이드바 내용</div>
+                <div className={styles.CloseSidebar}>접혀진 사이드바 내용</div>
             )}
         </div>
     );

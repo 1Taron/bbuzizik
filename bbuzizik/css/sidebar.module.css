@@ -1,0 +1,27 @@
+.OpenSidebar {
+    width: 240px;
+    height: 100vh;
+    background-color: #261A1A;
+    color: white;
+    position: fixed;
+    left: 0;
+}
+
+.CloseSidebar {
+    width: 66px;
+    height: 100vh;
+    background-color: #261A1A;
+    color: white;
+    position: fixed;
+    left: 0;
+}
+
+.button {
+    cursor: pointer;
+    width: 66px;
+    height: 60px;
+    margin: auto;
+    border: 0px;
+    border-radius: 0px;
+    background-color: #261A1A;
+}
