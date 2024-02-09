@@ -34,7 +34,12 @@
 }
 
 .right_bar {
-    height: 60px;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 80px;
 }
 
 .searchform {
@@ -66,4 +71,66 @@
 
 .Link_a {
     height: 36px;
+}
+
+.button_login {
+    font-size: 12px;
+    border-radius: 8px;
+    height: 30px;
+    padding: 0 10px;
+    color: #dfe2ea;
+    background-color: #261A1A;
+    border: 1px solid #dfe2ea;
+    cursor: pointer;
+}
+
+.modal {
+    width: 500px;
+    height: 727px;
+    background-color: black;
+    color: white;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    border-radius: 5px;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(0, 0, 0, 0.5);
+}
+
+.modal_button_container {
+    position: absolute;
+    left: auto;
+    right: 1rem;
+    top: 1rem;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    margin-left: 0.5rem;
+}
+
+.modal_button {
+    display: inline-flex;
+    align-items: center;
+    text-align: center;
+    background-color: black;
+    border: 0px;
+    padding: 0 5px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    justify-content: center;
+}
+
+.modal_button:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 5px;
 }

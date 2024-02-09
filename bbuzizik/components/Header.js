@@ -9,10 +9,13 @@ export default function Header() {
         setSearchTerm(event.target.value);
     };
 
+    // 검색 관련 코드
     const handleSubmit = event => {
         event.preventDefault();
 
     };
+
+    const [isModalOpen, setIsModalOpen] = useState(false); // 모달창 상태
 
     return (
         <header className={styles.header}>
@@ -32,8 +35,24 @@ export default function Header() {
                 </form>
             </div>
             <div className={styles.right_bar}>
-
+                <div>
+                    <button className={styles.button_login} onClick={() => setIsModalOpen(true)}>로그인</button>
+                </div>
             </div>
+            {isModalOpen && (
+                <>
+                    <div className={styles.overlay}></div>
+                    <div className={styles.modal}>
+                        <div className={styles.modal_button_container}>
+                            <button className={styles.modal_button} onClick={() => setIsModalOpen(false)}>
+                                <img src="/image/close_button.svg" alt='닫기' />
+                            </button>
+                        </div>
+
+                    </div>
+                </>
+
+            )}
         </header>
     );
 };
