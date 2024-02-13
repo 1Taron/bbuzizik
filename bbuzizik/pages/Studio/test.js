@@ -1,32 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styles from "../../css/studio_home.module.css";
 import { useRecoilState } from "recoil";
-import { countState, useSSR } from "../states/atom";
-
-function Counter() {
-  const [count, setCount] = useSSR();
-
-  return (
-    <div>
-      <h1>Counter</h1>
-      <button
-        onClick={() => {
-          setCount(count + 1);
-        }}
-      >
-        +
-      </button>
-      {count}
-    </div>
-  );
-}
+import { countState } from "../states/atom";
 
 function DisplayCounter() {
   const [count] = useRecoilState(countState);
   return <div>{count}</div>;
 }
 
-export default function Home() {
+export default function Test() {
   return (
     <>
       <div className={styles.studio_header}>
@@ -37,7 +19,6 @@ export default function Home() {
       </div>
 
       <div>
-        <Counter />
         <DisplayCounter />
       </div>
     </>
