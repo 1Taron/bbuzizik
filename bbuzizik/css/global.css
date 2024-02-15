@@ -1,33 +1,45 @@
 :root {
-    --black: #261A1A;
-    --white: #ffffff;
-    --gray: #F2F0F0;
-    --brown1: #8C6961;
-    --brown2: #402422;
-    --orange: #D97652;
-  }
-
+  --black: #261a1a;
+  --white: #ffffff;
+  --gray: #f2f0f0;
+  --gray2: #d9d9d9;
+  --brown1: #8c6961;
+  --brown2: #402422;
+  --orange: #d97652;
+}
 
 * {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-  }
-
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
 
 a {
-    text-decoration: none;
-    color: inherit;
-  }
-
+  text-decoration: none;
+  color: inherit;
+}
 
 /* logo 폰트 */
 @font-face {
-    font-family: 'PartialSansKR-Regular';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-1@1.1/PartialSansKR-Regular.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
+  font-family: "PartialSansKR-Regular";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-1@1.1/PartialSansKR-Regular.woff2")
+    format("woff2");
+  font-weight: normal;
+  font-style: normal;
 }
 .logo_font {
-  font-family: 'PartialSansKR-Regular', sans-serif;
+  font-family: "PartialSansKR-Regular", sans-serif;
+}
+
+/* 일반  */
+@font-face {
+  font-family: "NPSfontBold";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2310@1.0/NPSfontBold.woff2")
+    format("woff2");
+  /* 700 or 800 */
+  font-weight: 700;
+  font-style: normal;
+}
+.default_font {
+  font-family: "NPSfontBold", sans-serif;
 }
