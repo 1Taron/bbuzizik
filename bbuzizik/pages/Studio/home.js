@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from "react";
 import styles from "../../css/studio_home.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPaperPlane, faPlus, faX } from "@fortawesome/free-solid-svg-icons";
+import {
+  faEye,
+  faMagnifyingGlass,
+  faPaperPlane,
+  faPlus,
+  faX,
+} from "@fortawesome/free-solid-svg-icons";
 
 export default function Home() {
   return (
@@ -22,8 +28,86 @@ export default function Home() {
             <div className={styles.studio_main_liveWindowBox} />
           </div>
           {/* 설정 */}
-          <div className={styles.studio_main_setting}>설정</div>
-          {/* </div> */}
+          <div className={styles.studio_main_setting}>
+            {/* 방송제목 */}
+            <div className={styles.studio_main_setting_broadcastTitle}>
+              <p style={{ alignSelf: "center" }}>방송제목</p>
+              {/* 나중에 설정들 각 타이틀들 일정한 크기로 바꿔서 인풋박스랑 일정하게 거리두기 */}
+              <div
+                className={styles.studio_main_setting_broadcastTitle_inputbox}
+              />
+            </div>
+
+            {/* 카테고리 */}
+            <div className={styles.studio_main_setting_broadcastCategory}>
+              <p style={{ alignSelf: "center" }}>카테고리</p>
+              <div
+                className={
+                  styles.studio_main_setting_broadcastCategory_inputbox
+                }
+              >
+                <FontAwesomeIcon
+                  icon={faMagnifyingGlass}
+                  style={{ color: "black", fontSize: "25px" }}
+                />
+              </div>
+            </div>
+
+            {/* 방송속성 or 채팅권한 */}
+            <div
+              className={styles.studio_main_setting_broadcastSetting}
+              style={{ height: "100px" }}
+            >
+              <div style={{ paddingTop: "10px" }}>방송속성</div>
+              <div style={{ paddingTop: "10px" }}>채팅권한</div>
+            </div>
+
+            <div className={styles.studio_main_setting_streamKey}>
+              <p style={{ alignSelf: "center" }}>스트림 키</p>
+
+              <div className={styles.studio_main_setting_streamKey_inputbox}>
+                <p style={{ alignSelf: "center" }}>
+                  ****************************
+                </p>
+                <FontAwesomeIcon
+                  icon={faEye}
+                  style={{ fontSize: "25px", alignSelf: "center" }}
+                />
+              </div>
+              <div className={styles.studio_main_setting_streamKey_copybtn}>
+                복사
+              </div>
+              <div className={styles.studio_main_setting_streamKey_reissuance}>
+                재발급
+              </div>
+            </div>
+
+            <div className={styles.studio_main_setting_streamUrl}>
+              <p style={{ alignSelf: "center" }}>스트림 URL</p>
+              <p
+                style={{
+                  marginLeft: "30px",
+                  fontSize: "14px",
+                  alignSelf: "center",
+                }}
+              >
+                rtmp://rtmpmanager-test-bbuzizik/app/
+              </p>
+            </div>
+            <div
+              className={styles.studio_main_setting_broadcastInfo}
+              style={{ height: "100px" }}
+            >
+              <p style={{ paddingTop: "10px" }}>방송정보</p>
+              <div className={styles.studio_main_setting_broadcastInfo_text}>
+                <p>상태 : 방송 전</p>
+                <p>방송시간 : -</p>
+                <p>해상도 : -</p>
+                <p>현재 유저 수 : -</p>
+                <p>누적 유저 수 : -</p>
+              </div>
+            </div>
+          </div>
 
           {/* 미리보기 이미지 */}
           <div className={styles.studio_main_previewImg}>
@@ -59,7 +143,6 @@ export default function Home() {
               </div>
             </div>
           </div>
-          {/* </div> */}
         </div>
 
         {/* 채팅 */}

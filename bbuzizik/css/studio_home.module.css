@@ -67,7 +67,94 @@
   position: fixed;
   left: 0;
   top: 460px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  font-family: "NPSfontBold";
+  font-size: 20px;
+  padding: 0px 10px 0px 10px;
 }
+.studio_main_setting > div:nth-child(1) {
+  margin-top: 0px;
+}
+.studio_main_setting > div {
+  height: 50px;
+  margin-top: 5px;
+  display: flex;
+}
+
+.studio_main_setting_broadcastTitle_inputbox {
+  background-color: white;
+  height: 40px;
+  width: 400px;
+  margin-left: 50px;
+  border-radius: 5px;
+}
+
+.studio_main_setting_broadcastCategory_inputbox {
+  background-color: white;
+  height: 40px;
+  width: 400px;
+  margin-left: 50px;
+  border-radius: 5px;
+  line-height: 40px;
+  padding-left: 5px;
+}
+
+.studio_main_setting_streamKey_inputbox {
+  background-color: white;
+  height: 40px;
+  width: 400px;
+  margin-left: 50px;
+  border-radius: 5px;
+  display: flex;
+  color: black;
+  justify-content: space-between;
+  padding: 0px 10px 0px 10px;
+}
+.studio_main_setting_streamKey_copybtn {
+  height: 30px;
+  width: 65px;
+  background-color: #d3d6ed;
+  border-radius: 6px;
+  font-size: 16px;
+  color: #625fde;
+  text-align: center;
+  padding: 7px;
+  margin-left: 20px;
+  align-self: flex-end;
+  margin-bottom: 5px;
+}
+.studio_main_setting_streamKey_reissuance {
+  height: 30px;
+  width: 65px;
+  background-color: #625fde;
+  border-radius: 6px;
+  font-size: 16px;
+  color: #f1f1f1;
+  text-align: center;
+  padding: 7px;
+  margin-left: 10px;
+  align-self: flex-end;
+  margin-bottom: 5px;
+}
+
+.studio_main_setting_broadcastInfo_text {
+  font-size: 12px;
+  margin-left: 50px;
+}
+.studio_main_setting_broadcastInfo_text > p {
+  margin-top: 10px;
+}
+
+/* .studio_main_setting_broadcastSetting {
+  display: flex;
+} */
+
+.studio_main_setting_broadcastSetting > div {
+  flex: 1;
+}
+
 .studio_main_previewImg {
   width: calc(100vw - 1350px);
   height: 250px;
