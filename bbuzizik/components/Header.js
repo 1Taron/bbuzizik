@@ -15,6 +15,8 @@ export default function Header() {
 
     };
 
+    const [activeTab, setActiveTab] = useState('로그인'); // 현재 탭
+
     const [isModalOpen, setIsModalOpen] = useState(false); // 모달창 상태
 
     return (
@@ -43,12 +45,29 @@ export default function Header() {
                 <>
                     <div className={styles.overlay}></div>
                     <div className={styles.modal}>
+                        <div className={styles.modal_logo_container}>
+                            <img className={styles.modal_logo} src="/image/Logo_2.svg" alt="Logo" />
+                        </div>
+                        <div className={styles.modal_login_container}>
+                            <button className={styles.login_button} onClick={() => setActiveTab('로그인')}>로그인</button>
+                            <button className={styles.res_button} onClick={() => setActiveTab('가입')}>가입</button>
+                        </div>
                         <div className={styles.modal_button_container}>
                             <button className={styles.modal_button} onClick={() => setIsModalOpen(false)}>
                                 <img src="/image/close_button.svg" alt='닫기' />
                             </button>
                         </div>
-
+                        {activeTab === '로그인' ? (
+                            <div>
+                                <h2>로그인</h2>
+                                {/* 로그인 폼... */}
+                            </div>
+                        ) : (
+                            <div>
+                                <h2>가입</h2>
+                                {/* 가입 폼... */}
+                            </div>
+                        )}
                     </div>
                 </>
 

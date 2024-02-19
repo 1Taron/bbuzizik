@@ -87,7 +87,7 @@
 .modal {
     width: 500px;
     height: 727px;
-    background-color: black;
+    background-color: #24272C;
     color: white;
     position: fixed;
     top: 50%;
@@ -121,7 +121,7 @@
     display: inline-flex;
     align-items: center;
     text-align: center;
-    background-color: black;
+    background-color: #24272C;
     border: 0px;
     padding: 0 5px;
     width: 30px;
@@ -133,4 +133,48 @@
 .modal_button:hover {
     background-color: rgba(255, 255, 255, 0.5);
     border-radius: 5px;
+}
+
+.modal_logo_container {
+    position: absolute;
+    left: 0.7rem;
+    top: 3rem;
+    width: 190px;
+    height: 40px;
+    background-color: white;
+    margin-left: 30px;
+}
+
+.modal_logo {
+    width: 190px;
+    height: 40px;
+}
+
+.modal_login_container {
+    position: absolute;
+    right: 1rem;
+    top: 3rem;
+    height: 40px;
+    display: flex;
+    width: 142px;
+    justify-content: space-between;
+    margin-right: 30px;
+}
+
+.login_button {
+    color: white;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    font-size: 24px;
+
+}
+
+.res_button {
+    color: white;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    font-size: 24px;
+
 }
