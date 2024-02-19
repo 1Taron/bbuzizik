@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import styles from '../css/header.module.css'
 
 export default function Header() {
-    const [searchTerm, setSearchTerm] = useState('');
+    const [searchTerm, setSearchTerm] = useState(''); //검색 입력력
 
     const handleChange = event => {
         setSearchTerm(event.target.value);
@@ -18,6 +18,24 @@ export default function Header() {
     const [activeTab, setActiveTab] = useState('로그인'); // 현재 탭
 
     const [isModalOpen, setIsModalOpen] = useState(false); // 모달창 상태
+
+    const [Login, setLogin] = useState(''); //로그인 입력
+
+    const LoginChange = event => {
+        setLogin(event.target.value);
+    };
+
+    const [PW, setPW] = useState('');
+
+    const PWChange = event => {
+        setPW(event.target.value);
+    }
+
+    const LoginSubmit = event => {
+        event.preventDefault();
+
+    };
+
 
     return (
         <header className={styles.header}>
@@ -58,14 +76,23 @@ export default function Header() {
                             </button>
                         </div>
                         {activeTab === '로그인' ? (
-                            <div>
-                                <h2>로그인</h2>
-                                {/* 로그인 폼... */}
-                            </div>
+                            <form onSubmit={LoginSubmit}>
+                                <div className={styles.Login_container}>
+                                    <div className={styles.Login_text}>
+                                        이메일 또는 사용자명
+                                    </div>
+                                    <input className={styles.Login_input} type="text" value={Login} onChange={LoginChange}></input>
+                                </div>
+                                <div className={styles.PW_container}>
+                                    <div className={styles.PW_text}>
+                                        비밀번호
+                                    </div>
+                                    <input className={styles.PW_input} type="text" value={PW} onChange={PWChange} ></input>
+                                </div>
+                            </form>
                         ) : (
-                            <div>
+                            <div className={styles.Res_container}>
                                 <h2>가입</h2>
-                                {/* 가입 폼... */}
                             </div>
                         )}
                     </div>

@@ -178,3 +178,43 @@
     font-size: 24px;
 
 }
+
+.Login_container {
+    margin: 150px 50px 0px 50px;
+}
+
+.Login_text {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0px 0px 10px 0px;
+}
+
+.Login_input {
+    height: 50px;
+    width: 100%;
+    border-radius: 5px;
+    border: 0px;
+    background-color: #63666A;
+    font-size: 25px;
+    color: white;
+}
+
+.PW_container {
+    margin: 25px 50px 0px 50px;
+}
+
+.PW_text {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0px 0px 10px 0px;
+}
+
+.PW_input {
+    height: 50px;
+    width: 100%;
+    border-radius: 5px;
+    border: 0px;
+    background-color: #63666A;
+    font-size: 25px;
+    color: white;
+}
