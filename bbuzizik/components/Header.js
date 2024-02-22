@@ -36,11 +36,16 @@ export default function Header() {
 
     };
 
+    const ResSubmit = event => {
+        event.preventDefault();
+
+    }
+
 
     return (
         <header className={styles.header}>
             <h1 className={styles.logo_bar}>
-                <Link className={styles.Link_a} href="/">
+                <Link href="/" className={styles.Link_a}>
                     <img src="/image/Logo11.svg" alt="Logo" />
                 </Link>
             </h1>
@@ -76,24 +81,35 @@ export default function Header() {
                             </button>
                         </div>
                         {activeTab === '로그인' ? (
-                            <form onSubmit={LoginSubmit}>
-                                <div className={styles.Login_container}>
-                                    <div className={styles.Login_text}>
-                                        이메일 또는 사용자명
+                            <>
+                                <form onSubmit={LoginSubmit}>
+                                    <div className={styles.Login_container}>
+                                        <div className={styles.Login_text}>
+                                            이메일 또는 사용자명
+                                        </div>
+                                        <input className={styles.Login_input} type="text" value={Login} onChange={LoginChange}></input>
                                     </div>
-                                    <input className={styles.Login_input} type="text" value={Login} onChange={LoginChange}></input>
-                                </div>
-                                <div className={styles.PW_container}>
-                                    <div className={styles.PW_text}>
-                                        비밀번호
+                                    <div className={styles.PW_container}>
+                                        <div className={styles.PW_text}>
+                                            비밀번호
+                                        </div>
+                                        <input className={styles.PW_input} type="text" value={PW} onChange={PWChange} ></input>
                                     </div>
-                                    <input className={styles.PW_input} type="text" value={PW} onChange={PWChange} ></input>
-                                </div>
-                            </form>
+                                </form>
+                                <Link href="/" className={styles.Search_PW}>비밀번호를 잊어버리셨나요?</Link>
+                                <button className={styles.Button} type="submit">로그인</button>
+                                <div className={styles.Bar}></div>
+                                <div className={styles.Bar_}>또는</div>
+                                <button className={styles.Button_google} type="button">Google로 로그인</button>
+                                <button className={styles.Button_naver} type="button">Naver로 로그인</button>
+                            </>
+
                         ) : (
-                            <div className={styles.Res_container}>
-                                <h2>가입</h2>
-                            </div>
+                            <>
+                                <form onSubmit={ResSubmit}>
+
+                                </form>
+                            </>
                         )}
                     </div>
                 </>
