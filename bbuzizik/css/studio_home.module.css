@@ -153,6 +153,28 @@
 
 .studio_main_setting_broadcastSetting > div {
   flex: 1;
+  display: flex;
+}
+.studio_main_setting_broadcastSetting_title {
+  width: 20%;
+}
+.studio_main_setting_broadcastSetting_property {
+  border: 1px solid tomato;
+  width: 80%;
+}
+.studio_main_setting_broadcastSetting_propertyfont {
+  font-size: 11px;
+}
+
+.studio_main_setting_chatRights_property {
+  border: 1px solid #625fde;
+  width: 80%;
+}
+
+.studio_main_setting_chatRights_property_checkboxes {
+  display: flex;
+}
+.studio_main_setting_chatRights_property_checkboxes > * {
 }
 
 .studio_main_previewImg {
