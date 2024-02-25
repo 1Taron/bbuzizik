@@ -284,3 +284,78 @@
     font-weight: bold;
     cursor: pointer;
 }
+
+.Res_container {
+    margin: 150px 50px 0px 50px;
+}
+
+.Email_text {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0px 0px 10px 0px;
+    margin-top: 15px;
+}
+
+.Email_input {
+    height: 40px;
+    width: 100%;
+    border-radius: 5px;
+    border: 0px;
+    background-color: #63666A;
+    font-size: 20px;
+    color: white;
+}
+
+.Birth_container {
+    padding-left: 50px;
+    padding-right: 50px;
+    justify-content: space-between;
+    width: 100%;
+    height: 40px;
+    display: flex;
+}
+
+.Year {
+    width: 100px;
+    height: 40px;
+    border-radius: 5px;
+    border: 0px;
+    background-color: #63666A;
+    font-size: 20px;
+    color: white;
+}
+
+.Month {
+    width: 100px;
+    height: 40px;
+    border-radius: 5px;
+    border: 0px;
+    background-color: #63666A;
+    font-size: 20px;
+    color: white;
+}
+
+.date {
+    width: 100px;
+    height: 40px;
+    border-radius: 5px;
+    border: 0px;
+    background-color: #63666A;
+    font-size: 20px;
+    color: white;
+}
+
+.Button3 {
+    background-color: #ceba00;
+    border: 0px;
+    border-radius: 10px;
+    width: 400px;
+    height: 60px;
+    margin-left: 50px;
+    margin-top: 30px;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 70px;
+}
