@@ -2,15 +2,12 @@ import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 
-function J_Checkbox({ label, initialChecked = false, onCheckChange }) {
-  const [checked, setChecked] = useState(initialChecked);
+function J_Checkbox({ label, checked = false, onCheckChange }) {
   const [active, setActive] = useState(false);
 
   const handleClick = () => {
-    const newChecked = !checked;
-    setChecked(newChecked);
     if (onCheckChange) {
-      onCheckChange(newChecked);
+      onCheckChange(!checked);
     }
   };
 

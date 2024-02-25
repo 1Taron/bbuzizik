@@ -140,11 +140,15 @@
 }
 
 .studio_main_setting_broadcastInfo_text {
-  font-size: 12px;
+  font-size: 10px;
   margin-left: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  width: 80%;
 }
 .studio_main_setting_broadcastInfo_text > p {
   margin-top: 10px;
+  width: 50%;
 }
 
 /* .studio_main_setting_broadcastSetting {
@@ -162,6 +166,39 @@
   border: 1px solid tomato;
   width: 80%;
 }
+.studio_main_setting_broadcastSetting_property_checkboxes {
+  display: flex;
+  flex-wrap: wrap;
+}
+.studio_main_setting_broadcastSetting_property_checkboxes > * {
+  width: 30%;
+  margin-bottom: 20px;
+}
+
+.studio_main_setting_broadcastSetting_property_checkboxes > *:nth-child(2){
+  width: 40%;
+}
+
+.studio_main_setting_broadcastSetting_property_pwText {
+  width: 50%;
+  padding: 2px;
+}
+.studio_main_setting_broadcastSetting_property_pwBtn{
+  width: 40px;
+  background-color: #625fde;
+  border: 0px;
+  border-radius: 5px;
+  margin-left: 10px;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.studio_main_setting_broadcastSetting_property_pwBtn:active {
+  transform: scale(0.95);
+  transition: transform 0.1s;
+}
+
 .studio_main_setting_broadcastSetting_propertyfont {
   font-size: 11px;
 }
@@ -169,12 +206,16 @@
 .studio_main_setting_chatRights_property {
   border: 1px solid #625fde;
   width: 80%;
+  /* display: flex; */
 }
 
 .studio_main_setting_chatRights_property_checkboxes {
   display: flex;
+  flex-wrap: wrap;
 }
 .studio_main_setting_chatRights_property_checkboxes > * {
+  width: 50%;
+  margin-bottom: 20px;
 }
 
 .studio_main_previewImg {

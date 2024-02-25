@@ -11,6 +11,8 @@ import {
 import { Checkbox, FormControlLabel, FormGroup } from "@mui/material";
 import { blue, pink } from "@mui/material/colors";
 import J_Checkbox from "@/components/J_Checkbox";
+import ChatPermission from "@/components/ChatPermission";
+import BroadcastProperty from "@/components/BroadcastProperty";
 
 export default function Home() {
   return (
@@ -61,125 +63,8 @@ export default function Home() {
               className={styles.studio_main_setting_broadcastSetting}
               style={{ height: "100px" }}
             >
-              <div style={{ paddingTop: "10px" }}>
-                <p
-                  className={styles.studio_main_setting_broadcastSetting_title}
-                >
-                  방송속성
-                </p>
-                <FormGroup
-                  className={
-                    styles.studio_main_setting_broadcastSetting_property
-                  }
-                >
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        sx={{
-                          "& .MuiSvgIcon-root": { fontSize: 20 },
-                          color: "#CFCFCF",
-                          "&.Mui-checked": {
-                            color: blue[300],
-                          },
-                        }}
-                      />
-                    }
-                    label={
-                      <p
-                        className={
-                          styles.studio_main_setting_broadcastSetting_propertyfont
-                        }
-                      >
-                        방송 숨김 설정
-                      </p>
-                    }
-                  />
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        sx={{
-                          "& .MuiSvgIcon-root": { fontSize: 20 },
-                          color: "#CFCFCF",
-                          "&.Mui-checked": {
-                            color: blue[300],
-                          },
-                        }}
-                      />
-                    }
-                    label={
-                      <p
-                        className={
-                          styles.studio_main_setting_broadcastSetting_propertyfont
-                        }
-                      >
-                        연령제한 방송
-                      </p>
-                    }
-                  />
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        sx={{
-                          "& .MuiSvgIcon-root": { fontSize: 20 },
-                          color: "#CFCFCF",
-                          "&.Mui-checked": {
-                            color: blue[300],
-                          },
-                        }}
-                      />
-                    }
-                    label={
-                      <p
-                        className={
-                          styles.studio_main_setting_broadcastSetting_propertyfont
-                        }
-                      >
-                        유료 광고 포함 표시
-                      </p>
-                    }
-                  />
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        sx={{
-                          "& .MuiSvgIcon-root": { fontSize: 20 },
-                          color: "#CFCFCF",
-                          "&.Mui-checked": {
-                            color: blue[300],
-                          },
-                        }}
-                      />
-                    }
-                    label={
-                      <p
-                        className={
-                          styles.studio_main_setting_broadcastSetting_propertyfont
-                        }
-                      >
-                        비밀번호 설정
-                      </p>
-                    }
-                  />
-                </FormGroup>
-              </div>
-              <div style={{ paddingTop: "10px" }}>
-                <p
-                  className={styles.studio_main_setting_broadcastSetting_title}
-                >
-                  채팅권한
-                </p>
-                <div className={styles.studio_main_setting_chatRights_property}>
-                  <div
-                    className={
-                      styles.studio_main_setting_chatRights_property_checkboxes
-                    }
-                  >
-                    <J_Checkbox label="모든 사용자" initialChecked={false} />
-                    <J_Checkbox label="팔로워 전용" initialChecked={false} />
-                    <J_Checkbox label="운영자 전용" initialChecked={false} />
-                  </div>
-                </div>
-              </div>
+              <BroadcastProperty />
+              <ChatPermission />
             </div>
 
             <div className={styles.studio_main_setting_streamKey}>
@@ -207,7 +92,7 @@ export default function Home() {
               <p
                 style={{
                   marginLeft: "30px",
-                  fontSize: "14px",
+                  fontSize: "10px",
                   alignSelf: "center",
                 }}
               >
@@ -222,8 +107,8 @@ export default function Home() {
               <div className={styles.studio_main_setting_broadcastInfo_text}>
                 <p>상태 : 방송 전</p>
                 <p>방송시간 : -</p>
-                <p>해상도 : -</p>
                 <p>현재 유저 수 : -</p>
+                <p>해상도 : -</p>
                 <p>누적 유저 수 : -</p>
               </div>
             </div>
