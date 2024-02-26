@@ -3,9 +3,11 @@ import styles from "../../css/studio_home.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEye,
+  faEyeSlash,
   faMagnifyingGlass,
   faPaperPlane,
   faPlus,
+  faSearch,
   faX,
 } from "@fortawesome/free-solid-svg-icons";
 import { Checkbox, FormControlLabel, FormGroup } from "@mui/material";
@@ -13,8 +15,53 @@ import { blue, pink } from "@mui/material/colors";
 import J_Checkbox from "@/components/J_Checkbox";
 import ChatPermission from "@/components/ChatPermission";
 import BroadcastProperty from "@/components/BroadcastProperty";
+import crypto from 'crypto';
 
 export default function Home() {
+
+    // 방송 제목
+    const [TitleText, setTitleText] = useState('');
+    const title_handleChange = (e) => {
+      setTitleText(e.target.value);
+    }
+    const title_handleClick = () => {
+      console.log(TitleText);
+    }
+
+    // 카테고리
+    const [categoryText, setCategoryTitleText] = useState('');
+    const category_handleChange = (e) => {
+      setCategoryTitleText(e.target.value);
+    }
+    const category_handleClick = () => {
+      console.log(categoryText);
+    }
+
+    // 스트림키
+    // 일단 처음 스트림키 지정
+    const [streamKey, setStreamKey] = useState('YourInitialStreamKey');
+    const [showKey, setShowKey] = useState(false);
+    const copyToClipboard = () => {
+      navigator.clipboard.writeText(streamKey);
+    }
+    const reissue = () => {
+      // const newStreamKey = Math.random().toString(36).substring(2, 15);
+      const newStreamKey = crypto.randomBytes(16).toString('hex');
+      setStreamKey(newStreamKey);
+    }
+    const toggleShowKey = () => {
+      setShowKey(!showKey);
+    }
+
+  // 채팅 규칙 설정
+  const [chatRoleText, setChatRoleText] = useState('');
+  const chatRole_handleChange = (e) => {
+    setChatRoleText(e.target.value);
+  }
+  const chatRole_handleClick = () => {
+    console.log(chatRoleText);
+  }
+
   return (
     <>
       <div className={styles.studio_test} style={{ paddingTop: "60px" }}>
@@ -38,24 +85,37 @@ export default function Home() {
             <div className={styles.studio_main_setting_broadcastTitle}>
               <p style={{ alignSelf: "center" }}>방송제목</p>
               {/* 나중에 설정들 각 타이틀들 일정한 크기로 바꿔서 인풋박스랑 일정하게 거리두기 */}
-              <div
-                className={styles.studio_main_setting_broadcastTitle_inputbox}
+              <input type="text" className={styles.studio_main_setting_broadcastTitle_inputbox} value={TitleText} onChange={title_handleChange}/>
+              <input 
+                type="button" 
+                className={styles.studio_main_setting_broadcastTitle_btn} 
+                onClick={title_handleClick}
+                value="저장"
               />
             </div>
 
             {/* 카테고리 */}
             <div className={styles.studio_main_setting_broadcastCategory}>
               <p style={{ alignSelf: "center" }}>카테고리</p>
-              <div
-                className={
-                  styles.studio_main_setting_broadcastCategory_inputbox
-                }
-              >
+              <div className={styles.studio_main_setting_broadcastCategory_inputbox_wrapper}>
                 <FontAwesomeIcon
-                  icon={faMagnifyingGlass}
-                  style={{ color: "black", fontSize: "25px" }}
+                  icon={faSearch}
+                  style={{ position: 'absolute', top: '10px', left: '10px', color: 'black', fontSize: '20px' }}
+                />
+                <input 
+                  type="text" 
+                  className={styles.studio_main_setting_broadcastCategory_inputbox} 
+                  value={categoryText} 
+                  onChange={category_handleChange}
+                  style={{ paddingLeft: '40px' }} // 아이콘의 크기와 위치에 따라 조절해주세요.
                 />
               </div>
+              <input 
+                type="button" 
+                className={styles.studio_main_setting_broadcastCategory_btn} 
+                onClick={category_handleClick}
+                value="검색"
+              />
             </div>
 
             {/* 방송속성 or 채팅권한 */}
@@ -71,20 +131,21 @@ export default function Home() {
               <p style={{ alignSelf: "center" }}>스트림 키</p>
 
               <div className={styles.studio_main_setting_streamKey_inputbox}>
-                <p style={{ alignSelf: "center" }}>
-                  ****************************
-                </p>
-                <FontAwesomeIcon
-                  icon={faEye}
-                  style={{ fontSize: "25px", alignSelf: "center" }}
-                />
-              </div>
-              <div className={styles.studio_main_setting_streamKey_copybtn}>
-                복사
-              </div>
-              <div className={styles.studio_main_setting_streamKey_reissuance}>
-                재발급
-              </div>
+              <p style={{ alignSelf: "center", fontSize:"16px" }}>
+                {showKey ? streamKey : '*'.repeat(streamKey.length)}
+              </p>
+              <FontAwesomeIcon
+                icon={showKey ? faEyeSlash : faEye}
+                style={{ fontSize: "20px", alignSelf: "center" }}
+                onClick={toggleShowKey}
+              />
+            </div>
+            <div className={styles.studio_main_setting_streamKey_copybtn} onClick={copyToClipboard}>
+              복사
+            </div>
+            <div className={styles.studio_main_setting_streamKey_reissuance} onClick={reissue}>
+              재발급
+            </div>
             </div>
 
             <div className={styles.studio_main_setting_streamUrl}>
@@ -123,17 +184,23 @@ export default function Home() {
               <FontAwesomeIcon icon={faPlus} />
             </div>
           </div>
+
           {/* 채팅 규칙 설정 */}
           <div className={styles.studio_main_chatRole}>
             <div className={styles.studio_main_chatRole_title}>채팅 규칙</div>
-            <div className={styles.studio_main_chatRole_box}>
-              채팅 규칙을 입력해 주세요. 예) 1. 좋은 표현을 사용하세요. 2.서로를
-              존중해 주세요. 3. 친목 금지입니다.
-            </div>
+            <textarea  
+              type="text" 
+              className={styles.studio_main_chatRole_box} 
+              onChange={chatRole_handleChange}
+              value={chatRoleText}
+              placeholder="채팅 규칙을 입력해 주세요. 예) 1. 좋은 표현을 사용하세요. 2.서로를
+              존중해 주세요. 3. 친목 금지입니다."
+            />
             <div className={styles.studio_main_chatRole_btnlayout}>
-              <div className={styles.studio_main_chatRole_btn}>버튼</div>
+                <input type="button" className={styles.studio_main_chatRole_btn} onClick={chatRole_handleClick} value="저장"/>
             </div>
           </div>
+
           {/* 금칙어 설정 */}
           <div className={styles.studio_main_banWord}>
             <div className={styles.studio_main_banWord_title}>금칙어 설정</div>

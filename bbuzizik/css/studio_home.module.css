@@ -89,16 +89,58 @@
   width: 400px;
   margin-left: 50px;
   border-radius: 5px;
+  padding: 10px;
+  font-family: 'NPSfontBold';
+}
+.studio_main_setting_broadcastTitle_btn {
+  width: 40px;
+  background-color: #625fde;
+  border: 0px;
+  border-radius: 5px;
+  margin-left: 10px;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  height: 25px;
+  align-self: center;
+}
+.studio_main_setting_broadcastTitle_btn:active {
+  transform: scale(0.95);
+  transition: transform 0.1s;
+}
+
+.studio_main_setting_broadcastCategory_inputbox_wrapper {
+  position: relative;
+  width: 400px;
+  height: 40px;
+  margin-left: 50px;
 }
 
 .studio_main_setting_broadcastCategory_inputbox {
-  background-color: white;
-  height: 40px;
-  width: 400px;
-  margin-left: 50px;
+  width: 100%;
+  height: 100%;
   border-radius: 5px;
-  line-height: 40px;
-  padding-left: 5px;
+  font-size: 16px;
+  border: 1px solid black;
+  font-family: 'NPSfontBold';
+}
+.studio_main_setting_broadcastCategory_btn{
+  width: 40px;
+  background-color: #d3d6ed;
+  border: 0px;
+  border-radius: 5px;
+  margin-left: 10px;
+  color: #625fde;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  height: 25px;
+  align-self: center;
+}
+.studio_main_setting_broadcastCategory_btn:active {
+  transform: scale(0.95);
+  transition: transform 0.1s;
 }
 
 .studio_main_setting_streamKey_inputbox {
@@ -124,6 +166,7 @@
   margin-left: 20px;
   align-self: flex-end;
   margin-bottom: 5px;
+  cursor: pointer;
 }
 .studio_main_setting_streamKey_reissuance {
   height: 30px;
@@ -137,6 +180,15 @@
   margin-left: 10px;
   align-self: flex-end;
   margin-bottom: 5px;
+  cursor: pointer;
+}
+.studio_main_setting_streamKey_copybtn:active {
+  transform: scale(0.95);
+  transition: transform 0.1s;
+}
+.studio_main_setting_streamKey_reissuance:active {
+  transform: scale(0.95);
+  transition: transform 0.1s;
 }
 
 .studio_main_setting_broadcastInfo_text {
@@ -276,6 +328,11 @@
   font-size: 40px;
   text-align: center;
   line-height: 200px;
+  cursor: pointer;
+}
+.studio_main_previewImg_box:active {
+  transform: scale(0.99);
+  transition: transform 0.1s;
 }
 
 .studio_main_chatRole_title {
@@ -288,9 +345,16 @@
   border-radius: 10px;
   width: 500px;
   height: 200px;
+  color: var(--black);
+  padding: 10px;
+  font-family: "NPSfontBold";
+  line-height: 1.5;
+  font-size: 14px;
+  resize: none;
+}
+.studio_main_chatRole_box::placeholder {
   color: #868686;
   font-size: 12px;
-  padding: 10px;
 }
 .studio_main_chatRole_btnlayout {
   width: calc(100vw - 1350px);
@@ -301,12 +365,17 @@
 .studio_main_chatRole_btn {
   background-color: #d3d6ed;
   border-radius: 5px;
-  width: 50px;
-  height: 25px;
+  border: 0px;
+  width: 40px;
   color: #625fde;
   font-size: 12px;
   padding: 5px;
-  text-align: center;
+  font-weight: bold;
+  cursor: pointer;
+}
+.studio_main_chatRole_btn:active {
+  transform: scale(0.95);
+  transition: transform 0.1s;
 }
 
 .studio_main_banWord_title {
