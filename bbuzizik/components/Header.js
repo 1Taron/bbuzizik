@@ -199,7 +199,7 @@ export default function Header() {
                                             ))}
                                         </select>
                                     </div>
-                                    <button className={styles.Button3} type="submit">로그인</button>
+                                    <button className={styles.Button3} type="submit">완료</button>
                                 </form>
                             </>
                         )}

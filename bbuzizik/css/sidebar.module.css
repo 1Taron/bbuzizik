@@ -5,9 +5,12 @@
     color: white;
     position: fixed;
     left: 0;
-    margin: auto;
-    text-align: center;
     align-items: center;
+}
+
+.channel_container {
+    margin-top: 10px;
+    margin-bottom: 20px;
 }
 
 .CloseSidebar {
@@ -35,4 +38,48 @@
 .button :hover {
     background-color: rgba(255, 255, 255, 0.226);
     border-radius: 10px;
+}
+
+.channelName {
+    font-size: 12px;
+    margin-bottom: 10px;
+    margin-left: 20px;
+}
+
+.Channel_info_container {
+    list-style-type: none;
+}
+
+.Profile_img {
+    border-radius: 50%;
+    display: flex;
+}
+
+.Channel_info {
+    margin-bottom: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.Profile_name_game {
+    width: 100px;
+    margin: 0 10px 0 10px;
+}
+
+.Profile_name {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.Profile_game {
+    font-size: 12px;
+
+}
+
+.Channel_viewer {
+    font-size: 12px;
+    width: 40px;
+    text-align: center;
 }
