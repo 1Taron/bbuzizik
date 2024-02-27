@@ -19,6 +19,21 @@ a {
   color: inherit;
 }
 
+/* Chrome, Edge, Safari */
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* Firefox */
+html {
+  scrollbar-width: none;
+}
+
+/* Internet Explorer */
+body {
+  -ms-overflow-style: none;
+}
+
 /* logo 폰트 */
 @font-face {
   font-family: "PartialSansKR-Regular";

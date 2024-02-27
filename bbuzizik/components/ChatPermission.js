@@ -12,7 +12,7 @@ function ChatPermission() {
   const permissions = ['모든 사용자', '팔로워 전용', '운영자 전용'];
 
   return (
-    <div style={{ paddingTop: "10px" }}>
+    <div style={{ paddingTop: "10px"}}>
       <p className={styles.studio_main_setting_broadcastSetting_title}>
         채팅권한
       </p>

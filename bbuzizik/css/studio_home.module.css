@@ -17,6 +17,7 @@
   font-size: 18px;
   color: var(--white);
   line-height: 70px;
+  margin-left: 5px;
 }
 
 .studio_test {
@@ -27,7 +28,6 @@
 }
 
 .studio_main {
-  border: 1px solid tomato;
   min-height: calc(100vh - 60px);
   min-width: calc(100vw - 350px);
   position: fixed;
@@ -39,17 +39,23 @@
 } */
 
 .studio_main > div {
-  border: 1px solid skyblue;
+  /* border: 1px solid skyblue; */
   color: white;
 }
-.studio_main > div > div {
+/* .studio_main > div > div {
   border: 1px solid tomato;
-}
+} */
 
 /* .studio_main_left {
 }
 .studio_main_right {
 } */
+
+.subtitleBox {
+  width: 120px;
+  height: 100%;
+}
+
 
 .studio_main_liveWindow {
   width: 1000px;
@@ -87,7 +93,6 @@
   background-color: white;
   height: 40px;
   width: 400px;
-  margin-left: 50px;
   border-radius: 5px;
   padding: 10px;
   font-family: 'NPSfontBold';
@@ -110,15 +115,19 @@
   transition: transform 0.1s;
 }
 
+/* 
+  카테고리
+*/
+
 .studio_main_setting_broadcastCategory_inputbox_wrapper {
   position: relative;
-  width: 400px;
+  width: 445px;
   height: 40px;
-  margin-left: 50px;
+  display: flex;
 }
 
 .studio_main_setting_broadcastCategory_inputbox {
-  width: 100%;
+  width: 410px;
   height: 100%;
   border-radius: 5px;
   font-size: 16px;
@@ -136,18 +145,45 @@
   font-weight: bold;
   cursor: pointer;
   height: 25px;
-  align-self: center;
+  align-self: flex-end;
 }
 .studio_main_setting_broadcastCategory_btn:active {
   transform: scale(0.95);
   transition: transform 0.1s;
+}
+.studio_main_setting_broadcastCategory_tags {
+  width: 350px;
+  height: 50px;
+  margin-left: 5px;
+  display: flex;
+  flex-wrap: nowrap;
+  overflow: scroll;
+}
+.studio_main_broadcastCategory_tag {
+  background-color: white;
+  width: auto;
+  height: 25px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  margin-right: 10px;
+  color: #402422;
+  font-size: 12px;
+  align-self: center;
+  flex-wrap: nowrap;
+}
+.studio_main_broadcastCategory_tag > p {
+  color: #402422;
+  margin-left: 5px;
+  width: auto;
+  white-space: nowrap;
 }
 
 .studio_main_setting_streamKey_inputbox {
   background-color: white;
   height: 40px;
   width: 400px;
-  margin-left: 50px;
   border-radius: 5px;
   display: flex;
   color: black;
@@ -193,7 +229,6 @@
 
 .studio_main_setting_broadcastInfo_text {
   font-size: 10px;
-  margin-left: 50px;
   display: flex;
   flex-wrap: wrap;
   width: 80%;
@@ -208,27 +243,29 @@
 } */
 
 .studio_main_setting_broadcastSetting > div {
-  flex: 1;
+  /* flex: 1; */
   display: flex;
 }
 .studio_main_setting_broadcastSetting_title {
-  width: 20%;
+  width: 120px;
+  height: 100%;
+  /* width: 20%; */
 }
 .studio_main_setting_broadcastSetting_property {
-  border: 1px solid tomato;
   width: 80%;
 }
 .studio_main_setting_broadcastSetting_property_checkboxes {
   display: flex;
   flex-wrap: wrap;
+  width: 470px;
 }
 .studio_main_setting_broadcastSetting_property_checkboxes > * {
-  width: 30%;
+  width: 25%;
   margin-bottom: 20px;
 }
 
 .studio_main_setting_broadcastSetting_property_checkboxes > *:nth-child(2){
-  width: 40%;
+  width: 30%;
 }
 
 .studio_main_setting_broadcastSetting_property_pwText {
@@ -256,7 +293,6 @@
 }
 
 .studio_main_setting_chatRights_property {
-  border: 1px solid #625fde;
   width: 80%;
   /* display: flex; */
 }
@@ -294,18 +330,7 @@
   justify-content: space-evenly;
   align-items: center;
 }
-.studio_main_banWord {
-  width: calc(100vw - 1350px);
-  height: calc(100vh - 60px - 250px - 300px);
-  position: fixed;
-  left: 1000px;
-  top: calc(60px + 250px + 300px);
-  font-family: "NPSfontBold";
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-}
+
 
 .studio_main_liveWindowBox {
   background-color: #d9d9d9;
@@ -378,47 +403,76 @@
   transition: transform 0.1s;
 }
 
+.studio_main_banWord {
+  width: calc(100vw - 1350px);
+  height: calc(100vh - 60px - 250px - 300px);
+  position: fixed;
+  left: 1000px;
+  top: calc(60px + 250px + 300px);
+  font-family: "NPSfontBold";
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  font-size: 12px;
+}
+
 .studio_main_banWord_title {
   width: calc(100vw - 1350px);
   font-size: 18px;
 }
 
 .studio_main_banWord_layout {
-  border: 1px solid tomato;
   width: 95%;
   height: 80%;
   padding: 5px;
   display: flex;
   flex-wrap: wrap;
+  gap: 10px;
+  overflow-y: scroll;
+  align-content: start;
 }
+
 .studio_main_banWord_tag {
   background-color: #eadef3;
-  width: 100px;
+  width: auto;
   height: 25px;
   border-radius: 5px;
   display: flex;
+  align-items: center;
+  padding: 0 10px;
+  margin-right: 10px;
   color: #402422;
   font-size: 12px;
-  justify-content: space-around;
-  align-items: center;
-  margin-right: 10px;
 }
+
 .studio_main_banWord_tag > p {
   color: #402422;
   font-size: 12px;
+  margin-left: 5px;
 }
+
 .studio_main_banWord_Search {
   background-color: #f0f0f0;
-  width: 150px;
+  width: auto;
   height: 25px;
   border-radius: 5px;
   display: flex;
+  align-items: center;
+  padding: 0 10px;
   color: #402422;
   font-size: 12px;
-  justify-content: right;
-  align-items: center;
-  padding-right: 10px;
 }
+
+.studio_main_banWord_Search > input {
+  border: none;
+  background-color: transparent;
+  width: 100px;
+  height: 90%;
+  margin-right: 10px;
+  outline: none;
+}
+
 /* 
   채팅
 */

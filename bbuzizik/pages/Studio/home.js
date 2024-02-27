@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "../../css/studio_home.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faChevronLeft,
+  faChevronRight,
   faEye,
   faEyeSlash,
+  faLocationArrow,
   faMagnifyingGlass,
   faPaperPlane,
   faPlus,
@@ -15,52 +18,86 @@ import { blue, pink } from "@mui/material/colors";
 import J_Checkbox from "@/components/J_Checkbox";
 import ChatPermission from "@/components/ChatPermission";
 import BroadcastProperty from "@/components/BroadcastProperty";
-import crypto from 'crypto';
+import crypto from "crypto";
 
 export default function Home() {
+  // 방송 제목
+  const [TitleText, setTitleText] = useState("");
+  const title_handleChange = (e) => {
+    setTitleText(e.target.value);
+  };
+  const title_handleClick = () => {
+    console.log(TitleText);
+  };
 
-    // 방송 제목
-    const [TitleText, setTitleText] = useState('');
-    const title_handleChange = (e) => {
-      setTitleText(e.target.value);
-    }
-    const title_handleClick = () => {
-      console.log(TitleText);
-    }
+  // 카테고리
+  const [categoryText, setCategoryText] = useState("");
+  const [categories, setCategories] = useState([]);
 
-    // 카테고리
-    const [categoryText, setCategoryTitleText] = useState('');
-    const category_handleChange = (e) => {
-      setCategoryTitleText(e.target.value);
-    }
-    const category_handleClick = () => {
-      console.log(categoryText);
-    }
+  const category_handleChange = (e) => {
+    setCategoryText(e.target.value);
+  };
 
-    // 스트림키
-    // 일단 처음 스트림키 지정
-    const [streamKey, setStreamKey] = useState('YourInitialStreamKey');
-    const [showKey, setShowKey] = useState(false);
-    const copyToClipboard = () => {
-      navigator.clipboard.writeText(streamKey);
-    }
-    const reissue = () => {
-      // const newStreamKey = Math.random().toString(36).substring(2, 15);
-      const newStreamKey = crypto.randomBytes(16).toString('hex');
-      setStreamKey(newStreamKey);
-    }
-    const toggleShowKey = () => {
-      setShowKey(!showKey);
-    }
+  const category_handleClick = () => {
+    setCategories([...categories, categoryText]);
+    setCategoryText("");
+  };
+
+  const handleRemoveCategory = (index) => {
+    setCategories(categories.filter((category, i) => i !== index));
+  };
+
+  const tagContainer = useRef(null);
+
+  const handleLeftClick = () => {
+    tagContainer.current.scrollLeft -= 100; // 100px씩 왼쪽으로 스크롤
+  };
+
+  const handleRightClick = () => {
+    tagContainer.current.scrollLeft += 100; // 100px씩 오른쪽으로 스크롤
+  };
+
+  // 스트림키
+  // 일단 처음 스트림키 지정
+  const [streamKey, setStreamKey] = useState("YourInitialStreamKey");
+  const [showKey, setShowKey] = useState(false);
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(streamKey);
+  };
+  const reissue = () => {
+    // const newStreamKey = Math.random().toString(36).substring(2, 15);
+    const newStreamKey = crypto.randomBytes(16).toString("hex");
+    setStreamKey(newStreamKey);
+  };
+  const toggleShowKey = () => {
+    setShowKey(!showKey);
+  };
 
   // 채팅 규칙 설정
-  const [chatRoleText, setChatRoleText] = useState('');
+  const [chatRoleText, setChatRoleText] = useState("");
   const chatRole_handleChange = (e) => {
     setChatRoleText(e.target.value);
-  }
+  };
   const chatRole_handleClick = () => {
     console.log(chatRoleText);
-  }
+  };
+
+  // 금칙어 설정
+  const [banText, setBanText] = useState("");
+  const [banTags, setBanTags] = useState([]);
+
+  const ban_handleChange = (e) => {
+    setBanText(e.target.value);
+  };
+
+  const ban_handleAddTag = () => {
+    setBanTags([...banTags, banText]);
+    setBanText("");
+  };
+
+  const ban_handleRemoveTag = (index) => {
+    setBanTags(banTags.filter((banTags, i) => i !== index));
+  };
 
   return (
     <>
@@ -83,12 +120,17 @@ export default function Home() {
           <div className={styles.studio_main_setting}>
             {/* 방송제목 */}
             <div className={styles.studio_main_setting_broadcastTitle}>
-              <p style={{ alignSelf: "center" }}>방송제목</p>
+              <p style={{ lineHeight:"50px" }} className={styles.subtitleBox}>방송제목</p>
               {/* 나중에 설정들 각 타이틀들 일정한 크기로 바꿔서 인풋박스랑 일정하게 거리두기 */}
-              <input type="text" className={styles.studio_main_setting_broadcastTitle_inputbox} value={TitleText} onChange={title_handleChange}/>
-              <input 
-                type="button" 
-                className={styles.studio_main_setting_broadcastTitle_btn} 
+              <input
+                type="text"
+                className={styles.studio_main_setting_broadcastTitle_inputbox}
+                value={TitleText}
+                onChange={title_handleChange}
+              />
+              <input
+                type="button"
+                className={styles.studio_main_setting_broadcastTitle_btn}
                 onClick={title_handleClick}
                 value="저장"
               />
@@ -96,26 +138,64 @@ export default function Home() {
 
             {/* 카테고리 */}
             <div className={styles.studio_main_setting_broadcastCategory}>
-              <p style={{ alignSelf: "center" }}>카테고리</p>
-              <div className={styles.studio_main_setting_broadcastCategory_inputbox_wrapper}>
+              <p style={{ lineHeight:"50px" }} className={styles.subtitleBox}>카테고리</p>
+              <div
+                className={
+                  styles.studio_main_setting_broadcastCategory_inputbox_wrapper
+                }
+              >
                 <FontAwesomeIcon
                   icon={faSearch}
-                  style={{ position: 'absolute', top: '10px', left: '10px', color: 'black', fontSize: '20px' }}
+                  style={{
+                    position: "absolute",
+                    top: "10px",
+                    left: "10px",
+                    color: "black",
+                    fontSize: "20px",
+                  }}
                 />
-                <input 
-                  type="text" 
-                  className={styles.studio_main_setting_broadcastCategory_inputbox} 
-                  value={categoryText} 
+                <input
+                  type="text"
+                  className={
+                    styles.studio_main_setting_broadcastCategory_inputbox
+                  }
+                  value={categoryText}
                   onChange={category_handleChange}
-                  style={{ paddingLeft: '40px' }} // 아이콘의 크기와 위치에 따라 조절해주세요.
+                  style={{ paddingLeft: "40px" }}
+                />
+                <input
+                  type="button"
+                  className={styles.studio_main_setting_broadcastCategory_btn}
+                  onClick={category_handleClick}
+                  value="추가"
                 />
               </div>
-              <input 
-                type="button" 
-                className={styles.studio_main_setting_broadcastCategory_btn} 
-                onClick={category_handleClick}
-                value="검색"
-              />
+              <FontAwesomeIcon
+                  icon={faChevronLeft}
+                  onClick={handleLeftClick}
+                  fontSize={"16px"}
+                  style={{alignSelf:"center", marginLeft:"15px"}}
+                />
+              <div className={styles.studio_main_setting_broadcastCategory_tags} ref={tagContainer}>
+                {categories.map((category, index) => (
+                  <div key={index} className={styles.studio_main_broadcastCategory_tag}>
+                    <FontAwesomeIcon
+                      icon={faX}
+                      onClick={() => handleRemoveCategory(index)}
+                      cursor={"pointer"}
+                    />
+                    <p>{category}</p>
+                  </div>
+                ))}
+              </div>
+              <FontAwesomeIcon
+                  icon={faChevronRight}
+                  onClick={handleRightClick}
+                  fontSize={"16px"}
+                  style={{alignSelf:"center", marginLeft:"5px"}}
+                />
+
+              
             </div>
 
             {/* 방송속성 or 채팅권한 */}
@@ -128,31 +208,36 @@ export default function Home() {
             </div>
 
             <div className={styles.studio_main_setting_streamKey}>
-              <p style={{ alignSelf: "center" }}>스트림 키</p>
+              <p style={{ lineHeight:"50px" }} className={styles.subtitleBox}>스트림 키</p>
 
               <div className={styles.studio_main_setting_streamKey_inputbox}>
-              <p style={{ alignSelf: "center", fontSize:"16px" }}>
-                {showKey ? streamKey : '*'.repeat(streamKey.length)}
-              </p>
-              <FontAwesomeIcon
-                icon={showKey ? faEyeSlash : faEye}
-                style={{ fontSize: "20px", alignSelf: "center" }}
-                onClick={toggleShowKey}
-              />
-            </div>
-            <div className={styles.studio_main_setting_streamKey_copybtn} onClick={copyToClipboard}>
-              복사
-            </div>
-            <div className={styles.studio_main_setting_streamKey_reissuance} onClick={reissue}>
-              재발급
-            </div>
+                <p style={{ alignSelf: "center", fontSize: "16px" }}>
+                  {showKey ? streamKey : "*".repeat(streamKey.length)}
+                </p>
+                <FontAwesomeIcon
+                  icon={showKey ? faEyeSlash : faEye}
+                  style={{ fontSize: "20px", alignSelf: "center" }}
+                  onClick={toggleShowKey}
+                />
+              </div>
+              <div
+                className={styles.studio_main_setting_streamKey_copybtn}
+                onClick={copyToClipboard}
+              >
+                복사
+              </div>
+              <div
+                className={styles.studio_main_setting_streamKey_reissuance}
+                onClick={reissue}
+              >
+                재발급
+              </div>
             </div>
 
             <div className={styles.studio_main_setting_streamUrl}>
-              <p style={{ alignSelf: "center" }}>스트림 URL</p>
+              <p style={{ lineHeight:"50px" }} className={styles.subtitleBox}>스트림 URL</p>
               <p
                 style={{
-                  marginLeft: "30px",
                   fontSize: "10px",
                   alignSelf: "center",
                 }}
@@ -164,7 +249,7 @@ export default function Home() {
               className={styles.studio_main_setting_broadcastInfo}
               style={{ height: "100px" }}
             >
-              <p style={{ paddingTop: "10px" }}>방송정보</p>
+              <p style={{ lineHeight:"40px" }} className={styles.subtitleBox}>방송정보</p>
               <div className={styles.studio_main_setting_broadcastInfo_text}>
                 <p>상태 : 방송 전</p>
                 <p>방송시간 : -</p>
@@ -188,16 +273,21 @@ export default function Home() {
           {/* 채팅 규칙 설정 */}
           <div className={styles.studio_main_chatRole}>
             <div className={styles.studio_main_chatRole_title}>채팅 규칙</div>
-            <textarea  
-              type="text" 
-              className={styles.studio_main_chatRole_box} 
+            <textarea
+              type="text"
+              className={styles.studio_main_chatRole_box}
               onChange={chatRole_handleChange}
               value={chatRoleText}
               placeholder="채팅 규칙을 입력해 주세요. 예) 1. 좋은 표현을 사용하세요. 2.서로를
               존중해 주세요. 3. 친목 금지입니다."
             />
             <div className={styles.studio_main_chatRole_btnlayout}>
-                <input type="button" className={styles.studio_main_chatRole_btn} onClick={chatRole_handleClick} value="저장"/>
+              <input
+                type="button"
+                className={styles.studio_main_chatRole_btn}
+                onClick={chatRole_handleClick}
+                value="저장"
+              />
             </div>
           </div>
 
@@ -205,13 +295,28 @@ export default function Home() {
           <div className={styles.studio_main_banWord}>
             <div className={styles.studio_main_banWord_title}>금칙어 설정</div>
             <div className={styles.studio_main_banWord_layout}>
-              <div className={styles.studio_main_banWord_tag}>
-                <FontAwesomeIcon icon={faX} />
-                <p>안녕하세요</p>
-              </div>
+              {banTags.map((banTags, index) => (
+                <div key={index} className={styles.studio_main_banWord_tag}>
+                  <FontAwesomeIcon
+                    icon={faX}
+                    onClick={() => ban_handleRemoveTag(index)}
+                    cursor={"pointer"}
+                  />
+                  <p>{banTags}</p>
+                </div>
+              ))}
 
               <div className={styles.studio_main_banWord_Search}>
-                <FontAwesomeIcon icon={faPaperPlane} />
+                <input
+                  type="text"
+                  value={banText}
+                  onChange={ban_handleChange}
+                />
+                <FontAwesomeIcon
+                  icon={faLocationArrow}
+                  onClick={ban_handleAddTag}
+                  fontSize={"16px"}
+                />
               </div>
             </div>
           </div>
