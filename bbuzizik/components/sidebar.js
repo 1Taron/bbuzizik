@@ -2,15 +2,22 @@ import { useState } from 'react';
 import styles from '../css/sidebar.module.css'
 
 export default function Sidebar({ isExpanded, onToggle }) {
-
+    const [showAll, setShowAll] = useState(false);
 
     const followChannels = [
-        { img: "/image/profile_img.svg", name: "허니츄러스", game: "수박게임", viewers: 1000 },
+        { img: "/image/profile_img.svg", name: "허니츄러스", game: "Just Chatting", viewers: 1000 },
+        { img: "/image/profile_img.svg", name: "채널2", game: "게임2", viewers: 2000 },
+        { img: "/image/profile_img.svg", name: "채널3", game: "게임3", viewers: 3000 },
+        { img: "/image/profile_img.svg", name: "허니츄러스", game: "Just Chatting", viewers: 1000 },
+        { img: "/image/profile_img.svg", name: "채널2", game: "게임2", viewers: 2000 },
+        { img: "/image/profile_img.svg", name: "채널3", game: "게임3", viewers: 3000 },
+        { img: "/image/profile_img.svg", name: "허니츄러스", game: "Just Chatting", viewers: 1000 },
         { img: "/image/profile_img.svg", name: "채널2", game: "게임2", viewers: 2000 },
         { img: "/image/profile_img.svg", name: "채널3", game: "게임3", viewers: 3000 }
-    ];
-    const recommendChannels = ["채널4", "채널5", "채널6"];
 
+    ];
+
+    const channelsToShow = showAll ? followChannels : followChannels.slice(0, 5);
 
     return (
         <div className={`sidebar ${isExpanded ? 'expanded' : 'collapsed'}`}>
@@ -22,39 +29,32 @@ export default function Sidebar({ isExpanded, onToggle }) {
                 </svg>
             </button>
             {isExpanded ? (
-                /* 펼쳐진 사이드바 내용 */
                 <div className={styles.OpenSidebar}>
                     <div className={styles.channel_container}>
-                        <div className={styles.channelName} >팔로우</div>
+                        <div className={styles.channelName}>팔로우</div>
                         <ul className={styles.Channel_info_container}>
-                            {followChannels.map((channel, index) => (
+                            {channelsToShow.map((channel, index) => (
                                 <li className={styles.Channel_info} key={index}>
                                     <img className={styles.Profile_img} src={channel.img} alt="profile_icon" />
                                     <div className={styles.Profile_name_game}>
                                         <div className={styles.Profile_name}>{channel.name}</div>
                                         <div className={styles.Profile_game}>{channel.game}</div>
                                     </div>
-                                    <div className={styles.Channel_viewer}>{channel.viewers}</div>
+                                    <div className={styles.Channel_viewer_dot}></div>
+                                    <div className={styles.Channel_viewer_amount}>{channel.viewers}</div>
                                 </li>
                             ))}
                         </ul>
-                    </div>
-                    <div className="recommendChannels">
-                        <h2>추천 채널</h2>
-                        <ul>
-                            {recommendChannels.map((channel, index) => (
-                                <li key={index}>{channel}</li>
-                            ))}
-                        </ul>
+                        {showAll ?
+                            <button onClick={() => setShowAll(false)} className={styles.showMoreButton}>접기</button>
+                            :
+                            <button onClick={() => setShowAll(true)} className={styles.showMoreButton}>더보기</button>
+                        }
                     </div>
                 </div>
             ) : (
-                /* 접혀진 사이드바 내용 */
-                <div className={styles.CloseSidebar}>
-
-                </div>
+                <div className={styles.CloseSidebar} />
             )}
         </div>
     );
-};
-
+}

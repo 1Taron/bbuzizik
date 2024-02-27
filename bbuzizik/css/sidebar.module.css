@@ -53,6 +53,9 @@
 .Profile_img {
     border-radius: 50%;
     display: flex;
+    border: 2px solid green;
+    width: 40px;
+    height: 40px;
 }
 
 .Channel_info {
@@ -78,8 +81,19 @@
 
 }
 
-.Channel_viewer {
-    font-size: 12px;
+.Channel_viewer_amount {
+    font-size: 14px;
     width: 40px;
     text-align: center;
+    font-weight: bold;
+}
+
+.Channel_viewer_dot {
+    margin-right: 3px;
+    width: 0.5rem;
+    height: 0.5rem;
+    display: inline-block;
+    background-color: #eb0400;
+    border-radius: 9000px;
+    position: relative;
 }
