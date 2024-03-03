@@ -128,5 +128,17 @@
 
 .channelName1 {
     font-size: 12px;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
+    margin-left: 3px;
+}
+
+.Channel_info1 {
+    margin-bottom: 15px;
+    margin-left: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.Channel_info_container1 {
+    list-style-type: none;
 }

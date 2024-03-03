@@ -66,6 +66,14 @@ export default function Sidebar({ isExpanded, onToggle }) {
                 <div className={styles.CloseSidebar} >
                     <div className={styles.channel_container}>
                         <div className={styles.channelName1}>팔로우</div>
+                        <ul className={styles.Channel_info_container}>
+                            {channelsToShow.map((channel, index) => (
+                                <li className={styles.Channel_info1} key={index}>
+                                    <img className={styles.Profile_img} src={channel.img} alt="profile_icon" />
+                                </li>
+                            ))}
+                        </ul>
+
                     </div>
                 </div>
             )}
