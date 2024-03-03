@@ -1,0 +1,129 @@
+/* 
+    메인
+ */
+ .homecontainer {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    max-width: 2060px;
+    min-height: 100%;
+    flex: 1 1;
+    padding: 0 30px;
+    background-color: coral;
+}
+
+
+
+/* 
+  채팅
+*/
+
+.live_chat {
+    background-color: black;
+    width: 350px;
+    min-height: 100vh;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    right: 0;
+  }
+  .live_chat_title {
+    color: var(--white);
+    height: 40px;
+    border-bottom: 1px solid var(--white);
+  }
+  .live_chat_title > p {
+    font-size: 16px;
+    line-height: 40px;
+    font-family: "NPSfontBold";
+    text-align: center;
+  }
+  .main_live_chat_inputbox_layout {
+    width: 350px;
+    height: 100px;
+    display: flex;
+    bottom: 0;
+    position: fixed;
+    justify-content: center;
+    align-items: center;
+  }
+  .main_live_chat_inputbox_wrapper {
+    width: 300px;
+    height: 80px;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
+  
+  .main_live_chat_inputbox {
+    width: 300px;
+    height: 40px;
+    border-radius: 5px;
+    font-size: 16px;
+    border: 1px solid black;
+    font-family: 'NPSfontBold';
+  }
+  .main_live_chat_inputbox_btn{
+    width: 40px;
+    background-color: #d3d6ed;
+    border: 0px;
+    border-radius: 5px;
+    margin-left: 10px;
+    color: #625fde;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    height: 25px;
+    align-self: flex-end;
+  }
+  .main_live_chat_inputbox_btn:active {
+    transform: scale(0.95);
+    transition: transform 0.1s;
+  }
+
+  
+  .live_chat_layout {
+    display: flex;
+    flex-direction: column-reverse;
+    overflow-y: auto;
+    min-height: calc(100vh - 120px - 100px);
+    align-items: center;
+  }
+  
+  .live_chat_chatting {
+    background-color: rgba(255, 255, 255, 0.65);
+    min-width: 320px;
+    max-width: 320px;
+    margin-bottom: 20px;
+    min-height: 30px;
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    border-radius: 5px;
+    padding: 5px;
+  }
+  
+  .live_chat_badge {
+    background-color: #ee8143;
+    width: 20px;
+    height: 20px;
+    border-radius: 5px;
+    margin-right: 5px;
+  }
+  .live_chat_username {
+    font-size: 14px;
+    color: #9371da;
+    margin-right: 5px;
+  }
+  .live_chat_userchat {
+    font-size: 12px;
+    color: var(--white);
+  }
+  .live_chat_userchatBot {
+    font-size: 12px;
+    color: var(--white);
+    margin-top: 5px;
+    margin-left: 5px;
+  }
+

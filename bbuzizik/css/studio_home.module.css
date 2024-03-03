@@ -33,23 +33,9 @@
   position: fixed;
 }
 
-/* @media (max-width: 1200px) {
-  .studio_main {
-  }
-} */
-
 .studio_main > div {
-  /* border: 1px solid skyblue; */
   color: white;
 }
-/* .studio_main > div > div {
-  border: 1px solid tomato;
-} */
-
-/* .studio_main_left {
-}
-.studio_main_right {
-} */
 
 .subtitleBox {
   width: 120px;

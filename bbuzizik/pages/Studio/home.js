@@ -366,4 +366,3 @@ export default function Home() {
     </>
   );
 }
-//치지직 참고해서 변경 예정
