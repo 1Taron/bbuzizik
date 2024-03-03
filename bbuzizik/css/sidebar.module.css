@@ -20,7 +20,6 @@
     color: white;
     position: fixed;
     left: 0;
-    margin: auto;
     text-align: center;
     align-items: center;
 }
@@ -53,7 +52,7 @@
 .Profile_img {
     border-radius: 50%;
     display: flex;
-    border: 2px solid green;
+    border: 2px solid rgb(47, 182, 47);
     width: 40px;
     height: 40px;
 }
@@ -96,4 +95,38 @@
     background-color: #eb0400;
     border-radius: 9000px;
     position: relative;
+}
+
+.ShowButton_container {
+    text-align: center;
+    margin-top: 20px;
+
+}
+
+.showMoreButton {
+    border: 0;
+    border-radius: 10px;
+    width: 80px;
+    height: 25px;
+    background-color: #402422;
+    color: white;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.show_text {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.arrow {
+    width: 12px;
+    margin-left: 5px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.channelName1 {
+    font-size: 12px;
+    margin-bottom: 10px;
 }

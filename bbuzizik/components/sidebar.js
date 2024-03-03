@@ -46,14 +46,28 @@ export default function Sidebar({ isExpanded, onToggle }) {
                             ))}
                         </ul>
                         {showAll ?
-                            <button onClick={() => setShowAll(false)} className={styles.showMoreButton}>접기</button>
+                            <div className={styles.ShowButton_container}>
+                                <button onClick={() => setShowAll(false)} className={styles.showMoreButton}>
+                                    <div className={styles.show_text}>접기</div>
+                                    <img className={styles.arrow} src="/image/arrow.svg" alt="arrow"></img>
+                                </button>
+                            </div>
                             :
-                            <button onClick={() => setShowAll(true)} className={styles.showMoreButton}>더보기</button>
+                            <div className={styles.ShowButton_container}>
+                                <button onClick={() => setShowAll(true)} className={styles.showMoreButton}>
+                                    <div className={styles.show_text}>더보기</div>
+                                    <img className={styles.arrow} src="/image/arrow.svg" alt="arrow"></img>
+                                </button>
+                            </div>
                         }
                     </div>
                 </div>
             ) : (
-                <div className={styles.CloseSidebar} />
+                <div className={styles.CloseSidebar} >
+                    <div className={styles.channel_container}>
+                        <div className={styles.channelName1}>팔로우</div>
+                    </div>
+                </div>
             )}
         </div>
     );
