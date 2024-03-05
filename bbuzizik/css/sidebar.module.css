@@ -52,7 +52,7 @@
 .Profile_img {
     border-radius: 50%;
     display: flex;
-    border: 2px solid rgb(47, 182, 47);
+    border: 1px solid rgb(47, 182, 47);
     width: 40px;
     height: 40px;
 }
@@ -89,8 +89,8 @@
 
 .Channel_viewer_dot {
     margin-right: 3px;
-    width: 0.5rem;
-    height: 0.5rem;
+    width: 0.3rem;
+    height: 0.3rem;
     display: inline-block;
     background-color: #eb0400;
     border-radius: 9000px;
@@ -137,8 +137,87 @@
     margin-left: 15px;
     display: flex;
     align-items: center;
+    position: relative;
 }
 
 .Channel_info_container1 {
     list-style-type: none;
+}
+
+.followPopup {
+    display: none;
+    position: absolute;
+    left: 60px;
+    width: 200px;
+    background-color: #422d2d;
+    color: white;
+    top: 0;
+    border-radius: 5px;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.Channel_info1:hover .followPopup {
+    display: flex;
+}
+
+.Profile_img1 {
+    border-radius: 50%;
+    display: flex;
+    border: 1px solid rgb(47, 182, 47);
+    width: 40px;
+    height: 40px;
+}
+
+.Profile_img1:hover {
+    border: 2px solid rgb(47, 182, 47);
+}
+
+.modal_channel_name {
+    color: rgb(47, 182, 47);
+    font-weight: 900;
+    left: 0;
+    display: flex;
+    margin-left: 10px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font-size: 14px;
+    font-family: "NPSfontBold";
+    vertical-align: middle;
+    align-items: center;
+}
+
+.modal_channel_game {
+    color: gray;
+    font-weight: 900;
+    left: 0;
+    margin-left: 10px;
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 2px 5px 2px 5px;
+    font-size: 12px;
+}
+
+.modal_channel_Info {
+    color: rgb(199, 199, 199);
+    font-weight: 900;
+    left: 0;
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 14px;
+    text-align: left;
+}
+
+.modal_channel_viewers {
+    color: rgb(199, 199, 199);
+    font-weight: 900;
+    left: 0;
+    display: flex;
+    margin-left: 10px;
+    font-size: 12px;
+    text-align: left;
+    margin-bottom: 10px;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 5px;
 }

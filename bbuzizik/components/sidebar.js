@@ -1,19 +1,25 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from '../css/sidebar.module.css'
 
 export default function Sidebar({ isExpanded, onToggle }) {
     const [showAll, setShowAll] = useState(false);
 
+    useEffect(() => {
+        if (!isExpanded) {
+            setShowAll(false);
+        }
+    }, [isExpanded]);
+
     const followChannels = [
-        { img: "/image/profile_img.svg", name: "허니츄러스", game: "Just Chatting", viewers: 1000 },
-        { img: "/image/profile_img.svg", name: "채널2", game: "게임2", viewers: 2000 },
-        { img: "/image/profile_img.svg", name: "채널3", game: "게임3", viewers: 3000 },
-        { img: "/image/profile_img.svg", name: "허니츄러스", game: "Just Chatting", viewers: 1000 },
-        { img: "/image/profile_img.svg", name: "채널2", game: "게임2", viewers: 2000 },
-        { img: "/image/profile_img.svg", name: "채널3", game: "게임3", viewers: 3000 },
-        { img: "/image/profile_img.svg", name: "허니츄러스", game: "Just Chatting", viewers: 1000 },
-        { img: "/image/profile_img.svg", name: "채널2", game: "게임2", viewers: 2000 },
-        { img: "/image/profile_img.svg", name: "채널3", game: "게임3", viewers: 3000 }
+        { img: "/image/profile_img.svg", name: "허니츄러스", game: "talk", viewers: 1000, Info: "안녕하세요" },
+        { img: "/image/profile_img.svg", name: "채널2", game: "게임2", viewers: 2000, Info: "반갑꼬리" },
+        { img: "/image/profile_img.svg", name: "채널3", game: "게임3", viewers: 3000, Info: "안녕하세요, 안녕하세요, 안녕하세요" },
+        { img: "/image/profile_img.svg", name: "허니츄러스", game: "talk", viewers: 1000, Info: "안녕하세요" },
+        { img: "/image/profile_img.svg", name: "채널2", game: "게임2", viewers: 2000, Info: "안녕하세요" },
+        { img: "/image/profile_img.svg", name: "채널3", game: "게임3", viewers: 3000, Info: "안녕하세요" },
+        { img: "/image/profile_img.svg", name: "허니츄러스", game: "talk", viewers: 1000, Info: "안녕하세요" },
+        { img: "/image/profile_img.svg", name: "채널2", game: "게임2", viewers: 2000, Info: "안녕하세요" },
+        { img: "/image/profile_img.svg", name: "채널3", game: "게임3", viewers: 3000, Info: "안녕하세요" }
 
     ];
 
@@ -66,14 +72,23 @@ export default function Sidebar({ isExpanded, onToggle }) {
                 <div className={styles.CloseSidebar} >
                     <div className={styles.channel_container}>
                         <div className={styles.channelName1}>팔로우</div>
-                        <ul className={styles.Channel_info_container}>
+                        <ul className={styles.Channel_info_container1}>
                             {channelsToShow.map((channel, index) => (
                                 <li className={styles.Channel_info1} key={index}>
-                                    <img className={styles.Profile_img} src={channel.img} alt="profile_icon" />
+                                    <img className={styles.Profile_img1} src={channel.img} alt="profile_icon" />
+                                    <div className={styles.followPopup}>
+                                        <div className={styles.modal_channel_name}>{channel.name}
+                                            <div className={styles.modal_channel_game}>{channel.game}</div>
+                                        </div>
+                                        <div className={styles.modal_channel_Info}>{channel.Info}</div>
+                                        <div className={styles.modal_channel_viewers}>
+                                            <div className={styles.Channel_viewer_dot}></div>
+                                            <div>{channel.viewers}</div>
+                                        </div>
+                                    </div>
                                 </li>
                             ))}
                         </ul>
-
                     </div>
                 </div>
             )}
