@@ -31,7 +31,16 @@ export default function Live() {
               <p>방 제목</p>
               <div className={livestyles.infobox_content}>
                 <div className={livestyles.infobox_content_profile}></div>
-                <div className={livestyles.infobox_content_remain}>이름 카테고리 등등</div>
+                <div className={livestyles.infobox_content_remain}>
+                  <div className={livestyles.infobox_content_remain_name}>이름</div>
+                  <div className={livestyles.infobox_content_remain_info}>
+                    <p className={livestyles.infobox_content_remain_info_streaming}>03:30:50스트리밍중</p>
+                    <p>현재 824 시청중</p>
+                    <p>누적 824,824</p>
+                  </div>
+                  <div className={livestyles.infobox_content_remain_category}>TALK</div>
+                  <div className={livestyles.infobox_content_remain_btns}>버튼</div>
+                  </div>
               </div>
             </div>
           </div>
