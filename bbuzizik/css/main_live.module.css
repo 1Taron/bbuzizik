@@ -6,7 +6,6 @@
     flex-direction: column;
     align-items: center;
     min-height: 100vh;
-    background-color: coral;
 }
 
 .livecontainer{
@@ -29,7 +28,6 @@
 .infobox {
   width: 100%;
   height: 170px;
-  background-color: gainsboro;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -51,8 +49,8 @@
 }
 
 .infobox_content_profile {
-  width: 120px;
-  max-height: 120px;
+  width: 100px;
+  max-height: 100px;
   border-radius: 50%;
   background-color: white;
 }
@@ -78,11 +76,93 @@
   display: flex;
   flex-direction: row-reverse;
   padding-right: 10px;
+  color: white;
+}
+.infobox_content_remain_info > p:nth-child(3) {
+  border: 1px solid #63666A;
+  color: #63666A;
+  border-radius: 12px;
+  margin-right: 50px;
+  padding: 3px 10px 4px 10px;
+}
+.infobox_content_remain_info > p:nth-child(2) {
+  margin-right: 2px;
+  font-weight: bold;
+  font-size: 20px;
+  height: 100%;
+  line-height: 60px;
 }
 .infobox_content_remain_info > p:nth-child(1) {
-  border: 1px solid var(--gray2);
+  margin-right: 20px;
+  color: #63666A;
+  font-size: 14px;
+  height: 100%;
+  line-height: 65px;
 }
 
+.btn_borderNone {
+  border: none;
+  outline: none;
+  box-shadow: none;
+  cursor: pointer;
+}
+.infobox_content_remain_btns{
+  display: flex;
+  flex-direction: row-reverse;
+  padding-right: 10px;
+  color: white;
+}
+
+.infobox_content_remain_followBtn {
+  border-radius: 12px;
+  width: 90px;
+  height: 40px;
+  background-color: #EA6345;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  margin-right: 10px;
+}
+.infobox_content_remain_subscribeBtn{
+  border-radius: 12px;
+  width: 90px;
+  height: 40px;
+  background-color: #DBDE30;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  margin-right: 10px;
+}
+.infobox_content_remain_bellBtn{
+  border-radius: 12px;
+  width: 40px;
+  height: 40px;
+  background-color: #63666A;
+  margin-right: 5px;
+}
+.infobox_content_remain_ellipsislBtn{
+  border-radius: 12px;
+  width: 40px;
+  height: 40px;
+  background-color: #63666A;
+  margin-right: 15px;
+}
+.infobox_content_remain_ellipsislBtn:active {
+  transform: scale(0.95);
+  transition: transform 0.1s;
+}
+.infobox_content_remain_bellBtn:active {
+  transform: scale(0.95);
+  transition: transform 0.1s;
+}
+.infobox_content_remain_subscribeBtn:active {
+  transform: scale(0.95);
+  transition: transform 0.1s;
+}
+.infobox_content_remain_followBtn:active {
+  transform: scale(0.95);
+  transition: transform 0.1s;
+}
 
 .infobox_content_remain_category {
   color: var(--orange);
@@ -92,16 +172,6 @@
   padding-left: 10px;
 }
 
-
-.infobox_content_remain > * {
-  border: 1px solid tomato;
-}
-.infobox > * {
-  border: 1px solid bisque;
-}
-.infobox > * > * {
-  border: 1px solid violet;
-}
 /* 
   채팅
 */
@@ -151,6 +221,7 @@
     font-size: 16px;
     border: 1px solid black;
     font-family: 'NPSfontBold';
+    color: white;
   }
 
   .main_live_chat_inputbox_badge {

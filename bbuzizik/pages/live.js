@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFaceSmile } from '@fortawesome/free-regular-svg-icons';
 import Image from 'next/image';
 import shit from '../public/shit01.png';
-import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
+import { faBell, faEllipsis, faHeart, faPaperPlane, faStar } from '@fortawesome/free-solid-svg-icons';
 
 export default function Live() {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -17,6 +17,20 @@ export default function Live() {
   };
   const chat_handleClick = () => {
     setChatText("");
+  };
+
+  // 정보란 버튼
+  const infoFollow_handleClick = () => {
+    console.log("infoFollow_handleClick");
+  };
+  const infoSubscribe_handleClick = () => {
+    console.log("infoSubscribe_handleClick");
+  };
+  const infoBell_handleClick = () => {
+    console.log("infoBell_handleClick");
+  };
+  const infoEllipsis_handleClick = () => {
+    console.log("infoEllipsis_handleClick");
   };
 
   return (
@@ -34,12 +48,63 @@ export default function Live() {
                 <div className={livestyles.infobox_content_remain}>
                   <div className={livestyles.infobox_content_remain_name}>이름</div>
                   <div className={livestyles.infobox_content_remain_info}>
-                    <p className={livestyles.infobox_content_remain_info_streaming}>03:30:50스트리밍중</p>
-                    <p>현재 824 시청중</p>
-                    <p>누적 824,824</p>
+                    <p>824,824</p>
+                    <p>824 시청중</p>
+                    <p className={livestyles.infobox_content_remain_info_streaming}>03:30:50 스트리밍중</p>
                   </div>
-                  <div className={livestyles.infobox_content_remain_category}>TALK</div>
-                  <div className={livestyles.infobox_content_remain_btns}>버튼</div>
+                  <div className={livestyles.infobox_content_remain_category}>Just Chatting</div>
+                  <div className={livestyles.infobox_content_remain_btns}>
+                    {/* 더보기 버튼*/}
+                    <button
+                    type="button"
+                    className={`${livestyles.infobox_content_remain_ellipsislBtn} ${livestyles.btn_borderNone}`}
+                    onClick={infoEllipsis_handleClick}
+                    >
+                    <FontAwesomeIcon 
+                    icon={faEllipsis}
+                    style={{ color: 'white', width:"20px", height:"20px" }} 
+                    />
+                    </button>
+
+                    {/* 알림 버튼*/}
+                    <button
+                    type="button"
+                    className={`${livestyles.infobox_content_remain_bellBtn} ${livestyles.btn_borderNone}`}
+                    onClick={infoBell_handleClick}
+                    >
+                    <FontAwesomeIcon 
+                    icon={faBell}
+                    style={{ color: 'white', width:"20px", height:"20px" }} 
+                    />
+                    </button>
+
+                    {/* 구독 버튼*/}
+                    <button
+                    type="button"
+                    className={`${livestyles.infobox_content_remain_subscribeBtn} ${livestyles.btn_borderNone}`}
+                    onClick={infoSubscribe_handleClick}
+                    >
+                    <FontAwesomeIcon 
+                    icon={faStar} 
+                    style={{ color: 'white', width:"20px", height:"20px", marginRight:"5px" }} 
+                    />
+                    구독
+                    </button>
+
+                    {/* 팔로우 버튼 */}
+                    <button
+                    type="button"
+                    className={`${livestyles.infobox_content_remain_followBtn} ${livestyles.btn_borderNone}`}
+                    onClick={infoFollow_handleClick}
+                    >
+                    <FontAwesomeIcon 
+                    icon={faHeart} 
+                    style={{ color: 'white', width:"20px", height:"20px", marginRight:"5px" }} 
+                    />
+                    팔로우
+                    </button>
+                    
+                  </div>
                   </div>
               </div>
             </div>
