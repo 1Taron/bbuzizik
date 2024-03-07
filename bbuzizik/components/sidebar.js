@@ -41,13 +41,18 @@ export default function Sidebar({ isExpanded, onToggle }) {
                         <ul className={styles.Channel_info_container}>
                             {channelsToShow.map((channel, index) => (
                                 <li className={styles.Channel_info} key={index}>
-                                    <img className={styles.Profile_img} src={channel.img} alt="profile_icon" />
-                                    <div className={styles.Profile_name_game}>
-                                        <div className={styles.Profile_name}>{channel.name}</div>
-                                        <div className={styles.Profile_game}>{channel.game}</div>
+                                    <button className={styles.profile_button}>
+                                        <img className={styles.Profile_img} src={channel.img} alt="profile_icon" />
+                                        <div className={styles.Profile_name_game}>
+                                            <div className={styles.Profile_name}>{channel.name}</div>
+                                            <div className={styles.Profile_game}>{channel.game}</div>
+                                        </div>
+                                        <div className={styles.Channel_viewer_dot}></div>
+                                        <div className={styles.Channel_viewer_amount}>{channel.viewers}</div>
+                                    </button>
+                                    <div className={styles.followPopup1}>
+                                        <div className={styles.modal_channel_Info1}>{channel.Info}</div>
                                     </div>
-                                    <div className={styles.Channel_viewer_dot}></div>
-                                    <div className={styles.Channel_viewer_amount}>{channel.viewers}</div>
                                 </li>
                             ))}
                         </ul>
