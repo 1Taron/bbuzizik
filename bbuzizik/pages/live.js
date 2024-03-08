@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Sidebar from '../components/sidebar';
 import Header from '../components/Header';
 import livestyles from '../css/main_live.module.css';
@@ -10,14 +10,30 @@ import { faBell, faEllipsis, faHeart, faPaperPlane, faStar } from '@fortawesome/
 
 export default function Live() {
   const [isExpanded, setIsExpanded] = useState(false);
+  const messagesEndRef = useRef(null);
 
   const [chatText, setChatText] = useState("");
+  const [chatMessages, setChatMessages] = useState([]);
+
   const chat_handleChange = (e) => {
     setChatText(e.target.value);
   };
   const chat_handleClick = () => {
-    setChatText("");
+    if(chatText.trim() !== "") { 
+      setChatMessages(prevChatMessages => [...prevChatMessages, chatText]);
+      setChatText("");
+    }
   };
+  const chat_handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      chat_handleClick();
+    }
+  };
+
+// 채팅 메시지 상태가 변경될 때마다 스크롤을 최하단으로 이동
+useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+}, [chatMessages]);
 
   // 정보란 버튼
   const infoFollow_handleClick = () => {
@@ -151,8 +167,8 @@ export default function Live() {
                     }
                     value={chatText}
                     onChange={chat_handleChange}
+                    onKeyDown={chat_handleKeyDown}
                     placeholder='채팅을 입력해주세요.'
-                    style={{ paddingLeft: "40px", fontSize: "14px", backgroundColor: "#63666A" }}
                     />
                     <button
                     type="button"
@@ -169,36 +185,28 @@ export default function Live() {
               </div>
           {/* 채팅 뷰 영역 */}
           <div className={livestyles.live_chat_layout}>
-            {/* 채팅 말풍선 */}
-            <div className={livestyles.live_chat_chatting}>
-              {/* 뱃지 */}
-              <div className={livestyles.live_chat_badge}></div>
-              {/* 유저 이름 */}
-              <p className={`default_font ${livestyles.live_chat_username}`}>
-                이름
-              </p>
-              {/* 채팅 내용 */}
-              <p className={`default_font ${livestyles.live_chat_userchat}`}>
-                이것은 테스트 채팅 입니다. ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ
-              </p>
+            
+            <div className={livestyles.live_chat_viewWrapper}>
+              {chatMessages.map((message, index) => (
+                    <span key={index} className={livestyles.live_chat_chatting}>
+                      {/* 채팅 말풍선 */}
+                      <span style={{display:"inline-block"}}>
+                        {/* 뱃지 */}
+                        <span className={livestyles.live_chat_badge} />
+                        {/* 유저 이름 */}
+                        <span className={`default_font ${livestyles.live_chat_username}`}>
+                          이름일이삼사오육칠팔구십
+                        </span>
+                      </span>
+                        {/* 채팅 내용 */}
+                        <span className={`default_font ${livestyles.live_chat_userchat}`}>
+                          {message}
+                        </span>
+                    </span>
+                ))}
+            <span ref={messagesEndRef} />
             </div>
 
-            {/* 채팅 말풍선 */}
-            <div className={livestyles.live_chat_chatting}>
-              {/* 뱃지 */}
-              <div className={livestyles.live_chat_badge}></div>
-              {/* 유저 이름 */}
-              <p className={`default_font ${livestyles.live_chat_username}`}>
-                이름
-              </p>
-              {/* 채팅 내용 */}
-              <p className={`default_font ${livestyles.live_chat_userchat}`}>
-                이것은 테스트 채팅 입니다. ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ
-              </p>
-              <p className={`default_font ${livestyles.live_chat_userchatBot}`}>
-                이것은 테스트 채팅 입니다. ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ
-              </p>
-            </div>
           </div>
         </aside>
       </div>

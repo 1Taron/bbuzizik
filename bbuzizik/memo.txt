@@ -1,46 +1,30 @@
-Recoil 메모
-import React, { useEffect, useState } from "react";
-import styles from "../../css/studio_home.module.css";
-import { useRecoilState } from "recoil";
-import { countState, useSSR } from "../states/atom";
+{/* 채팅 말풍선 */}
+            <div className={livestyles.live_chat_chatting}>
+              {/* 뱃지 */}
+              <div className={livestyles.live_chat_badge}></div>
+              {/* 유저 이름 */}
+              <p className={`default_font ${livestyles.live_chat_username}`}>
+                이름
+              </p>
+              {/* 채팅 내용 */}
+              <p className={`default_font ${livestyles.live_chat_userchat}`}>
+                이것은 테스트 채팅 입니다. ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ
+              </p>
+            </div>
 
-function Counter() {
-  const [count, setCount] = useSSR();
-
-  return (
-    <div>
-      <h1>Counter</h1>
-      <button
-        onClick={() => {
-          setCount(count + 1);
-        }}
-      >
-        +
-      </button>
-      {count}
-    </div>
-  );
-}
-
-function DisplayCounter() {
-  const [count] = useRecoilState(countState);
-  return <div>{count}</div>;
-}
-
-export default function Home() {
-  return (
-    <>
-      <div className={styles.studio_header}>
-        <p className={`logo_font ${styles.studio_header_maintitle}`}>
-          BBUZIZIK
-        </p>
-        <p className={`logo_font ${styles.studio_header_subtitle}`}>STUDIO</p>
-      </div>
-
-      <div>
-        <Counter />
-        <DisplayCounter />
-      </div>
-    </>
-  );
-}
+            {/* 채팅 말풍선 */}
+            <div className={livestyles.live_chat_chatting}>
+              {/* 뱃지 */}
+              <div className={livestyles.live_chat_badge}></div>
+              {/* 유저 이름 */}
+              <p className={`default_font ${livestyles.live_chat_username}`}>
+                이름
+              </p>
+              {/* 채팅 내용 */}
+              <p className={`default_font ${livestyles.live_chat_userchat}`}>
+                이것은 테스트 채팅 입니다. ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ
+              </p>
+              <p className={`default_font ${livestyles.live_chat_userchatBot}`}>
+                이것은 테스트 채팅 입니다. ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ
+              </p>
+            </div>
