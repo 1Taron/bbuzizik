@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Sidebar from '../components/sidebar';
 import Header from '../components/Header';
 import styles from '../css/main.module.css';
+import MySwiper from '../components/MySwiper';
 
 export default function Home() {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -12,7 +13,7 @@ export default function Home() {
       <Header />
       <div style={{ paddingLeft: isExpanded ? 240 : 66 }}>
         <div className={styles.homecontainer}>
-          <h1>메인 페이지</h1>
+          <MySwiper />
         </div>
       </div>
     </>

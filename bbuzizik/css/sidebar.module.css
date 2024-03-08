@@ -205,6 +205,7 @@
     border-radius: 5px;
     flex-direction: column;
     justify-content: space-between;
+
 }
 
 .Channel_info1:hover .followPopup {
