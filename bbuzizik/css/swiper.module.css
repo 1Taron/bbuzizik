@@ -1,17 +1,19 @@
 .slider {
     display: flex;
     justify-content: center;
-    height: 300px;
+    align-items: center;
+    height: 350px;
     position: relative;
     overflow: hidden;
+    z-index: 1;
 }
 
 .slide {
-    width: 250px;
+    width: 530px;
     height: 300px;
-    margin-right: 10px;
-    display: none;
-    background: #422d2d;
+    position: relative;
+    /* z-index를 조정하기 위해 필요 */
+    background-color: #836a6a;
 }
 
 .left_right_button {
@@ -22,7 +24,7 @@
     border: none;
     color: #ffffff;
     font-size: 2em;
-    z-index: 1;
+    z-index: 0;
 }
 
 .left_right_button:first-child {
