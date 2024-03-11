@@ -8,6 +8,8 @@
     top: 60px;
     align-items: center;
     z-index: 10;
+    border-top: solid 0.1rem black;
+    border-right: solid 0.1rem black;
 }
 
 .channel_container {
@@ -26,6 +28,8 @@
     text-align: center;
     align-items: center;
     z-index: 10;
+    border-top: solid 0.1rem black;
+    border-right: solid 0.1rem black;
 }
 
 .button {

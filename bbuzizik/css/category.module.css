@@ -1,0 +1,17 @@
+.Category_container {
+    background-color: #261A1A;
+    width: 100%;
+    height: 400px;
+    border-top: solid 0.1rem black !important;
+    border-bottom: solid 0.1rem black !important;
+}
+
+.Category_container_112 {
+    margin: 40px;
+    width: 100hv;
+    height: 100hv;
+}
+
+.h2 {
+    color: white !important;
+}

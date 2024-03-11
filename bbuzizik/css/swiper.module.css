@@ -6,6 +6,7 @@
     position: relative;
     overflow: hidden;
     z-index: 1;
+    border-top: solid 0.1rem black;
 }
 
 .slide {
@@ -14,6 +15,7 @@
     position: relative;
     /* z-index를 조정하기 위해 필요 */
     background-color: #836a6a;
+    transition: all 0.4s ease;
 }
 
 .left_right_button {
@@ -29,8 +31,10 @@
 
 .left_right_button:first-child {
     left: 10px;
+    z-index: 5;
 }
 
 .left_right_button:last-child {
     right: 10px;
+    z-index: 5;
 }
