@@ -10,6 +10,7 @@ import { faBell, faEllipsis, faHeart, faPaperPlane, faStar } from '@fortawesome/
 
 export default function Live() {
   const [isExpanded, setIsExpanded] = useState(false);
+
   const messagesEndRef = useRef(null);
 
   const [chatText, setChatText] = useState("");

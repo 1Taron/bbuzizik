@@ -1,3 +1,4 @@
+
 /* 
     메인
  */
@@ -67,6 +68,13 @@
   display: flex;
   align-items: center;
 }
+.infobox_content_remain > div:nth-child(2) {
+  width: 50%;
+}
+.infobox_content_remain > div:nth-child(4) {
+  width: 50%;
+}
+
 .infobox_content_remain_name {
   color: white;
   font-size: 22px;
@@ -314,3 +322,46 @@
     margin-left: 5px;
   }
 
+
+
+  /* 
+  
+  */
+  /* 브라우저 가로 크기가 1550px 이하일 때 */
+  @media (max-width: 1550px) {
+    .infobox_content_remain > div {
+      width: 40%;
+    }
+    .infobox_content_remain > div:nth-child(2),
+    .infobox_content_remain > div:nth-child(4) {
+      width: 60%;
+    }
+  }
+
+  /* 브라우저 가로 크기가 1400px 이하일 때 */
+  @media (max-width: 1430px) {
+    .infobox_content_remain > div {
+      width: 35%;
+    }
+    .infobox_content_remain > div:nth-child(2),
+    .infobox_content_remain > div:nth-child(4) {
+      width: 65%;
+    }
+    .infobox_content_remain_info > p:nth-child(3) {
+      margin-right: 30px;
+    }
+  }
+
+    /* 브라우저 가로 크기가 1400px 이하일 때 */
+    @media (max-width: 1400px) {
+      .infobox_content_remain > div {
+        width: 30%;
+      }
+      .infobox_content_remain > div:nth-child(2),
+      .infobox_content_remain > div:nth-child(4) {
+        width: 70%;
+      }
+      .infobox_content_remain_info > p:nth-child(3) {
+        margin-right: 10px;
+      }
+    }
