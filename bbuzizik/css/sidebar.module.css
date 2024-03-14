@@ -1,7 +1,7 @@
 .OpenSidebar {
     width: 240px;
     height: 100vh;
-    background-color: #261A1A;
+    background-color: #261a1a;
     color: white;
     position: fixed;
     left: 0;
@@ -20,7 +20,7 @@
 .CloseSidebar {
     width: 66px;
     height: 100vh;
-    background-color: #261A1A;
+    background-color: #261a1a;
     color: white;
     position: fixed;
     left: 0;
@@ -39,8 +39,7 @@
     margin: auto;
     border: 0px;
     border-radius: 0px;
-    background-color: #261A1A;
-    position: fixed;
+    background-color: #261a1a;
 }
 
 .button :hover {
@@ -104,7 +103,7 @@
     border: 0px;
     text-align: left;
     border-radius: 0px;
-    background-color: #261A1A;
+    background-color: #261a1a;
     cursor: pointer;
 }
 
@@ -120,7 +119,6 @@
     font-size: 12px;
     font-weight: bold;
     text-decoration: none;
-
 }
 
 .Profile_name {
@@ -128,12 +126,12 @@
     font-weight: bold;
     margin-bottom: 8px;
     margin-top: 4px;
-    font-family: "NPSfontBold";
+    font-family: 'NPSfontBold';
 }
 
 .Profile_game {
     font-size: 12px;
-    font-family: "NPSfontBold";
+    font-family: 'NPSfontBold';
 }
 
 .Channel_viewer_amount {
@@ -142,7 +140,7 @@
     text-align: center;
     color: #eb312e;
     align-self: center;
-    font-family: "NPSfontBold";
+    font-family: 'NPSfontBold';
 }
 
 .Channel_viewer_dot {
@@ -159,7 +157,6 @@
 .ShowButton_container {
     text-align: center;
     margin-top: 20px;
-
 }
 
 .showMoreButton {
@@ -241,7 +238,7 @@
     margin-top: 10px;
     margin-bottom: 5px;
     font-size: 14px;
-    font-family: "NPSfontBold";
+    font-family: 'NPSfontBold';
     vertical-align: middle;
     align-items: center;
 }
