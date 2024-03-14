@@ -6,7 +6,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFaceSmile } from '@fortawesome/free-regular-svg-icons';
 import Image from 'next/image';
 import shit from '../public/shit01.png';
-import { faBell, faEllipsis, faHeart, faPaperPlane, faStar } from '@fortawesome/free-solid-svg-icons';
+import {
+    faBell,
+    faCommentDots,
+    faCommentSlash,
+    faEllipsis,
+    faHeart,
+    faPaperPlane,
+    faStar,
+} from '@fortawesome/free-solid-svg-icons';
 
 export default function Live() {
     const [isExpanded, setIsExpanded] = useState(false);
@@ -50,13 +58,51 @@ export default function Live() {
         console.log('infoEllipsis_handleClick');
     };
 
+    // 채팅창 열기닫기
+    const [isChatExpanded, setIsChatExpanded] = useState(true);
+    // 아이콘 클릭 시
+    const handleClick_ChatClose = () => {
+        setIsChatExpanded(false);
+    };
+    const handleClick_ChatOpen = () => {
+        setIsChatExpanded(true);
+    };
+
     return (
         <>
             <Sidebar isExpanded={isExpanded} onToggle={() => setIsExpanded(!isExpanded)} />
             <Header />
             <div style={{ marginLeft: isExpanded ? 240 : 66 }}>
-                <div className={isExpanded ? livestyles.homecontainer_sideExpanded : livestyles.homecontainer}>
-                    <div className={livestyles.livecontainer}>라이브 화면</div>
+                <div
+                    className={
+                        !isExpanded && !isChatExpanded
+                            ? livestyles.homecontainer_chatOff // 둘 다 false일 때
+                            : isExpanded && !isChatExpanded
+                            ? livestyles.homecontainer_sideExpanded_chatOff // isExpanded만 true일 때
+                            : isExpanded && isChatExpanded
+                            ? livestyles.homecontainer_sideExpanded // 둘 다 true일 때
+                            : livestyles.homecontainer // isChatExpanded만 true일 때, 나머지 경우
+                    }
+                >
+                    <div className={livestyles.livecontainer}>
+                        라이브 화면
+                        {!isChatExpanded ? (
+                            <FontAwesomeIcon
+                                icon={faCommentDots}
+                                style={{
+                                    position: 'absolute',
+                                    top: '10px',
+                                    right: '16px',
+                                    fontSize: '22px',
+                                    color: 'white',
+                                    cursor: 'pointer',
+                                }}
+                                onClick={handleClick_ChatOpen}
+                            />
+                        ) : (
+                            <></>
+                        )}
+                    </div>
                     <div className={livestyles.infocontainer}>
                         <div className={livestyles.infobox}>
                             <p>방 제목</p>
@@ -140,9 +186,23 @@ export default function Live() {
                 </div>
 
                 {/* 채팅 */}
-                <aside className={livestyles.live_chat} style={{ top: '60px' }}>
+                <aside
+                    className={isChatExpanded ? livestyles.live_chat : livestyles.live_chatClosed}
+                    style={{ top: '60px' }}
+                >
                     {/* 타이틀-실시간 채팅 */}
                     <div className={livestyles.live_chat_title}>
+                        <FontAwesomeIcon
+                            icon={faCommentSlash}
+                            style={{
+                                position: 'absolute',
+                                top: '10px',
+                                left: '10px',
+                                fontSize: '18px',
+                                cursor: 'pointer',
+                            }}
+                            onClick={handleClick_ChatClose}
+                        />
                         <p>채팅</p>
                     </div>
 

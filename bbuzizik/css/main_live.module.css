@@ -1,6 +1,8 @@
 /* 
     메인
  */
+
+/* 채팅창은 열려있고 사이드바 닫혀있을 때 */
 .homecontainer {
     display: flex;
     flex-direction: column;
@@ -9,13 +11,31 @@
     width: calc(100vw - 350px - 66px);
     background-color: #261a1a;
 }
-
+/* 채팅창과 사이드바 열려있을 때 */
 .homecontainer_sideExpanded {
     display: flex;
     flex-direction: column;
     align-items: center;
     min-height: calc(100vh - 240px);
     width: calc(100vw - 350px - 240px);
+    background-color: #261a1a;
+}
+/* 채팅창과 사이드바 닫혀있을 때 */
+.homecontainer_chatOff {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: calc(100vh - 60px);
+    width: calc(100vw - 66px);
+    background-color: #261a1a;
+}
+/* 채팅창은 닫혔고 사이드바 열려있을 때 */
+.homecontainer_sideExpanded_chatOff {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: calc(100vh - 240px);
+    width: calc(100vw - 240px);
     background-color: #261a1a;
 }
 
@@ -26,6 +46,7 @@
     width: 100%;
     height: calc(100vh - 180px - 60px);
     background-color: forestgreen;
+    position: relative;
 }
 
 .infocontainer {
@@ -202,10 +223,20 @@
     flex-direction: column;
     right: 0;
 }
+.live_chatClosed {
+    background-color: black;
+    width: 0px;
+    min-height: 100vh;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    right: 0;
+}
 .live_chat_title {
     color: var(--white);
     height: 40px;
     border-bottom: 1px solid var(--white);
+    position: relative;
 }
 .live_chat_title > p {
     font-size: 16px;
@@ -369,18 +400,5 @@
     }
     .infobox_content_remain_info > p:nth-child(3) {
         margin-right: 10px;
-    }
-}
-
-@media (max-width: 1000px) {
-    .live_chat {
-        width: 200px;
-    }
-    .homecontainer {
-        width: calc(100vw - 350px - 66px + 150px);
-    }
-
-    .homecontainer_sideExpanded {
-        width: calc(100vw - 350px - 240px + 150px);
     }
 }
