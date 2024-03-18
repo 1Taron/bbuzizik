@@ -60,6 +60,21 @@ export default function Live() {
 
     // 채팅창 열기닫기
     const [isChatExpanded, setIsChatExpanded] = useState(true);
+
+    // 브라우저의 가로가 1120이하면 채팅창 닫기
+    const updateChatExpandedState = () => {
+        if (window.innerWidth <= 1120 && isChatExpanded == true) {
+            setIsChatExpanded(false);
+        }
+    };
+    useEffect(() => {
+        updateChatExpandedState();
+        window.addEventListener('resize', updateChatExpandedState);
+
+        return () => {
+            window.removeEventListener('resize', updateChatExpandedState);
+        };
+    }, []);
     // 아이콘 클릭 시
     const handleClick_ChatClose = () => {
         setIsChatExpanded(false);
@@ -112,10 +127,8 @@ export default function Live() {
                                     <div className={livestyles.infobox_content_remain_name}>이름</div>
                                     <div className={livestyles.infobox_content_remain_info}>
                                         <p>824,824</p>
-                                        <p>824 시청중</p>
-                                        <p className={livestyles.infobox_content_remain_info_streaming}>
-                                            03:30:50 스트리밍중
-                                        </p>
+                                        <p>824</p>
+                                        <p className={livestyles.infobox_content_remain_info_streaming}>03:30:50</p>
                                     </div>
                                     <div className={livestyles.infobox_content_remain_category}>Just Chatting</div>
                                     <div className={livestyles.infobox_content_remain_btns}>
@@ -158,7 +171,6 @@ export default function Live() {
                                                     marginRight: '5px',
                                                 }}
                                             />
-                                            구독
                                         </button>
 
                                         {/* 팔로우 버튼 */}
@@ -176,7 +188,6 @@ export default function Live() {
                                                     marginRight: '5px',
                                                 }}
                                             />
-                                            팔로우
                                         </button>
                                     </div>
                                 </div>

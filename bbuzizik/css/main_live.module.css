@@ -123,12 +123,18 @@
     margin-right: 50px;
     padding: 3px 10px 4px 10px;
 }
+.infobox_content_remain_info > p:nth-child(3)::after {
+    content: ' 스트리밍중';
+}
 .infobox_content_remain_info > p:nth-child(2) {
     margin-right: 2px;
     font-weight: bold;
     font-size: 20px;
     height: 100%;
     line-height: 60px;
+}
+.infobox_content_remain_info > p:nth-child(2)::after {
+    content: ' 시청중';
 }
 .infobox_content_remain_info > p:nth-child(1) {
     margin-right: 20px;
@@ -161,6 +167,9 @@
     font-weight: bold;
     margin-right: 10px;
 }
+.infobox_content_remain_followBtn::after {
+    content: '팔로우';
+}
 .infobox_content_remain_subscribeBtn {
     border-radius: 12px;
     width: 90px;
@@ -170,6 +179,9 @@
     font-size: 16px;
     font-weight: bold;
     margin-right: 10px;
+}
+.infobox_content_remain_subscribeBtn::after {
+    content: '구독';
 }
 .infobox_content_remain_bellBtn {
     border-radius: 12px;
@@ -400,5 +412,43 @@
     }
     .infobox_content_remain_info > p:nth-child(3) {
         margin-right: 10px;
+    }
+}
+
+/* 브라우저 가로 크기가 1250px 이하일 때 */
+@media (max-width: 1250px) {
+    .infobox_content_remain > div:nth-child(3) {
+        width: 50%;
+    }
+    .infobox_content_remain > div:nth-child(4) {
+        width: 50%;
+    }
+    .infobox_content_remain_info > p:nth-child(3)::after {
+        content: '';
+    }
+    .infobox_content_remain_info > p:nth-child(2)::after {
+        content: '';
+    }
+    .infobox_content_remain_followBtn::after {
+        content: '';
+    }
+    .infobox_content_remain_subscribeBtn::after {
+        content: '';
+    }
+    .infobox_content_remain_followBtn {
+        background-color: #ea6345;
+        border-radius: 12px;
+        width: 40px;
+        height: 40px;
+        margin-right: 5px;
+        padding-left: 5px;
+    }
+    .infobox_content_remain_subscribeBtn {
+        background-color: #dbde30;
+        border-radius: 12px;
+        width: 40px;
+        height: 40px;
+        margin-right: 5px;
+        padding-left: 5px;
     }
 }
