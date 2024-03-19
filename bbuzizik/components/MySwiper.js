@@ -12,16 +12,16 @@ export default function MySwiper() {
         const updateVisibleSlides = () => {
             // 중앙 슬라이드를 기준으로 양옆 슬라이드를 계산하여 배열 업데이트
             setVisibleSlides([
-                slides[(slideIndex + 5) % slides.length], // 왼쪽에서 첫 번째
-                slides[(slideIndex + 6) % slides.length], // 왼쪽에서 첫 번째
-                slides[slideIndex], // 중앙, 여기를 수정했습니다.
+                slides[(slideIndex - 2 + slides.length) % slides.length], // 왼쪽에서 두 번째
+                slides[(slideIndex - 1 + slides.length) % slides.length], // 왼쪽에서 첫 번째
+                slides[slideIndex], // 중앙
                 slides[(slideIndex + 1) % slides.length], // 오른쪽에서 첫 번째
                 slides[(slideIndex + 2) % slides.length], // 오른쪽에서 두 번째
             ]);
         };
 
         updateVisibleSlides();
-    }, [slideIndex, slides]);
+    }, [slideIndex]); // slides를 의존성 배열에서 제거
 
     const prevSlide = () => {
         setSlideIndex(slideIndex === 0 ? slides.length - 1 : slideIndex - 1);

@@ -13,12 +13,12 @@ export default function Home() {
     <>
       <Sidebar isExpanded={isExpanded} onToggle={() => setIsExpanded(!isExpanded)} />
       <Header />
-      <div className={styles.Contents_container} style={{ paddingLeft: isExpanded ? 240 : 66 }}>
+      <div className={styles.Contents_container} style={{ paddingLeft: isExpanded ? 240 : 66, paddingTop: isExpanded ? 50 : 50 }}>
         <div className={styles.homecontainer}>
           <MySwiper />
         </div>
         <div className={styles.Layout_contents}>
-          <Category />
+          <Category isExpanded={isExpanded} />
         </div>
       </div>
     </>
