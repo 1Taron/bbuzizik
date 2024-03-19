@@ -1,104 +1,104 @@
 .studio_header {
-  width: 100%;
-  height: 60px;
-  background-color: var(--orange);
-  display: flex;
-  position: fixed;
-  z-index: 100;
+    width: 100%;
+    height: 60px;
+    background-color: var(--orange);
+    display: flex;
+    position: fixed;
+    z-index: 100;
 }
 
 .studio_header_maintitle {
-  font-size: 30px;
-  align-self: center;
-  padding-left: 70px;
+    font-size: 30px;
+    align-self: center;
+    padding-left: 70px;
 }
 
 .studio_header_subtitle {
-  font-size: 18px;
-  color: var(--white);
-  line-height: 70px;
-  margin-left: 5px;
+    font-size: 18px;
+    color: var(--white);
+    line-height: 70px;
+    margin-left: 5px;
 }
 
 .studio_test {
-  background-color: var(--black);
-  min-height: 100vh;
-  min-width: 100vw;
-  position: relative;
+    background-color: var(--black);
+    min-height: 100vh;
+    min-width: 100vw;
+    position: relative;
 }
 
 .studio_main {
-  min-height: calc(100vh - 60px);
-  min-width: calc(100vw - 350px);
-  position: fixed;
+    min-height: calc(100vh - 60px);
+    width: calc(100vw - 350px);
+    position: fixed;
+    background-color: var(--black);
 }
 
 .studio_main > div {
-  color: white;
+    color: white;
 }
 
 .subtitleBox {
-  width: 120px;
-  height: 100%;
+    width: 120px;
+    height: 100%;
 }
-
 
 .studio_main_liveWindow {
-  width: 1000px;
-  height: 400px;
-  position: fixed;
-  left: 0;
-  top: 60px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    width: 1000px;
+    height: 400px;
+    position: fixed;
+    left: 0;
+    top: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .studio_main_setting {
-  width: 1000px;
-  height: calc(100vh - 60px - 400px);
-  position: fixed;
-  left: 0;
-  top: 460px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  font-family: "NPSfontBold";
-  font-size: 20px;
-  padding: 0px 10px 0px 10px;
+    width: 1000px;
+    height: calc(100vh - 60px - 400px);
+    position: fixed;
+    left: 0;
+    top: 460px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    font-family: 'NPSfontBold';
+    font-size: 20px;
+    padding: 0px 10px 0px 10px;
 }
 .studio_main_setting > div:nth-child(1) {
-  margin-top: 0px;
+    margin-top: 0px;
 }
 .studio_main_setting > div {
-  height: 50px;
-  margin-top: 5px;
-  display: flex;
+    height: 50px;
+    margin-top: 5px;
+    display: flex;
 }
 
 .studio_main_setting_broadcastTitle_inputbox {
-  background-color: white;
-  height: 40px;
-  width: 400px;
-  border-radius: 5px;
-  padding: 10px;
-  font-family: 'NPSfontBold';
+    background-color: white;
+    height: 40px;
+    width: 400px;
+    border-radius: 5px;
+    padding: 10px;
+    font-family: 'NPSfontBold';
 }
 .studio_main_setting_broadcastTitle_btn {
-  width: 40px;
-  background-color: #625fde;
-  border: 0px;
-  border-radius: 5px;
-  margin-left: 10px;
-  color: white;
-  font-size: 12px;
-  font-weight: bold;
-  cursor: pointer;
-  height: 25px;
-  align-self: center;
+    width: 40px;
+    background-color: #625fde;
+    border: 0px;
+    border-radius: 5px;
+    margin-left: 10px;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    height: 25px;
+    align-self: center;
 }
 .studio_main_setting_broadcastTitle_btn:active {
-  transform: scale(0.95);
-  transition: transform 0.1s;
+    transform: scale(0.95);
+    transition: transform 0.1s;
 }
 
 /* 
@@ -106,357 +106,352 @@
 */
 
 .studio_main_setting_broadcastCategory_inputbox_wrapper {
-  position: relative;
-  width: 445px;
-  height: 40px;
-  display: flex;
+    position: relative;
+    width: 445px;
+    height: 40px;
+    display: flex;
 }
 
 .studio_main_setting_broadcastCategory_inputbox {
-  width: 410px;
-  height: 100%;
-  border-radius: 5px;
-  font-size: 16px;
-  border: 1px solid black;
-  font-family: 'NPSfontBold';
+    width: 410px;
+    height: 100%;
+    border-radius: 5px;
+    font-size: 16px;
+    border: 1px solid black;
+    font-family: 'NPSfontBold';
 }
-.studio_main_setting_broadcastCategory_btn{
-  width: 40px;
-  background-color: #d3d6ed;
-  border: 0px;
-  border-radius: 5px;
-  margin-left: 10px;
-  color: #625fde;
-  font-size: 12px;
-  font-weight: bold;
-  cursor: pointer;
-  height: 25px;
-  align-self: flex-end;
+.studio_main_setting_broadcastCategory_btn {
+    width: 40px;
+    background-color: #d3d6ed;
+    border: 0px;
+    border-radius: 5px;
+    margin-left: 10px;
+    color: #625fde;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    height: 25px;
+    align-self: flex-end;
 }
 .studio_main_setting_broadcastCategory_btn:active {
-  transform: scale(0.95);
-  transition: transform 0.1s;
+    transform: scale(0.95);
+    transition: transform 0.1s;
 }
 .studio_main_setting_broadcastCategory_tags {
-  width: 350px;
-  height: 50px;
-  margin-left: 5px;
-  display: flex;
-  flex-wrap: nowrap;
-  overflow: scroll;
+    width: 350px;
+    height: 50px;
+    margin-left: 5px;
+    display: flex;
+    flex-wrap: nowrap;
+    overflow: scroll;
 }
 .studio_main_broadcastCategory_tag {
-  background-color: white;
-  width: auto;
-  height: 25px;
-  border-radius: 5px;
-  display: flex;
-  align-items: center;
-  padding: 0 10px;
-  margin-right: 10px;
-  color: #402422;
-  font-size: 12px;
-  align-self: center;
-  flex-wrap: nowrap;
+    background-color: white;
+    width: auto;
+    height: 25px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    margin-right: 10px;
+    color: #402422;
+    font-size: 12px;
+    align-self: center;
+    flex-wrap: nowrap;
 }
 .studio_main_broadcastCategory_tag > p {
-  color: #402422;
-  margin-left: 5px;
-  width: auto;
-  white-space: nowrap;
+    color: #402422;
+    margin-left: 5px;
+    width: auto;
+    white-space: nowrap;
 }
 
 .studio_main_setting_streamKey_inputbox {
-  background-color: white;
-  height: 40px;
-  width: 400px;
-  border-radius: 5px;
-  display: flex;
-  color: black;
-  justify-content: space-between;
-  padding: 0px 10px 0px 10px;
+    background-color: white;
+    height: 40px;
+    width: 400px;
+    border-radius: 5px;
+    display: flex;
+    color: black;
+    justify-content: space-between;
+    padding: 0px 10px 0px 10px;
 }
 .studio_main_setting_streamKey_copybtn {
-  height: 30px;
-  width: 65px;
-  background-color: #d3d6ed;
-  border-radius: 6px;
-  font-size: 16px;
-  color: #625fde;
-  text-align: center;
-  padding: 7px;
-  margin-left: 20px;
-  align-self: flex-end;
-  margin-bottom: 5px;
-  cursor: pointer;
+    height: 30px;
+    width: 65px;
+    background-color: #d3d6ed;
+    border-radius: 6px;
+    font-size: 16px;
+    color: #625fde;
+    text-align: center;
+    padding: 7px;
+    margin-left: 20px;
+    align-self: flex-end;
+    margin-bottom: 5px;
+    cursor: pointer;
 }
 .studio_main_setting_streamKey_reissuance {
-  height: 30px;
-  width: 65px;
-  background-color: #625fde;
-  border-radius: 6px;
-  font-size: 16px;
-  color: #f1f1f1;
-  text-align: center;
-  padding: 7px;
-  margin-left: 10px;
-  align-self: flex-end;
-  margin-bottom: 5px;
-  cursor: pointer;
+    height: 30px;
+    width: 65px;
+    background-color: #625fde;
+    border-radius: 6px;
+    font-size: 16px;
+    color: #f1f1f1;
+    text-align: center;
+    padding: 7px;
+    margin-left: 10px;
+    align-self: flex-end;
+    margin-bottom: 5px;
+    cursor: pointer;
 }
 .studio_main_setting_streamKey_copybtn:active {
-  transform: scale(0.95);
-  transition: transform 0.1s;
+    transform: scale(0.95);
+    transition: transform 0.1s;
 }
 .studio_main_setting_streamKey_reissuance:active {
-  transform: scale(0.95);
-  transition: transform 0.1s;
+    transform: scale(0.95);
+    transition: transform 0.1s;
 }
 
 .studio_main_setting_broadcastInfo_text {
-  font-size: 10px;
-  display: flex;
-  flex-wrap: wrap;
-  width: 80%;
+    font-size: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    width: 80%;
 }
 .studio_main_setting_broadcastInfo_text > p {
-  margin-top: 10px;
-  width: 50%;
+    margin-top: 10px;
+    width: 50%;
 }
-
-/* .studio_main_setting_broadcastSetting {
-  display: flex;
-} */
 
 .studio_main_setting_broadcastSetting > div {
-  /* flex: 1; */
-  display: flex;
+    /* flex: 1; */
+    display: flex;
 }
 .studio_main_setting_broadcastSetting_title {
-  width: 120px;
-  height: 100%;
-  /* width: 20%; */
+    width: 120px;
+    height: 100%;
+    /* width: 20%; */
 }
 .studio_main_setting_broadcastSetting_property {
-  width: 80%;
+    width: 80%;
 }
 .studio_main_setting_broadcastSetting_property_checkboxes {
-  display: flex;
-  flex-wrap: wrap;
-  width: 470px;
+    display: flex;
+    flex-wrap: wrap;
+    width: 470px;
 }
 .studio_main_setting_broadcastSetting_property_checkboxes > * {
-  width: 25%;
-  margin-bottom: 20px;
+    width: 25%;
+    margin-bottom: 20px;
 }
 
-.studio_main_setting_broadcastSetting_property_checkboxes > *:nth-child(2){
-  width: 30%;
+.studio_main_setting_broadcastSetting_property_checkboxes > *:nth-child(2) {
+    width: 30%;
 }
 
 .studio_main_setting_broadcastSetting_property_pwText {
-  width: 50%;
-  padding: 2px;
+    width: 50%;
+    padding: 2px;
 }
-.studio_main_setting_broadcastSetting_property_pwBtn{
-  width: 40px;
-  background-color: #625fde;
-  border: 0px;
-  border-radius: 5px;
-  margin-left: 10px;
-  color: white;
-  font-size: 12px;
-  font-weight: bold;
-  cursor: pointer;
+.studio_main_setting_broadcastSetting_property_pwBtn {
+    width: 40px;
+    background-color: #625fde;
+    border: 0px;
+    border-radius: 5px;
+    margin-left: 10px;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
 }
 .studio_main_setting_broadcastSetting_property_pwBtn:active {
-  transform: scale(0.95);
-  transition: transform 0.1s;
+    transform: scale(0.95);
+    transition: transform 0.1s;
 }
 
 .studio_main_setting_broadcastSetting_propertyfont {
-  font-size: 11px;
+    font-size: 11px;
 }
 
 .studio_main_setting_chatRights_property {
-  width: 80%;
-  /* display: flex; */
+    width: 80%;
+    /* display: flex; */
 }
 
 .studio_main_setting_chatRights_property_checkboxes {
-  display: flex;
-  flex-wrap: wrap;
+    display: flex;
+    flex-wrap: wrap;
 }
 .studio_main_setting_chatRights_property_checkboxes > * {
-  width: 50%;
-  margin-bottom: 20px;
+    width: 50%;
+    margin-bottom: 20px;
 }
 
 .studio_main_previewImg {
-  width: calc(100vw - 1350px);
-  height: 250px;
-  position: fixed;
-  left: 1000px;
-  top: 60px;
-  font-family: "NPSfontBold";
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
+    width: calc(100vw - 1350px);
+    height: 250px;
+    position: fixed;
+    left: 1000px;
+    top: 60px;
+    font-family: 'NPSfontBold';
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
 }
 .studio_main_chatRole {
-  width: calc(100vw - 1350px);
-  height: 300px;
-  position: fixed;
-  left: 1000px;
-  top: calc(60px + 250px);
-  font-family: "NPSfontBold";
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
+    width: calc(100vw - 1350px);
+    height: 300px;
+    position: fixed;
+    left: 1000px;
+    top: calc(60px + 250px);
+    font-family: 'NPSfontBold';
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
 }
 
-
 .studio_main_liveWindowBox {
-  background-color: #d9d9d9;
-  width: 950px;
-  height: 350px;
-  border-radius: 10px;
+    background-color: #d9d9d9;
+    width: 950px;
+    height: 350px;
+    border-radius: 10px;
 }
 
 .studio_main_previewImg_title {
-  width: calc(100vw - 1350px);
-  font-size: 18px;
+    width: calc(100vw - 1350px);
+    font-size: 18px;
 }
 
 .studio_main_previewImg_box {
-  background-color: #d9d9d9;
-  border-radius: 10px;
-  width: 500px;
-  height: 200px;
-  color: #868686;
-  font-size: 40px;
-  text-align: center;
-  line-height: 200px;
-  cursor: pointer;
+    background-color: #d9d9d9;
+    border-radius: 10px;
+    width: 500px;
+    height: 200px;
+    color: #868686;
+    font-size: 40px;
+    text-align: center;
+    line-height: 200px;
+    cursor: pointer;
 }
 .studio_main_previewImg_box:active {
-  transform: scale(0.99);
-  transition: transform 0.1s;
+    transform: scale(0.99);
+    transition: transform 0.1s;
 }
 
 .studio_main_chatRole_title {
-  width: calc(100vw - 1350px);
-  font-size: 18px;
+    width: calc(100vw - 1350px);
+    font-size: 18px;
 }
 
 .studio_main_chatRole_box {
-  background-color: white;
-  border-radius: 10px;
-  width: 500px;
-  height: 200px;
-  color: var(--black);
-  padding: 10px;
-  font-family: "NPSfontBold";
-  line-height: 1.5;
-  font-size: 14px;
-  resize: none;
+    background-color: white;
+    border-radius: 10px;
+    width: 500px;
+    height: 200px;
+    color: var(--black);
+    padding: 10px;
+    font-family: 'NPSfontBold';
+    line-height: 1.5;
+    font-size: 14px;
+    resize: none;
 }
 .studio_main_chatRole_box::placeholder {
-  color: #868686;
-  font-size: 12px;
+    color: #868686;
+    font-size: 12px;
 }
 .studio_main_chatRole_btnlayout {
-  width: calc(100vw - 1350px);
-  display: flex;
-  justify-content: flex-end;
-  padding-right: 50px;
+    width: calc(100vw - 1350px);
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 50px;
 }
 .studio_main_chatRole_btn {
-  background-color: #d3d6ed;
-  border-radius: 5px;
-  border: 0px;
-  width: 40px;
-  color: #625fde;
-  font-size: 12px;
-  padding: 5px;
-  font-weight: bold;
-  cursor: pointer;
+    background-color: #d3d6ed;
+    border-radius: 5px;
+    border: 0px;
+    width: 40px;
+    color: #625fde;
+    font-size: 12px;
+    padding: 5px;
+    font-weight: bold;
+    cursor: pointer;
 }
 .studio_main_chatRole_btn:active {
-  transform: scale(0.95);
-  transition: transform 0.1s;
+    transform: scale(0.95);
+    transition: transform 0.1s;
 }
 
 .studio_main_banWord {
-  width: calc(100vw - 1350px);
-  height: calc(100vh - 60px - 250px - 300px);
-  position: fixed;
-  left: 1000px;
-  top: calc(60px + 250px + 300px);
-  font-family: "NPSfontBold";
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-  font-size: 12px;
+    width: calc(100vw - 1350px);
+    height: calc(100vh - 60px - 250px - 300px);
+    position: fixed;
+    left: 1000px;
+    top: calc(60px + 250px + 300px);
+    font-family: 'NPSfontBold';
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    font-size: 12px;
 }
 
 .studio_main_banWord_title {
-  width: calc(100vw - 1350px);
-  font-size: 18px;
+    width: calc(100vw - 1350px);
+    font-size: 18px;
 }
 
 .studio_main_banWord_layout {
-  width: 95%;
-  height: 80%;
-  padding: 5px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  overflow-y: scroll;
-  align-content: start;
+    width: 95%;
+    height: 80%;
+    padding: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    overflow-y: scroll;
+    align-content: start;
 }
 
 .studio_main_banWord_tag {
-  background-color: #eadef3;
-  width: auto;
-  height: 25px;
-  border-radius: 5px;
-  display: flex;
-  align-items: center;
-  padding: 0 10px;
-  margin-right: 10px;
-  color: #402422;
-  font-size: 12px;
+    background-color: #eadef3;
+    width: auto;
+    height: 25px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    margin-right: 10px;
+    color: #402422;
+    font-size: 12px;
 }
 
 .studio_main_banWord_tag > p {
-  color: #402422;
-  font-size: 12px;
-  margin-left: 5px;
+    color: #402422;
+    font-size: 12px;
+    margin-left: 5px;
 }
 
 .studio_main_banWord_Search {
-  background-color: #f0f0f0;
-  width: auto;
-  height: 25px;
-  border-radius: 5px;
-  display: flex;
-  align-items: center;
-  padding: 0 10px;
-  color: #402422;
-  font-size: 12px;
+    background-color: #f0f0f0;
+    width: auto;
+    height: 25px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    color: #402422;
+    font-size: 12px;
 }
 
 .studio_main_banWord_Search > input {
-  border: none;
-  background-color: transparent;
-  width: 100px;
-  height: 90%;
-  margin-right: 10px;
-  outline: none;
+    border: none;
+    background-color: transparent;
+    width: 100px;
+    height: 90%;
+    margin-right: 10px;
+    outline: none;
 }
 
 /* 
@@ -464,67 +459,137 @@
 */
 
 .studio_chat {
-  background-color: black;
-  width: 350px;
-  min-height: 100vh;
-  position: fixed;
-  display: flex;
-  flex-direction: column;
-  right: 0;
+    background-color: black;
+    width: 350px;
+    min-height: 100vh;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    right: 0;
 }
 .studio_chat_title {
-  color: var(--white);
-  /* width: 100%; */
-  height: 60px;
-  border-bottom: 1px solid var(--white);
+    color: var(--white);
+    /* width: 100%; */
+    height: 60px;
+    border-bottom: 1px solid var(--white);
 }
 .studio_chat_title > p {
-  font-size: 24px;
-  line-height: 60px;
-  padding-left: 20px;
-  font-family: "NPSfontBold";
+    font-size: 24px;
+    line-height: 60px;
+    padding-left: 20px;
+    font-family: 'NPSfontBold';
 }
 
 .studio_chat_layout {
-  display: flex;
-  flex-direction: column-reverse;
-  overflow-y: auto;
-  min-height: calc(100vh - 120px);
-  align-items: center;
+    display: flex;
+    flex-direction: column-reverse;
+    overflow-y: auto;
+    min-height: calc(100vh - 120px);
+    align-items: center;
 }
 
 .studio_chat_chatting {
-  background-color: rgba(255, 255, 255, 0.65);
-  min-width: 320px;
-  max-width: 320px;
-  margin-bottom: 20px;
-  min-height: 30px;
-  align-items: center;
-  display: flex;
-  flex-wrap: wrap;
-  border-radius: 5px;
-  padding: 5px;
+    background-color: rgba(255, 255, 255, 0.65);
+    min-width: 320px;
+    max-width: 320px;
+    margin-bottom: 10px;
+    height: auto;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    border-radius: 5px;
+    padding: 4px 8px 4px 6px;
+    overflow-wrap: anywhere;
+    word-break: break-all;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    gap: 4px;
+    text-align: left;
+    display: inline-block;
 }
 
 .studio_chat_badge {
-  background-color: #ee8143;
-  width: 20px;
-  height: 20px;
-  border-radius: 5px;
-  margin-right: 5px;
+    display: inline-flex;
+    background-color: #ee8143;
+    width: 20px;
+    height: 20px;
+    border-radius: 5px;
+    vertical-align: top;
+    margin-right: 4px;
 }
 .studio_chat_username {
-  font-size: 14px;
-  color: #9371da;
-  margin-right: 5px;
+    font-size: 14px;
+    color: #9371da;
+    margin-right: 5px;
 }
 .studio_chat_userchat {
-  font-size: 12px;
-  color: var(--white);
+    font-size: 14px;
+    color: var(--white);
+    line-height: 1.6;
 }
-.studio_chat_userchatBot {
-  font-size: 12px;
-  color: var(--white);
-  margin-top: 5px;
-  margin-left: 5px;
+
+@media (max-width: 1870px) {
+    .studio_main_liveWindow {
+        position: static;
+        width: 100%;
+    }
+
+    .studio_main_previewImg,
+    .studio_main_chatRole,
+    .studio_main_banWord {
+        position: static;
+        width: 100%;
+        margin-top: 20px;
+    }
+    .studio_main_setting {
+        position: static;
+        height: auto;
+        width: 100%;
+        padding-left: 15%;
+    }
+    .studio_main {
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        overflow-y: scroll;
+        position: absolute;
+    }
+    .studio_main_banWord {
+        height: 200px;
+        justify-content: start;
+        margin-bottom: 20px;
+    }
+    .studio_main_banWord_layout {
+        width: 65%;
+        height: auto;
+    }
+
+    .studio_main_chatRole_btnlayout {
+        padding-right: 0;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 1620px) {
+    .studio_main_setting {
+        padding-left: 12%;
+    }
+}
+
+@media (max-width: 1500px) {
+    .studio_main_setting {
+        padding-left: 8%;
+    }
+
+    .studio_main_previewImg_title,
+    .studio_main_banWord_title,
+    .studio_main_chatRole_title {
+        width: 200px;
+        font-size: 18px;
+        text-align: center;
+    }
+}
+@media (max-width: 1400px) {
+    .studio_main_setting {
+        padding-left: 5%;
+    }
 }

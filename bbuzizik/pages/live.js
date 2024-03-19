@@ -266,7 +266,7 @@ export default function Live() {
                         </div>
                     </div>
                     {/* 채팅 뷰 영역 */}
-                    <div className={livestyles.live_chat_layout}>
+                    <div className={isChatExpanded ? livestyles.live_chat_layout : livestyles.live_chat_hidden}>
                         <div className={livestyles.live_chat_viewWrapper}>
                             {chatMessages.map((message, index) => (
                                 <span key={index} className={livestyles.live_chat_chatting}>
