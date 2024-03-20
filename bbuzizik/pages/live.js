@@ -120,7 +120,7 @@ export default function Live() {
                     </div>
                     <div className={livestyles.infocontainer}>
                         <div className={livestyles.infobox}>
-                            <p>방 제목</p>
+                            <p className={livestyles.infobox_liveTitle}>방 제목</p>
                             <div className={livestyles.infobox_content}>
                                 <div className={livestyles.infobox_content_profile}></div>
                                 <div className={livestyles.infobox_content_remain}>
