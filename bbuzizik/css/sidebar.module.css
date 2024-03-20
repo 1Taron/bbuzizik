@@ -6,7 +6,7 @@
     left: 0;
     top: 60px;
     align-items: center;
-    z-index: 10;
+    z-index: 5000;
     border-top: solid 0.1rem black;
     border-right: solid 0.1rem black;
 }
@@ -30,7 +30,7 @@
     top: 60px;
     text-align: center;
     align-items: center;
-    z-index: 10;
+    z-index: 5000;
     border-top: solid 0.1rem black;
     border-right: solid 0.1rem black;
 }
@@ -94,6 +94,7 @@
     border-radius: 5px;
     flex-direction: column;
     justify-content: space-between;
+    z-index: 5000;
 }
 
 .modal_channel_Info1 {
@@ -103,6 +104,7 @@
 
 .Channel_info:hover .followPopup1 {
     display: flex;
+    z-index: 5000;
 }
 
 .profile_button {
@@ -203,6 +205,7 @@
     display: flex;
     align-items: center;
     position: relative;
+    z-index: 500;
 }
 
 .Channel_info_container1 {
@@ -217,6 +220,7 @@
     background-color: #422d2d;
     color: rgb(199, 199, 199);
     top: 0;
+    z-index: 5000;
     border-radius: 5px;
     flex-direction: column;
     justify-content: space-between;
@@ -224,6 +228,7 @@
 
 .Channel_info1:hover .followPopup {
     display: flex;
+    z-index: 5000;
 }
 
 .Profile_img1 {

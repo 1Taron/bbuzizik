@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import styles from '../css/main.module.css';
 import MySwiper from '../components/MySwiper';
 import Category from '../components/Category';
+import Streaming from '../components/Streaming';
 import { color } from '@mui/system';
 
 export default function Home() {
@@ -19,6 +20,9 @@ export default function Home() {
         </div>
         <div className={styles.Layout_contents}>
           <Category isExpanded={isExpanded} />
+        </div>
+        <div>
+          <Streaming />
         </div>
       </div>
     </>

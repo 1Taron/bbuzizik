@@ -5,17 +5,17 @@
     height: 100%;
     position: relative;
     overflow: hidden;
-    z-index: 1;
-    min-width: 1000px;
+    width: 100%;
+    max-width: 1900px;
 }
 
 .slide {
     width: 530px;
     height: 300px;
     position: relative;
-    /* z-index를 조정하기 위해 필요 */
     background-color: #836a6a;
     transition: all 0.4s ease;
+    z-index: 1;
 }
 
 .left_right_button {
@@ -26,15 +26,14 @@
     border: none;
     color: #ffffff;
     font-size: 2em;
-    z-index: 0;
 }
 
 .left_right_button:first-child {
     left: 10px;
-    z-index: 5;
+    z-index: 100;
 }
 
 .left_right_button:last-child {
     right: 10px;
-    z-index: 5;
+    z-index: 100;
 }

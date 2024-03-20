@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from '../css/category.module.css';
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 
 export default function Category({ isExpanded }) {
     const Category_commend = [
@@ -76,33 +77,33 @@ export default function Category({ isExpanded }) {
         const width = window.innerWidth;
 
         if (isExpanded) {
-            if (width < 1400) {
+            if (width < 1200) {
                 numberOfCategoriesToShow = 4;
-            } else if (width < 1500) {
+            } else if (width < 1350) {
                 numberOfCategoriesToShow = 5;
-            } else if (width < 1600) {
+            } else if (width < 1500) {
                 numberOfCategoriesToShow = 6;
-            } else if (width < 1700) {
+            } else if (width < 1650) {
                 numberOfCategoriesToShow = 7;
             } else if (width < 1800) {
                 numberOfCategoriesToShow = 8;
-            } else if (width < 1900) {
+            } else if (width < 1950) {
                 numberOfCategoriesToShow = 9; // 주의: 요청에는 1500일 때 7개로 되어 있으나, 증가하는 순서가 자연스러워지도록 9개로 설정했습니다.
             } else {
                 numberOfCategoriesToShow = 10;
             }
         } else {
-            if (width < 1200) {
+            if (width < 1000) {
                 numberOfCategoriesToShow = 4;
-            } else if (width < 1300) {
+            } else if (width < 1150) {
                 numberOfCategoriesToShow = 5;
-            } else if (width < 1400) {
+            } else if (width < 1300) {
                 numberOfCategoriesToShow = 6;
-            } else if (width < 1500) {
+            } else if (width < 1450) {
                 numberOfCategoriesToShow = 7;
             } else if (width < 1600) {
                 numberOfCategoriesToShow = 8;
-            } else if (width < 1700) {
+            } else if (width < 1750) {
                 numberOfCategoriesToShow = 9; // 주의: 요청에는 1500일 때 7개로 되어 있으나, 증가하는 순서가 자연스러워지도록 9개로 설정했습니다.
             } else {
                 numberOfCategoriesToShow = 10;
@@ -129,7 +130,15 @@ export default function Category({ isExpanded }) {
             <div className={styles.Category_container}>
                 <div className={styles.Category}>
                     <h2 className={styles.h2}>카테고리</h2>
+                    <Link
+                        href={{
+                            pathname: '/all_category',
+                        }}
+                    >
+                        <p className={styles.all_category}>전체보기</p>
+                    </Link>
                 </div>
+
                 <div className={styles.Category_container_112}>
                     {displayCategories.map((category, index) => (
                         <div key={index} className={styles.Category_info}>

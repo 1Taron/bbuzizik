@@ -1,23 +1,24 @@
 .Category_container {
-    min-width: 1000px;
+    max-width: 1900px;
 }
 
 .Category {
-    display: inline-block;
+    display: flex;
     margin-bottom: 10px;
+    justify-content: space-between;
+    align-items: center;
 }
 
-@media (max-width: 1000px) {
-    .category-container {
-        /* 화면 너비가 1000px 이하일 때 적용할 스타일 */
-        justify-content: space-around;
-        /* 카테고리 사이의 간격 유지 */
-    }
+.all_category {
+    color: white;
+    font-family: 'NPSfontBold';
+    font-size: 15px;
 }
 
 .h2 {
     color: white !important;
     margin-bottom: 5px;
+    font-size: 19px;
 }
 
 .Category_container_112 {
@@ -30,9 +31,10 @@
 
 .Category_info {
     flex: 1;
-    min-width: 100px;
+    min-width: 50px;
     max-width: 250px;
     padding-bottom: 20px;
+
 }
 
 .category_img {
@@ -42,15 +44,21 @@
 }
 
 .P1 {
-    font-size: 15px;
+    white-space: nowrap;
+    font-size: 16px;
     font-family: 'NPSfontBold';
     color: white;
     margin-bottom: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .P {
+    white-space: nowrap;
     font-size: 12px;
     color: white;
     font-family: 'NPSfontBold';
     margin-bottom: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
