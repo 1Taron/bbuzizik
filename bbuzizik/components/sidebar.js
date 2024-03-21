@@ -31,7 +31,16 @@ export default function Sidebar({ isExpanded, onToggle }) {
     const channelsToShow = showAll ? followChannels : followChannels.slice(0, 5);
 
     return (
-        <div style={{ position: 'fixed', top: '0', left: '0', width: isExpanded ? '250px' : '50px', height: '100%' }}>
+        <div
+            style={{
+                position: 'fixed',
+                top: '0',
+                left: '0',
+                width: isExpanded ? '250px' : '50px',
+                height: '100%',
+                zIndex: '5000',
+            }}
+        >
             <button onClick={onToggle} className={styles.button}>
                 <svg className={styles.svg} width="40" height="40" viewBox="0 0 40 40" fill="none">
                     <rect x="11" y="13" width="18" height="2" rx="1" fill="#DFE2EA"></rect>

@@ -11,6 +11,7 @@
     width: calc(100vw - 350px - 66px);
     background-color: #261a1a;
     margin-top: 61px;
+    z-index: 1;
 }
 /* 채팅창과 사이드바 열려있을 때 */
 .homecontainer_sideExpanded {
@@ -21,6 +22,7 @@
     width: calc(100vw - 350px - 240px);
     background-color: #261a1a;
     margin-top: 61px;
+    z-index: 1;
 }
 /* 채팅창과 사이드바 닫혀있을 때 */
 .homecontainer_chatOff {
@@ -31,6 +33,7 @@
     width: calc(100vw - 66px);
     background-color: #261a1a;
     margin-top: 61px;
+    z-index: 1;
 }
 /* 채팅창은 닫혔고 사이드바 열려있을 때 */
 .homecontainer_sideExpanded_chatOff {
@@ -41,6 +44,7 @@
     width: calc(100vw - 240px);
     background-color: #261a1a;
     margin-top: 61px;
+    z-index: 1;
 }
 
 .livecontainer {
@@ -51,6 +55,7 @@
     height: calc(100vh - 180px - 60px);
     background-color: forestgreen;
     position: relative;
+    z-index: 1;
 }
 
 .infocontainer {

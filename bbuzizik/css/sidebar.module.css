@@ -63,6 +63,7 @@
 
 .Channel_info_container {
     list-style-type: none;
+    z-index: 4300;
 }
 
 .Profile_img {
@@ -81,18 +82,21 @@
     margin-right: 20px;
     display: flex;
     position: relative;
+    z-index: 4500;
 }
 
 .followPopup1 {
     display: none;
-    /* background-color: #422d2d; */
-    background-color: black;
+    position: absolute;
+    left: 250px;
+    width: 200px;
+    background-color: #422d2d;
     color: rgb(199, 199, 199);
-    top: auto;
+    top: 0;
+    z-index: 5000;
     border-radius: 5px;
     flex-direction: column;
     justify-content: space-between;
-    z-index: 5000;
 }
 
 .modal_channel_Info1 {
@@ -102,7 +106,6 @@
 
 .Channel_info:hover .followPopup1 {
     display: flex;
-    z-index: 5000;
 }
 
 .profile_button {
@@ -218,7 +221,7 @@
     background-color: #422d2d;
     color: rgb(199, 199, 199);
     top: 0;
-    z-index: 5000;
+    z-index: 4500;
     border-radius: 5px;
     flex-direction: column;
     justify-content: space-between;
