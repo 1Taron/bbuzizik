@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import styles from '../css/sidebar.module.css';
+import { faRotate } from '@fortawesome/free-solid-svg-icons';
 
 export default function Sidebar({ isExpanded, onToggle }) {
     const [showAll, setShowAll] = useState(false);
@@ -74,7 +75,7 @@ export default function Sidebar({ isExpanded, onToggle }) {
                             <div className={styles.ShowButton_container}>
                                 <button onClick={() => setShowAll(false)} className={styles.showMoreButton}>
                                     <div className={styles.show_text}>접기</div>
-                                    <img className={styles.arrow} src="/image/arrow.svg" alt="arrow"></img>
+                                    <img className={styles.arrowReversal} src="/image/arrow.svg" alt="arrow"></img>
                                 </button>
                             </div>
                         ) : (

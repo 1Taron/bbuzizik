@@ -88,7 +88,7 @@
 .followPopup1 {
     display: none;
     position: absolute;
-    left: 250px;
+    left: 230px;
     width: 200px;
     background-color: #422d2d;
     color: rgb(199, 199, 199);
@@ -192,6 +192,13 @@
     margin-left: 5px;
     display: inline-block;
     vertical-align: middle;
+}
+.arrowReversal {
+    width: 12px;
+    margin-left: 5px;
+    display: inline-block;
+    vertical-align: middle;
+    transform: rotate(180deg);
 }
 
 .channelName1 {
