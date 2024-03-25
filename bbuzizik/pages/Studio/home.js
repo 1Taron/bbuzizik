@@ -104,7 +104,9 @@ export default function Home() {
             <div className={styles.studio_test} style={{ paddingTop: '60px' }}>
                 {/* 헤더 */}
                 <div className={styles.studio_header} style={{ top: '0px' }}>
-                    <p className={`logo_font ${styles.studio_header_maintitle}`}>BBUZIZIK</p>
+                    <a className={`logo_font ${styles.studio_header_maintitle}`} href="/">
+                        BBUZIZIK
+                    </a>
                     <p className={`logo_font ${styles.studio_header_subtitle}`}>STUDIO</p>
                 </div>
 
