@@ -1,7 +1,7 @@
 .header {
     width: 100%;
     height: 61px;
-    background-color: #261A1A;
+    background-color: #261a1a;
     top: 0;
     position: fixed;
     margin-left: 60px;
@@ -41,6 +41,7 @@
     align-items: center;
     justify-content: flex-end;
     padding-right: 80px;
+    gap: 20px;
 }
 
 .searchform {
@@ -58,13 +59,13 @@
     font-size: 15px;
     height: 100%;
     outline: none;
-    background-color: #261A1A;
+    background-color: #261a1a;
     border: 0;
 }
 
 .button {
     cursor: pointer;
-    background-color: #261A1A;
+    background-color: #261a1a;
     border: 0;
     align-items: center;
     display: flex;
@@ -74,13 +75,25 @@
     height: 36px;
 }
 
+.button_studio {
+    font-size: 20px;
+    border-radius: 8px;
+    height: 30px;
+    width: 50px;
+    color: #dfe2ea;
+    background-color: #261a1a;
+    border: 1px solid #dfe2ea;
+    cursor: pointer;
+    align-self: center;
+    text-align: center;
+}
 .button_login {
     font-size: 12px;
     border-radius: 8px;
     height: 30px;
     padding: 0 10px;
     color: #dfe2ea;
-    background-color: #261A1A;
+    background-color: #261a1a;
     border: 1px solid #dfe2ea;
     cursor: pointer;
 }
@@ -88,7 +101,7 @@
 .modal {
     width: 500px;
     height: 727px;
-    background-color: #24272C;
+    background-color: #24272c;
     color: white;
     position: fixed;
     top: 50%;
@@ -124,7 +137,7 @@
     display: inline-flex;
     align-items: center;
     text-align: center;
-    background-color: #24272C;
+    background-color: #24272c;
     border: 0px;
     padding: 0 5px;
     width: 30px;
@@ -144,13 +157,18 @@
     top: 3rem;
     width: 190px;
     height: 40px;
-    background-color: white;
+    /* background-color: white; */
     margin-left: 30px;
 }
 
 .modal_logo {
     width: 190px;
     height: 40px;
+}
+
+.modal_logotitle {
+    font-size: 32px;
+    align-self: center;
 }
 
 .modal_login_container {
@@ -170,7 +188,6 @@
     border: 0;
     cursor: pointer;
     font-size: 24px;
-
 }
 
 .res_button {
@@ -179,7 +196,6 @@
     border: 0;
     cursor: pointer;
     font-size: 24px;
-
 }
 
 .Login_container {
@@ -197,7 +213,7 @@
     width: 100%;
     border-radius: 5px;
     border: 0px;
-    background-color: #63666A;
+    background-color: #63666a;
     font-size: 25px;
     color: white;
 }
@@ -217,7 +233,7 @@
     width: 100%;
     border-radius: 5px;
     border: 0px;
-    background-color: #63666A;
+    background-color: #63666a;
     font-size: 25px;
     color: white;
 }
@@ -230,7 +246,7 @@
 }
 
 .Button {
-    background-color: #5CA863;
+    background-color: #5ca863;
     border: 0px;
     border-radius: 10px;
     width: 400px;
@@ -256,12 +272,12 @@
     text-align: center;
     position: absolute;
     top: 68%;
-    background-color: #24272C;
+    background-color: #24272c;
     font-size: 20px;
 }
 
 .Button_google {
-    background-color: #63666A;
+    background-color: #63666a;
     border: 0px;
     border-radius: 10px;
     width: 400px;
@@ -275,7 +291,7 @@
 }
 
 .Button_naver {
-    background-color: #63666A;
+    background-color: #63666a;
     border: 0px;
     border-radius: 10px;
     width: 400px;
@@ -304,7 +320,7 @@
     width: 100%;
     border-radius: 5px;
     border: 0px;
-    background-color: #63666A;
+    background-color: #63666a;
     font-size: 20px;
     color: white;
 }
@@ -323,7 +339,7 @@
     height: 40px;
     border-radius: 5px;
     border: 0px;
-    background-color: #63666A;
+    background-color: #63666a;
     font-size: 20px;
     color: white;
 }
@@ -333,7 +349,7 @@
     height: 40px;
     border-radius: 5px;
     border: 0px;
-    background-color: #63666A;
+    background-color: #63666a;
     font-size: 20px;
     color: white;
 }
@@ -343,7 +359,7 @@
     height: 40px;
     border-radius: 5px;
     border: 0px;
-    background-color: #63666A;
+    background-color: #63666a;
     font-size: 20px;
     color: white;
 }
