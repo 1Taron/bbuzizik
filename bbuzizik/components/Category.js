@@ -88,7 +88,7 @@ export default function Category({ isExpanded }) {
             } else if (width < 1800) {
                 numberOfCategoriesToShow = 8;
             } else if (width < 1950) {
-                numberOfCategoriesToShow = 9; // 주의: 요청에는 1500일 때 7개로 되어 있으나, 증가하는 순서가 자연스러워지도록 9개로 설정했습니다.
+                numberOfCategoriesToShow = 9;
             } else {
                 numberOfCategoriesToShow = 10;
             }
@@ -104,7 +104,7 @@ export default function Category({ isExpanded }) {
             } else if (width < 1600) {
                 numberOfCategoriesToShow = 8;
             } else if (width < 1750) {
-                numberOfCategoriesToShow = 9; // 주의: 요청에는 1500일 때 7개로 되어 있으나, 증가하는 순서가 자연스러워지도록 9개로 설정했습니다.
+                numberOfCategoriesToShow = 9;
             } else {
                 numberOfCategoriesToShow = 10;
             }

@@ -19,3 +19,11 @@
     padding: 0px 50px 0px 50px;
     z-index: 1;
 }
+
+.Section_contents {
+
+    align-items: center;
+    display: flex;
+    padding: 0px 50px 0px 50px;
+    z-index: 1;
+}

@@ -21,7 +21,7 @@ export default function Home() {
         <div className={styles.Layout_contents}>
           <Category isExpanded={isExpanded} />
         </div>
-        <div>
+        <div className={styles.Section_contents}>
           <Streaming />
         </div>
       </div>
