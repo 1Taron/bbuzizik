@@ -38,14 +38,34 @@ export default function Streaming() {
                                 <div className={styles.video_card_img}>
                                     <img className={styles.video_card_title} src="/image/profile_img.svg" alt="video_card_img" />
                                 </div>
-                                <Link
-                                    className={styles.video_card_title_link}
-                                    href={{
-                                        pathname: '/'
-                                    }}
-                                >
-                                    반갑습니다.
-                                </Link>
+                                <div className={styles.video_card_title_container}>
+                                    <Link
+                                        className={styles.video_card_title_link}
+                                        href={{
+                                            pathname: '/'
+                                        }}
+                                    >
+                                        반갑습니다.
+                                    </Link>
+                                    <div className={styles.video_card_name}>
+                                        <Link
+                                            href={{
+                                                pathname: '/'
+                                            }}
+                                        >
+                                            <div className={styles.video_card_name1}>스트리머 이름</div>
+                                        </Link>
+                                    </div>
+                                    <div className={styles.video_card_tag}>
+                                        <Link
+                                            href={{
+                                                pathname: '/'
+                                            }}
+                                        >
+                                            <span className={styles.video_card_tag1}>태그</span>
+                                        </Link>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </li>
