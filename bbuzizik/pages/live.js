@@ -15,6 +15,7 @@ import {
     faPaperPlane,
     faStar,
 } from '@fortawesome/free-solid-svg-icons';
+import ReactPlayer from 'react-player';
 
 export default function Live() {
     const [isExpanded, setIsExpanded] = useState(false);
@@ -100,7 +101,14 @@ export default function Live() {
                     }
                 >
                     <div className={livestyles.livecontainer}>
-                        라이브 화면
+                        <ReactPlayer
+                            url="http://15.164.59.52:8088/hls/test020.m3u8"
+                            muted
+                            controls
+                            playing={true}
+                            width={'100%'}
+                            height={'100%'}
+                        />
                         {!isChatExpanded ? (
                             <FontAwesomeIcon
                                 icon={faCommentDots}

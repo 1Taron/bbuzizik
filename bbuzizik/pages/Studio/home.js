@@ -233,7 +233,7 @@ export default function Home() {
                                     alignSelf: 'center',
                                 }}
                             >
-                                rtmp://rtmpmanager-test-bbuzizik/app/
+                                rtmp://15.164.59.52/live
                             </p>
                         </div>
                         <div className={styles.studio_main_setting_broadcastInfo} style={{ height: '100px' }}>
