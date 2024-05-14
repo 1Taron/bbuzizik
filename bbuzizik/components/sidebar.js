@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import styles from '../css/sidebar.module.css';
+import Link from 'next/link';
 import { faRotate } from '@fortawesome/free-solid-svg-icons';
 
 export default function Sidebar({ isExpanded, onToggle }) {
@@ -56,15 +57,17 @@ export default function Sidebar({ isExpanded, onToggle }) {
                         <ul className={styles.Channel_info_container}>
                             {channelsToShow.map((channel, index) => (
                                 <li className={styles.Channel_info} key={index}>
-                                    <button className={styles.profile_button}>
-                                        <img className={styles.Profile_img} src={channel.img} alt="profile_icon" />
-                                        <div className={styles.Profile_name_game}>
-                                            <div className={styles.Profile_name}>{channel.name}</div>
-                                            <div className={styles.Profile_game}>{channel.game}</div>
-                                        </div>
-                                        <div className={styles.Channel_viewer_dot}></div>
-                                        <div className={styles.Channel_viewer_amount}>{channel.viewers}</div>
-                                    </button>
+                                    <Link href="/live" passHref>
+                                        <button className={styles.profile_button}>
+                                            <img className={styles.Profile_img} src={channel.img} alt="profile_icon" />
+                                            <div className={styles.Profile_name_game}>
+                                                <div className={styles.Profile_name}>{channel.name}</div>
+                                                <div className={styles.Profile_game}>{channel.game}</div>
+                                            </div>
+                                            <div className={styles.Channel_viewer_dot}></div>
+                                            <div className={styles.Channel_viewer_amount}>{channel.viewers}</div>
+                                        </button>
+                                    </Link>
                                     <div className={styles.followPopup1}>
                                         <div className={styles.modal_channel_Info1}>{channel.Info}</div>
                                     </div>
@@ -95,7 +98,9 @@ export default function Sidebar({ isExpanded, onToggle }) {
                         <ul className={styles.Channel_info_container1}>
                             {channelsToShow.map((channel, index) => (
                                 <li className={styles.Channel_info1} key={index}>
-                                    <img className={styles.Profile_img1} src={channel.img} alt="profile_icon" />
+                                    <Link href="/live" passHref>
+                                        <img className={styles.Profile_img1} src={channel.img} alt="profile_icon" />
+                                    </Link>
                                     <div className={styles.followPopup}>
                                         <div className={styles.modal_channel_name}>
                                             {channel.name}

@@ -24,51 +24,53 @@ export default function Streaming() {
                     </Link>
                 </div>
                 <ul className={styles.Section_List}>
-                    <li className={styles.Section_Item}>
-                        <div className={styles.Video_card_container}>
-                            <Link
-                                className={styles.Video_card}
-                                href={{
-                                    pathname: '/'
-                                }}
-                            >
-                                <img src="/image/thumnail.jpeg" alt="thumnail" className={styles.Img} />
-                            </Link>
-                            <div className={styles.video_card_wrapper}>
-                                <div className={styles.video_card_img}>
-                                    <img className={styles.video_card_title} src="/image/profile_img.svg" alt="video_card_img" />
-                                </div>
-                                <div className={styles.video_card_title_container}>
-                                    <Link
-                                        className={styles.video_card_title_link}
-                                        href={{
-                                            pathname: '/'
-                                        }}
-                                    >
-                                        반갑습니다.
-                                    </Link>
-                                    <div className={styles.video_card_name}>
-                                        <Link
-                                            href={{
-                                                pathname: '/'
-                                            }}
-                                        >
-                                            <div className={styles.video_card_name1}>스트리머 이름</div>
-                                        </Link>
+                    {Section_List.map((item, index) => (
+                        <li key={index} className={styles.Section_Item}>
+                            <div className={styles.Video_card_container}>
+                                <Link
+                                    className={styles.Video_card}
+                                    href={{
+                                        pathname: '/live'
+                                    }}
+                                >
+                                    <img src="/image/thumnail.jpeg" alt="thumnail" className={styles.Img} />
+                                </Link>
+                                <div className={styles.video_card_wrapper}>
+                                    <div className={styles.video_card_img}>
+                                        <img className={styles.video_card_title} src="/image/profile_img.svg" alt="video_card_img" />
                                     </div>
-                                    <div className={styles.video_card_tag}>
+                                    <div className={styles.video_card_title_container}>
                                         <Link
+                                            className={styles.video_card_title_link}
                                             href={{
-                                                pathname: '/'
+                                                pathname: '/live'
                                             }}
                                         >
-                                            <span className={styles.video_card_tag1}>태그</span>
+                                            {item.title}
                                         </Link>
+                                        <div className={styles.video_card_name}>
+                                            <Link
+                                                href={{
+                                                    pathname: '/'
+                                                }}
+                                            >
+                                                <div className={styles.video_card_name1}>{item.name}</div>
+                                            </Link>
+                                        </div>
+                                        <div className={styles.video_card_tag}>
+                                            <Link
+                                                href={{
+                                                    pathname: '/'
+                                                }}
+                                            >
+                                                <span className={styles.video_card_tag1}>{item.category}</span>
+                                            </Link>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </li>
+                        </li>
+                    ))}
                 </ul>
             </div>
 
