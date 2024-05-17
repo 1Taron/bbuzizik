@@ -16,6 +16,7 @@ import {
     faStar,
 } from '@fortawesome/free-solid-svg-icons';
 import ReactPlayer from 'react-player';
+import Player from '../components/Player';
 
 export default function Live() {
     const [isExpanded, setIsExpanded] = useState(false);
@@ -101,14 +102,7 @@ export default function Live() {
                     }
                 >
                     <div className={livestyles.livecontainer}>
-                        <ReactPlayer
-                            url="http://15.164.59.52:8088/hls/test020.m3u8"
-                            muted
-                            controls
-                            playing={true}
-                            width={'100%'}
-                            height={'100%'}
-                        />
+                        <Player />
                         {!isChatExpanded ? (
                             <FontAwesomeIcon
                                 icon={faCommentDots}
