@@ -5,7 +5,7 @@ export default function Player() {
     return (
         <>
             <ReactPlayer
-                url={'http://15.164.59.52:8088/hls/test031.m3u8'}
+                url={'http://15.164.59.52:8088/hls/bbbbbb.m3u8'}
                 // ref={playerRef}
                 muted={true}
                 controls={true}

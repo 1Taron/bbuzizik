@@ -15,7 +15,6 @@ import {
     faPaperPlane,
     faStar,
 } from '@fortawesome/free-solid-svg-icons';
-import ReactPlayer from 'react-player';
 import Player from '../components/Player';
 
 export default function Live() {
@@ -95,10 +94,10 @@ export default function Live() {
                         !isExpanded && !isChatExpanded
                             ? livestyles.homecontainer_chatOff // 둘 다 false일 때
                             : isExpanded && !isChatExpanded
-                            ? livestyles.homecontainer_sideExpanded_chatOff // isExpanded만 true일 때
-                            : isExpanded && isChatExpanded
-                            ? livestyles.homecontainer_sideExpanded // 둘 다 true일 때
-                            : livestyles.homecontainer // isChatExpanded만 true일 때, 나머지 경우
+                                ? livestyles.homecontainer_sideExpanded_chatOff // isExpanded만 true일 때
+                                : isExpanded && isChatExpanded
+                                    ? livestyles.homecontainer_sideExpanded // 둘 다 true일 때
+                                    : livestyles.homecontainer // isChatExpanded만 true일 때, 나머지 경우
                     }
                 >
                     <div className={livestyles.livecontainer}>

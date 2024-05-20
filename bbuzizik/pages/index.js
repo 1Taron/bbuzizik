@@ -6,9 +6,21 @@ import MySwiper from '../components/MySwiper';
 import Category from '../components/Category';
 import Streaming from '../components/Streaming';
 import { color } from '@mui/system';
+import { addDoc, collection } from 'firebase/firestore';
+import firestore from './api/firebase/firestore';
 
 export default function Home() {
   const [isExpanded, setIsExpanded] = useState(false);
+
+  // const [value, setValue] = useState();
+
+  // const onClickUpLoadButton = async () => {
+  //   await addDoc(collection(firestore, `temp`),
+  //     {
+  //       value,
+  //     }
+  //   )
+  // }
 
   return (
     <>
@@ -24,6 +36,14 @@ export default function Home() {
         <div className={styles.Section_contents}>
           <Streaming />
         </div>
+        {/*
+        <div>
+          <form onSubmit={(event) => event.preventDefault()}>
+            <input type="text" onChange={(event) => setValue(event.target.value)} />
+            <button onClick={onClickUpLoadButton} >전송</button>
+          </form>
+        </div>
+        */ }
       </div>
     </>
   );
