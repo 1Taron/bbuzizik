@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 import styles from '../css/header.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faVideo } from '@fortawesome/free-solid-svg-icons';
+import { addDoc, collection } from 'firebase/firestore';
+import firestore from '../pages/api/firebase/firestore';
 
 export default function Header() {
     const [searchTerm, setSearchTerm] = useState(''); //검색 입력력
@@ -32,6 +34,11 @@ export default function Header() {
 
     const [PW2, setPW2] = useState(''); //비밀번호 확인 입력
 
+    const [PW3, setPW3] = useState(''); // Firestore에 저장될 비밀번호
+
+    const [error, setError] = useState(''); // 에러 메시지 상태
+
+
     const PW2Change = event => {
         setPW2(event.target.value);
     };
@@ -60,10 +67,6 @@ export default function Header() {
         event.preventDefault();
     };
 
-    const ResSubmit = event => {
-        event.preventDefault();
-    };
-
     //생년월일 select
     const now = new Date();
     const [year, setYear] = useState(now.getFullYear());
@@ -86,6 +89,36 @@ export default function Header() {
     const years = Array.from({ length: 101 }, (_, i) => currentYear - i);
     const months = Array.from({ length: 12 }, (_, i) => 1 + i);
     const days = Array.from({ length: daysInMonth }, (_, i) => 1 + i);
+
+    // firebase 회원가입 정보
+    const onClickUpLoadButton = async () => {
+
+        if (PW1 !== PW2) {
+            setError('비밀번호가 일치하지 않습니다.');
+            return;
+        }
+
+        setError(''); // 오류 메시지 초기화
+        setPW3(PW1); // PW3를 PW1로 설정
+
+        const birthDate = new Date(year, month - 1, day);
+
+        try {
+            await addDoc(collection(firestore, `User`), {
+                Email,
+                ID,
+                PW: PW3, // Firestore에 저장할 비밀번호
+                BirthDate: birthDate,
+            });
+            console.log('회원가입 성공');
+            window.location.reload(); // 페이지 새로고침
+        } catch (error) {
+            console.error('회원가입 실패: ', error);
+        }
+
+
+    };
+
 
     return (
         <header className={styles.header}>
@@ -185,7 +218,7 @@ export default function Header() {
                             </>
                         ) : (
                             <>
-                                <form onSubmit={ResSubmit}>
+                                <form onSubmit={(event) => event.preventDefault()}>
                                     <div className={styles.Res_container}>
                                         <div className={styles.Email_text}>이메일</div>
                                         <input
@@ -253,7 +286,7 @@ export default function Header() {
                                             ))}
                                         </select>
                                     </div>
-                                    <button className={styles.Button3} type="submit">
+                                    <button className={styles.Button3} type="submit" onClick={onClickUpLoadButton}>
                                         완료
                                     </button>
                                 </form>
