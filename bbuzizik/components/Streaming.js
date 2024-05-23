@@ -1,20 +1,15 @@
-import React from "react"
+import React from 'react';
 import styles from '../css/streaming.module.css';
 import Link from 'next/link';
 
 export default function Streaming() {
-
-    const Section_List = [
-        { name: "괴물쥐", category: "talk", viewers: 1000, title: "반갑꼬리" },
-    ];
+    const Section_List = [{ name: '괴물쥐', category: 'talk', viewers: 1000, title: '반갑꼬리' }];
 
     return (
         <>
             <div className={styles.Section_container}>
                 <div className={styles.Section}>
-                    <h2 className={styles.h2}>
-                        추천
-                    </h2 >
+                    <h2 className={styles.h2}>추천</h2>
                     <Link
                         href={{
                             pathname: '/',
@@ -30,20 +25,24 @@ export default function Streaming() {
                                 <Link
                                     className={styles.Video_card}
                                     href={{
-                                        pathname: '/live'
+                                        pathname: '/live',
                                     }}
                                 >
                                     <img src="/image/thumnail.jpeg" alt="thumnail" className={styles.Img} />
                                 </Link>
                                 <div className={styles.video_card_wrapper}>
                                     <div className={styles.video_card_img}>
-                                        <img className={styles.video_card_title} src="/image/profile_img.svg" alt="video_card_img" />
+                                        <img
+                                            className={styles.video_card_title}
+                                            src="/image/profile_img.svg"
+                                            alt="video_card_img"
+                                        />
                                     </div>
                                     <div className={styles.video_card_title_container}>
                                         <Link
                                             className={styles.video_card_title_link}
                                             href={{
-                                                pathname: '/live'
+                                                pathname: '/live',
                                             }}
                                         >
                                             {item.title}
@@ -51,7 +50,7 @@ export default function Streaming() {
                                         <div className={styles.video_card_name}>
                                             <Link
                                                 href={{
-                                                    pathname: '/'
+                                                    pathname: '/',
                                                 }}
                                             >
                                                 <div className={styles.video_card_name1}>{item.name}</div>
@@ -60,7 +59,7 @@ export default function Streaming() {
                                         <div className={styles.video_card_tag}>
                                             <Link
                                                 href={{
-                                                    pathname: '/'
+                                                    pathname: '/',
                                                 }}
                                             >
                                                 <span className={styles.video_card_tag1}>{item.category}</span>
@@ -73,7 +72,6 @@ export default function Streaming() {
                     ))}
                 </ul>
             </div>
-
         </>
     );
 }

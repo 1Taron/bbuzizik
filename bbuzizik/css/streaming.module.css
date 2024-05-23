@@ -25,7 +25,7 @@
 .Section_List {
     display: flex;
     flex-wrap: wrap;
-    margin: 15px -14px -30px 0;
+    margin: 15px -14px 0px 0;
 }
 
 .Section_Item {
@@ -45,8 +45,6 @@
         width: 20%;
     }
 }
-
-
 
 .Video_card_container {
     word-wrap: break-word;

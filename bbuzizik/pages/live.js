@@ -4,7 +4,6 @@ import Header from '../components/Header';
 import livestyles from '../css/main_live.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFaceSmile } from '@fortawesome/free-regular-svg-icons';
-import Image from 'next/image';
 import shit from '../public/shit01.png';
 import {
     faBell,
@@ -15,7 +14,7 @@ import {
     faPaperPlane,
     faStar,
 } from '@fortawesome/free-solid-svg-icons';
-import Player from '../components/Player';
+// import Player from '../components/Player';
 
 export default function Live() {
     const [isExpanded, setIsExpanded] = useState(false);
@@ -94,14 +93,14 @@ export default function Live() {
                         !isExpanded && !isChatExpanded
                             ? livestyles.homecontainer_chatOff // 둘 다 false일 때
                             : isExpanded && !isChatExpanded
-                                ? livestyles.homecontainer_sideExpanded_chatOff // isExpanded만 true일 때
-                                : isExpanded && isChatExpanded
-                                    ? livestyles.homecontainer_sideExpanded // 둘 다 true일 때
-                                    : livestyles.homecontainer // isChatExpanded만 true일 때, 나머지 경우
+                            ? livestyles.homecontainer_sideExpanded_chatOff // isExpanded만 true일 때
+                            : isExpanded && isChatExpanded
+                            ? livestyles.homecontainer_sideExpanded // 둘 다 true일 때
+                            : livestyles.homecontainer // isChatExpanded만 true일 때, 나머지 경우
                     }
                 >
                     <div className={livestyles.livecontainer}>
-                        <Player />
+                        {/* <Player /> */}
                         {!isChatExpanded ? (
                             <FontAwesomeIcon
                                 icon={faCommentDots}
@@ -234,8 +233,8 @@ export default function Live() {
                                 }}
                             />
                             {/* nextjs이미지 */}
-                            <Image
-                                src={shit}
+                            <img
+                                src="../public/shit01.png"
                                 style={{
                                     position: 'absolute',
                                     top: '14px',
