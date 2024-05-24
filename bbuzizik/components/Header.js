@@ -3,8 +3,10 @@ import React, { useState, useEffect } from 'react';
 import styles from '../css/header.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faVideo } from '@fortawesome/free-solid-svg-icons';
+import { auth, db } from '../pages/api/firebase/firebasedb';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { addDoc, collection } from 'firebase/firestore';
-import firestore from '../pages/api/firebase/firestore';
+
 
 export default function Header() {
     const [searchTerm, setSearchTerm] = useState(''); //검색 입력력
@@ -63,10 +65,6 @@ export default function Header() {
         setEmail(event.target.value);
     };
 
-    const LoginSubmit = event => {
-        event.preventDefault();
-    };
-
     //생년월일 select
     const now = new Date();
     const [year, setYear] = useState(now.getFullYear());
@@ -90,9 +88,8 @@ export default function Header() {
     const months = Array.from({ length: 12 }, (_, i) => 1 + i);
     const days = Array.from({ length: daysInMonth }, (_, i) => 1 + i);
 
-    // firebase 회원가입 정보
+    //회원가입 기능 및 firestore에 사용자 정보 저장
     const onClickUpLoadButton = async () => {
-
         if (PW1 !== PW2) {
             setError('비밀번호가 일치하지 않습니다.');
             return;
@@ -104,20 +101,46 @@ export default function Header() {
         const birthDate = new Date(year, month - 1, day);
 
         try {
-            await addDoc(collection(firestore, `User`), {
+            // Firebase Authentication을 사용하여 사용자 회원가입
+            const userCredential = await createUserWithEmailAndPassword(auth, Email, PW3);
+
+            // 사용자 회원가입 성공
+            console.log('회원가입 성공', userCredential.user);
+
+            // Firestore에 저장할 사용자의 추가 정보
+            await addDoc(collection(db, "User"), {
+                UID: userCredential.user.uid, // 생성된 사용자 UID
                 Email,
                 ID,
-                PW: PW3, // Firestore에 저장할 비밀번호
+                PW: PW3,
                 BirthDate: birthDate,
             });
-            console.log('회원가입 성공');
+
+            console.log('Firestore에 사용자 정보 저장 성공');
             window.location.reload(); // 페이지 새로고침
         } catch (error) {
             console.error('회원가입 실패: ', error);
+            setError(error.message); // 오류 메시지 설정
         }
-
-
     };
+
+    //로그인 기능
+    const onClickLoginButton = async () => {
+        try {
+            // 이메일과 비밀번호로 로그인 시도
+            const userCredential = await signInWithEmailAndPassword(auth, Login, PW);
+
+            // 로그인 성공
+            console.log('로그인 성공:', userCredential.user);
+            window.location.reload(); // 페이지 새로고침
+        } catch (error) {
+            console.error('로그인 실패:', error);
+            setError(error.message); // 로그인 실패 시 오류 메시지 설정
+        }
+    };
+
+
+
 
 
     return (
@@ -181,12 +204,12 @@ export default function Header() {
                         </div>
                         {activeTab === '로그인' ? (
                             <>
-                                <form onSubmit={LoginSubmit}>
+                                <form onSubmit={(event) => event.preventDefault()}>
                                     <div className={styles.Login_container}>
-                                        <div className={styles.Login_text}>이메일 또는 사용자명</div>
+                                        <div className={styles.Login_text}>이메일</div>
                                         <input
                                             className={styles.Login_input}
-                                            type="text"
+                                            type="email"
                                             value={Login}
                                             onChange={LoginChange}
                                         ></input>
@@ -195,18 +218,18 @@ export default function Header() {
                                         <div className={styles.PW_text}>비밀번호</div>
                                         <input
                                             className={styles.PW_input}
-                                            type="text"
+                                            type="password"
                                             value={PW}
                                             onChange={PWChange}
                                         ></input>
                                     </div>
+                                    <Link href="/" className={styles.Search_PW}>
+                                        비밀번호를 잊어버리셨나요?
+                                    </Link>
+                                    <button className={styles.Button} type="submit" onClick={onClickLoginButton} >
+                                        로그인
+                                    </button>
                                 </form>
-                                <Link href="/" className={styles.Search_PW}>
-                                    비밀번호를 잊어버리셨나요?
-                                </Link>
-                                <button className={styles.Button} type="submit">
-                                    로그인
-                                </button>
                                 <div className={styles.Bar}></div>
                                 <div className={styles.Bar_}>또는</div>
                                 <button className={styles.Button_google} type="button">
@@ -223,7 +246,7 @@ export default function Header() {
                                         <div className={styles.Email_text}>이메일</div>
                                         <input
                                             className={styles.Email_input}
-                                            type="text"
+                                            type="email"
                                             value={Email}
                                             onChange={EmailChange}
                                         ></input>
@@ -237,14 +260,14 @@ export default function Header() {
                                         <div className={styles.Email_text}>비밀번호</div>
                                         <input
                                             className={styles.Email_input}
-                                            type="text"
+                                            type="password"
                                             value={PW1}
                                             onChange={PW1Change}
                                         ></input>
                                         <div className={styles.Email_text}>비밀번호 확인</div>
                                         <input
                                             className={styles.Email_input}
-                                            type="text"
+                                            type="password"
                                             value={PW2}
                                             onChange={PW2Change}
                                         ></input>

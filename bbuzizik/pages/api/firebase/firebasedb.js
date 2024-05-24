@@ -1,4 +1,6 @@
-import { initializeApp } from 'firebase/app';
+import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
     apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -10,7 +12,11 @@ const firebaseConfig = {
     measurementID: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
-// Initialize Firebase
-const firebasedb = initializeApp(firebaseConfig);
+// Firebase 앱 초기화
+const app = initializeApp(firebaseConfig);
 
-export default firebasedb;
+// Firebase 서비스 객체
+const db = getFirestore(app);
+const auth = getAuth(app);
+
+export { auth, db };
