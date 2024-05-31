@@ -3,10 +3,9 @@ import React, { useState, useEffect } from 'react';
 import styles from '../css/header.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faVideo } from '@fortawesome/free-solid-svg-icons';
-import { auth, db } from '../pages/api/firebase/firebasedb';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import { addDoc, collection } from 'firebase/firestore';
-
+// import { auth, db } from '../pages/api/firebase/firebasedb';
+// import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+// import { addDoc, collection } from 'firebase/firestore';
 
 export default function Header() {
     const [searchTerm, setSearchTerm] = useState(''); //검색 입력력
@@ -39,7 +38,6 @@ export default function Header() {
     const [PW3, setPW3] = useState(''); // Firestore에 저장될 비밀번호
 
     const [error, setError] = useState(''); // 에러 메시지 상태
-
 
     const PW2Change = event => {
         setPW2(event.target.value);
@@ -89,59 +87,55 @@ export default function Header() {
     const days = Array.from({ length: daysInMonth }, (_, i) => 1 + i);
 
     //회원가입 기능 및 firestore에 사용자 정보 저장
-    const onClickUpLoadButton = async () => {
-        if (PW1 !== PW2) {
-            setError('비밀번호가 일치하지 않습니다.');
-            return;
-        }
+    // const onClickUpLoadButton = async () => {
+    //     if (PW1 !== PW2) {
+    //         setError('비밀번호가 일치하지 않습니다.');
+    //         return;
+    //     }
 
-        setError(''); // 오류 메시지 초기화
-        setPW3(PW1); // PW3를 PW1로 설정
+    //     setError(''); // 오류 메시지 초기화
+    //     setPW3(PW1); // PW3를 PW1로 설정
 
-        const birthDate = new Date(year, month - 1, day);
+    //     const birthDate = new Date(year, month - 1, day);
 
-        try {
-            // Firebase Authentication을 사용하여 사용자 회원가입
-            const userCredential = await createUserWithEmailAndPassword(auth, Email, PW3);
+    //     try {
+    //         // Firebase Authentication을 사용하여 사용자 회원가입
+    //         const userCredential = await createUserWithEmailAndPassword(auth, Email, PW3);
 
-            // 사용자 회원가입 성공
-            console.log('회원가입 성공', userCredential.user);
+    //         // 사용자 회원가입 성공
+    //         console.log('회원가입 성공', userCredential.user);
 
-            // Firestore에 저장할 사용자의 추가 정보
-            await addDoc(collection(db, "User"), {
-                UID: userCredential.user.uid, // 생성된 사용자 UID
-                Email,
-                ID,
-                PW: PW3,
-                BirthDate: birthDate,
-            });
+    //         // Firestore에 저장할 사용자의 추가 정보
+    //         await addDoc(collection(db, "User"), {
+    //             UID: userCredential.user.uid, // 생성된 사용자 UID
+    //             Email,
+    //             ID,
+    //             PW: PW3,
+    //             BirthDate: birthDate,
+    //         });
 
-            console.log('Firestore에 사용자 정보 저장 성공');
-            window.location.reload(); // 페이지 새로고침
-        } catch (error) {
-            console.error('회원가입 실패: ', error);
-            setError(error.message); // 오류 메시지 설정
-        }
-    };
+    //         console.log('Firestore에 사용자 정보 저장 성공');
+    //         window.location.reload(); // 페이지 새로고침
+    //     } catch (error) {
+    //         console.error('회원가입 실패: ', error);
+    //         setError(error.message); // 오류 메시지 설정
+    //     }
+    // };
 
     //로그인 기능
-    const onClickLoginButton = async () => {
-        try {
-            // 이메일과 비밀번호로 로그인 시도
-            const userCredential = await signInWithEmailAndPassword(auth, Login, PW);
+    // const onClickLoginButton = async () => {
+    //     try {
+    //         // 이메일과 비밀번호로 로그인 시도
+    //         const userCredential = await signInWithEmailAndPassword(auth, Login, PW);
 
-            // 로그인 성공
-            console.log('로그인 성공:', userCredential.user);
-            window.location.reload(); // 페이지 새로고침
-        } catch (error) {
-            console.error('로그인 실패:', error);
-            setError(error.message); // 로그인 실패 시 오류 메시지 설정
-        }
-    };
-
-
-
-
+    //         // 로그인 성공
+    //         console.log('로그인 성공:', userCredential.user);
+    //         window.location.reload(); // 페이지 새로고침
+    //     } catch (error) {
+    //         console.error('로그인 실패:', error);
+    //         setError(error.message); // 로그인 실패 시 오류 메시지 설정
+    //     }
+    // };
 
     return (
         <header className={styles.header}>
@@ -204,7 +198,7 @@ export default function Header() {
                         </div>
                         {activeTab === '로그인' ? (
                             <>
-                                <form onSubmit={(event) => event.preventDefault()}>
+                                <form onSubmit={event => event.preventDefault()}>
                                     <div className={styles.Login_container}>
                                         <div className={styles.Login_text}>이메일</div>
                                         <input
@@ -226,7 +220,7 @@ export default function Header() {
                                     <Link href="/" className={styles.Search_PW}>
                                         비밀번호를 잊어버리셨나요?
                                     </Link>
-                                    <button className={styles.Button} type="submit" onClick={onClickLoginButton} >
+                                    <button className={styles.Button} type="submit">
                                         로그인
                                     </button>
                                 </form>
@@ -241,7 +235,7 @@ export default function Header() {
                             </>
                         ) : (
                             <>
-                                <form onSubmit={(event) => event.preventDefault()}>
+                                <form onSubmit={event => event.preventDefault()}>
                                     <div className={styles.Res_container}>
                                         <div className={styles.Email_text}>이메일</div>
                                         <input
@@ -309,7 +303,7 @@ export default function Header() {
                                             ))}
                                         </select>
                                     </div>
-                                    <button className={styles.Button3} type="submit" onClick={onClickUpLoadButton}>
+                                    <button className={styles.Button3} type="submit">
                                         완료
                                     </button>
                                 </form>

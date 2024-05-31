@@ -14,9 +14,10 @@ import {
     faPaperPlane,
     faStar,
 } from '@fortawesome/free-solid-svg-icons';
-// import Player from '../components/Player';
+import Player from '../components/Player';
 
 export default function Live() {
+    const API_KEY = process.env.NEXT_PUBLIC_SERVER_IP;
     const [isExpanded, setIsExpanded] = useState(false);
 
     const messagesEndRef = useRef(null);
@@ -99,8 +100,14 @@ export default function Live() {
                             : livestyles.homecontainer // isChatExpanded만 true일 때, 나머지 경우
                     }
                 >
+                    {/* 라이브 화면 */}
                     <div className={livestyles.livecontainer}>
-                        {/* <Player /> */}
+                        {/* <ReactPlayer url="https://www.youtube.com/watch?v=LXb3EKWsInQ" /> */}
+                        <Player
+                            src={`http://${API_KEY}:8080/hls/qwe123/index.m3u8`}
+                            type="m3u8"
+                            className={livestyles.hlsplayer}
+                        />
                         {!isChatExpanded ? (
                             <FontAwesomeIcon
                                 icon={faCommentDots}

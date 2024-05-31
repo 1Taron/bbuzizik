@@ -1,18 +1,22 @@
-// import { useEffect, useRef } from 'react';
-// import ReactPlayer from 'react-player';
+import React, { useEffect, useRef } from 'react';
+import Hls from 'hls.js';
 
-// export default function Player() {
-//     return (
-//         <>
-//             <ReactPlayer
-//                 url={'http://15.164.59.52:8088/hls/bbbbbb.m3u8'}
-//                 // ref={playerRef}
-//                 muted={true}
-//                 controls={true}
-//                 playing={true}
-//                 width={'100%'}
-//                 height={'100%'}
-//             />
-//         </>
-//     );
-// }
+const Player = ({ src, type }) => {
+    const videoRef = useRef();
+
+    useEffect(() => {
+        if (type === 'm3u8' && Hls.isSupported()) {
+            const hls = new Hls();
+            hls.loadSource(src);
+            hls.attachMedia(videoRef.current);
+        }
+    }, [src, type]);
+
+    return type === 'm3u8' ? (
+        <video ref={videoRef} controls width={'100%'} height={'100%'} autoPlay />
+    ) : (
+        <video ref={videoRef} src={src} controls />
+    );
+};
+
+export default Player;
