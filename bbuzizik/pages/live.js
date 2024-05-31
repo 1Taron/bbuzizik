@@ -94,17 +94,17 @@ export default function Live() {
                         !isExpanded && !isChatExpanded
                             ? livestyles.homecontainer_chatOff // 둘 다 false일 때
                             : isExpanded && !isChatExpanded
-                            ? livestyles.homecontainer_sideExpanded_chatOff // isExpanded만 true일 때
-                            : isExpanded && isChatExpanded
-                            ? livestyles.homecontainer_sideExpanded // 둘 다 true일 때
-                            : livestyles.homecontainer // isChatExpanded만 true일 때, 나머지 경우
+                                ? livestyles.homecontainer_sideExpanded_chatOff // isExpanded만 true일 때
+                                : isExpanded && isChatExpanded
+                                    ? livestyles.homecontainer_sideExpanded // 둘 다 true일 때
+                                    : livestyles.homecontainer // isChatExpanded만 true일 때, 나머지 경우
                     }
                 >
                     {/* 라이브 화면 */}
                     <div className={livestyles.livecontainer}>
                         {/* <ReactPlayer url="https://www.youtube.com/watch?v=LXb3EKWsInQ" /> */}
                         <Player
-                            src={`http://${API_KEY}:8080/hls/qwe123/index.m3u8`}
+                            src={`http://${API_KEY}:8080/hls/bbbbb/index.m3u8`}
                             type="m3u8"
                             className={livestyles.hlsplayer}
                         />
