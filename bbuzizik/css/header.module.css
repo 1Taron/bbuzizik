@@ -84,9 +84,9 @@
     background-color: #261a1a;
     border: 1px solid #dfe2ea;
     cursor: pointer;
-    align-self: center;
     text-align: center;
 }
+
 .button_login {
     font-size: 12px;
     border-radius: 8px;

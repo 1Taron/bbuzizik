@@ -3,11 +3,13 @@ import React, { useState, useEffect } from 'react';
 import styles from '../css/header.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faVideo } from '@fortawesome/free-solid-svg-icons';
-import { getAuth, auth, db } from '../pages/api/firebase/firebasedb';
+import { auth, db } from '../pages/api/firebase/firebasedb';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { addDoc, collection } from 'firebase/firestore';
+import Dropdown from '../components/DropDown'
 
-export default function Header() {
+
+const Header = () => {
     const [searchTerm, setSearchTerm] = useState(''); //검색 입력력
 
     const handleChange = event => {
@@ -136,16 +138,6 @@ export default function Header() {
             setError(error.message); // 로그인 실패 시 오류 메시지 설정
         }
     };
-    // 로그아웃 기능
-    const handleLogout = async () => {
-        try {
-            await signOut(auth);
-            console.log('로그아웃 성공');
-            window.location.reload(); // 페이지 새로고침
-        } catch (error) {
-            console.error('로그아웃 실패:', error);
-        }
-    };
 
     //토큰이 있나 없나 확인
     const [user, setUser] = useState(null);
@@ -194,9 +186,9 @@ export default function Header() {
                 </a>
                 <div>
                     {user ? (
-                        <button className={styles.button_login} onClick={() => handleLogout()} >
-                            로그아웃
-                        </button>
+                        <>
+                            <Dropdown />
+                        </>
                     ) : (
                         <button className={styles.button_login} onClick={() => setIsModalOpen(true)}>
                             로그인
@@ -344,3 +336,5 @@ export default function Header() {
         </header>
     );
 }
+
+export default Header;
