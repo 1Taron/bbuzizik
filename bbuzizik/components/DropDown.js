@@ -51,7 +51,7 @@ const DropdownMenu = () => {
                             <a href='/'>팔로잉 채널</a>
                         </li>
                         <li className={styles.dropdown_item}>
-                            <button onClick={handleLogout}>로그아웃</button>
+                            <button className={styles.dropdown_item_button} onClick={handleLogout}>로그아웃</button>
                         </li>
                     </ul>
                 </div>
