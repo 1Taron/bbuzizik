@@ -41,6 +41,11 @@
 .dropdown_item {
     padding: 8px 16px;
     cursor: pointer;
+    font-family: omyu_pretty;
+    font-weight: bold;
+    font-size: 18px;
+    display: flex;
+    width: 180px;
 }
 
 .Profile_img {
@@ -87,4 +92,13 @@
     font-size: 18px;
     font-weight: bold;
     font-family: omyu_pretty;
+}
+
+.dropdown_item_button {
+    border: 0px;
+    background-color: white;
+    font-family: omyu_pretty;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
 }
