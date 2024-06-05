@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import Sidebar from '../components/sidebar';
-import Header from '../components/Header';
-import styles from '../css/main.module.css';
-import MySwiper from '../components/MySwiper';
-import Category from '../components/Category';
-import Streaming from '../components/Streaming';
+import Sidebar from '../../components/sidebar';
+import Header from '../../components/Header';
+import styles from '../../css/main.module.css';
+import MySwiper from '../../components/MySwiper';
+import Category from '../../components/Category';
+import Streaming from '../../components/Streaming';
 
 export default function Home() {
-    const [isExpanded, setIsExpanded] = useState(false);
-    const [isConnected, setIsConnected] = useState(false);
-    const [transport, setTransport] = useState('N/A');
+    const [isExpanded, setIsExpanded] = useState(true);
 
     return (
         <>

@@ -1,30 +1,47 @@
-{/* 채팅 말풍선 */}
-            <div className={livestyles.live_chat_chatting}>
-              {/* 뱃지 */}
-              <div className={livestyles.live_chat_badge}></div>
-              {/* 유저 이름 */}
-              <p className={`default_font ${livestyles.live_chat_username}`}>
-                이름
-              </p>
-              {/* 채팅 내용 */}
-              <p className={`default_font ${livestyles.live_chat_userchat}`}>
-                이것은 테스트 채팅 입니다. ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ
-              </p>
-            </div>
+"scripts": {
+-   "dev": "next dev",
++   "dev": "node server.js",
+    "build": "next build",
+-   "start": "next start",
++   "start": "NODE_ENV=production node server.js",
+    "lint": "next lint"
 
-            {/* 채팅 말풍선 */}
-            <div className={livestyles.live_chat_chatting}>
-              {/* 뱃지 */}
-              <div className={livestyles.live_chat_badge}></div>
-              {/* 유저 이름 */}
-              <p className={`default_font ${livestyles.live_chat_username}`}>
-                이름
-              </p>
-              {/* 채팅 내용 */}
-              <p className={`default_font ${livestyles.live_chat_userchat}`}>
-                이것은 테스트 채팅 입니다. ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ
-              </p>
-              <p className={`default_font ${livestyles.live_chat_userchatBot}`}>
-                이것은 테스트 채팅 입니다. ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ
-              </p>
-            </div>
+
+
+    // import { Server } from 'socket.io';
+
+// export default function SocketHandler(req, res) {
+//     const io = new Server(res.socket.server);
+//     res.socket.server.io = io;
+
+//     io.on('connection', socket => {
+//         socket.on('send_message', obj => {
+//             io.emit('receive_message', obj);
+//         });
+//     });
+
+//     console.log('Setting Socket');
+//     res.end();
+// }
+
+
+
+
+
+    if (res.socket.server.io) {
+        console.log('Already set up');
+    } else {
+
+const clientId = socket.id;
+            // 클라이언트가 이미 연결되어 있는지 확인
+            if (clientId in clientConnections) {
+                // 기존 연결 끊기
+                clientConnections[clientId].disconnect(true);
+                delete clientConnections[clientId];
+            }
+            console.log('Socket.io client connected:', socket.id);
+            socket.on('disconnect', () => {
+                console.log('Socket.io client disconnected:', socket.id);
+            });
+    }
+    

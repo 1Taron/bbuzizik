@@ -40,7 +40,7 @@ export default function Sidebar({ isExpanded, onToggle }) {
                 left: '0',
                 width: isExpanded ? '250px' : '50px',
                 height: '100%',
-                zIndex: '5000',
+                zIndex: '190',
             }}
         >
             <button onClick={onToggle} className={styles.button}>

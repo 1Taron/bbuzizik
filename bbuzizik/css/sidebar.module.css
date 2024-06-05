@@ -6,7 +6,7 @@
     left: 0;
     top: 60px;
     align-items: center;
-    z-index: 5000;
+    z-index: 190;
     border-top: solid 0.1rem black;
     border-right: solid 0.1rem black;
 }
@@ -30,7 +30,7 @@
     top: 60px;
     text-align: center;
     align-items: center;
-    z-index: 5000;
+    z-index: 190;
     border-top: solid 0.1rem black;
     border-right: solid 0.1rem black;
 }

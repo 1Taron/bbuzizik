@@ -3,11 +3,10 @@ import React, { useState, useEffect } from 'react';
 import styles from '../css/header.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faVideo } from '@fortawesome/free-solid-svg-icons';
-import { auth, db } from '../pages/api/firebase/firebasedb';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { getAuth, auth, db } from '../src/pages/api/firebase/firebasedb';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { addDoc, collection } from 'firebase/firestore';
-import Dropdown from '../components/DropDown'
-
+import Dropdown from '../components/DropDown';
 
 const Header = () => {
     const [searchTerm, setSearchTerm] = useState(''); //검색 입력력
@@ -108,7 +107,7 @@ const Header = () => {
             console.log('회원가입 성공', userCredential.user);
 
             // Firestore에 저장할 사용자의 추가 정보
-            await addDoc(collection(db, "User"), {
+            await addDoc(collection(db, 'User'), {
                 UID: userCredential.user.uid, // 생성된 사용자 UID
                 Email,
                 ID,
@@ -144,7 +143,7 @@ const Header = () => {
 
     useEffect(() => {
         // Firebase 사용자 상태 변경 감지
-        const unsubscribe = auth.onAuthStateChanged((currentUser) => {
+        const unsubscribe = auth.onAuthStateChanged(currentUser => {
             setUser(currentUser);
         });
 
@@ -194,7 +193,6 @@ const Header = () => {
                             로그인
                         </button>
                     )}
-
                 </div>
             </div>
             {isModalOpen && (
@@ -335,6 +333,6 @@ const Header = () => {
             )}
         </header>
     );
-}
+};
 
 export default Header;

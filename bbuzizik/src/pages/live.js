@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
-import Sidebar from '../components/sidebar';
-import Header from '../components/Header';
-import livestyles from '../css/main_live.module.css';
+import Sidebar from '../../components/sidebar';
+import Header from '../../components/Header';
+import livestyles from '../../css/main_live.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFaceSmile } from '@fortawesome/free-regular-svg-icons';
-import shit from '../public/shit01.png';
+import shit from '../../public/shit01.png';
 import {
     faBell,
     faCommentDots,
@@ -14,11 +14,11 @@ import {
     faPaperPlane,
     faStar,
 } from '@fortawesome/free-solid-svg-icons';
-import Player from '../components/Player';
+import Player from '../../components/Player';
 
 export default function Live() {
     const API_KEY = process.env.NEXT_PUBLIC_SERVER_IP;
-    const [isExpanded, setIsExpanded] = useState(false);
+    const [isExpanded, setIsExpanded] = useState(true);
 
     const messagesEndRef = useRef(null);
 
@@ -28,7 +28,7 @@ export default function Live() {
     const chat_handleChange = e => {
         setChatText(e.target.value);
     };
-    const chat_handleClick = () => {
+    const sendChat_handleClick = () => {
         if (chatText.trim() !== '') {
             setChatMessages(prevChatMessages => [...prevChatMessages, chatText]);
             setChatText('');
@@ -36,7 +36,7 @@ export default function Live() {
     };
     const chat_handleKeyDown = event => {
         if (event.key === 'Enter') {
-            chat_handleClick();
+            sendChat_handleClick();
         }
     };
 
@@ -94,10 +94,10 @@ export default function Live() {
                         !isExpanded && !isChatExpanded
                             ? livestyles.homecontainer_chatOff // 둘 다 false일 때
                             : isExpanded && !isChatExpanded
-                                ? livestyles.homecontainer_sideExpanded_chatOff // isExpanded만 true일 때
-                                : isExpanded && isChatExpanded
-                                    ? livestyles.homecontainer_sideExpanded // 둘 다 true일 때
-                                    : livestyles.homecontainer // isChatExpanded만 true일 때, 나머지 경우
+                            ? livestyles.homecontainer_sideExpanded_chatOff // isExpanded만 true일 때
+                            : isExpanded && isChatExpanded
+                            ? livestyles.homecontainer_sideExpanded // 둘 다 true일 때
+                            : livestyles.homecontainer // isChatExpanded만 true일 때, 나머지 경우
                     }
                 >
                     {/* 라이브 화면 */}
@@ -263,7 +263,7 @@ export default function Live() {
                             <button
                                 type="button"
                                 className={livestyles.main_live_chat_inputbox_btn}
-                                onClick={chat_handleClick}
+                                onClick={sendChat_handleClick}
                             >
                                 <FontAwesomeIcon
                                     icon={faPaperPlane}
@@ -275,6 +275,7 @@ export default function Live() {
                     {/* 채팅 뷰 영역 */}
                     <div className={isChatExpanded ? livestyles.live_chat_layout : livestyles.live_chat_hidden}>
                         <div className={livestyles.live_chat_viewWrapper}>
+                            {/* 채팅 MAP */}
                             {chatMessages.map((message, index) => (
                                 <span key={index} className={livestyles.live_chat_chatting}>
                                     {/* 채팅 말풍선 */}
