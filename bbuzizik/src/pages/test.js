@@ -21,14 +21,18 @@ const Test = () => {
 
         console.log('socketInitializer 2번');
 
-        socket.on('receive_message', data => {
-            console.log(data);
-            setAllMessage(pre => [...pre, data]);
-            console.log('receive_message 1번');
-        });
+        await new Promise(resolve => socket.on('connect', resolve)); // socket 객체가 준비될 때까지 기다림
 
         console.log('socketInitializer 3번');
-        await new Promise(resolve => setTimeout(resolve, 2000)); // 2초 딜레이
+
+        // 기존에 등록된 'receive_message' 이벤트 핸들러가 있는지 확인하고, 없으면 새로 등록
+        if (!socket.hasListeners('receive_message')) {
+            socket.on('receive_message', data => {
+                console.log(data);
+                setAllMessage(pre => [...pre, data]);
+                console.log('receive_message 1번');
+            });
+        }
     }
 
     function handleSubmit(e) {
