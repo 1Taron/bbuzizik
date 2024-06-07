@@ -1,5 +1,5 @@
 import { signOut } from 'firebase/auth';
-import { auth } from '../pages/api/firebase/firebasedb';
+import { auth } from '../src/pages/api/firebase/firebasedb';
 import React, { useState } from 'react';
 import styles from '../css/dropdown.module.css'
 

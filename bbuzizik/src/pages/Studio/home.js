@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import styles from '../../css/studio_home.module.css';
+import styles from '../../../css/studio_home.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faChevronLeft,
@@ -15,9 +15,9 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { Checkbox, FormControlLabel, FormGroup } from '@mui/material';
 import { blue, pink } from '@mui/material/colors';
-import J_Checkbox from '../../components/J_Checkbox';
-import ChatPermission from '../../components/ChatPermission';
-import BroadcastProperty from '../../components/BroadcastProperty';
+import J_Checkbox from '../../../components/J_Checkbox';
+import ChatPermission from '../../../components/ChatPermission';
+import BroadcastProperty from '../../../components/BroadcastProperty';
 import crypto from 'crypto';
 
 export default function Home() {
