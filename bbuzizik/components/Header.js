@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import styles from '../css/header.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faVideo } from '@fortawesome/free-solid-svg-icons';
-import { getAuth, auth, db } from '../src/pages/api/firebase/firebasedb';
+import { auth, db } from '../src/pages/api/firebase/firebasedb';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { addDoc, collection } from 'firebase/firestore';
 import Dropdown from '../components/DropDown';
@@ -92,10 +92,11 @@ const Header = () => {
         if (PW1 !== PW2) {
             setError('비밀번호가 일치하지 않습니다.');
             return;
+        } else {
+            setError(''); // 오류 메시지 초기화
+            setPW3(PW1); // PW3를 PW1로 설정
         }
 
-        setError(''); // 오류 메시지 초기화
-        setPW3(PW1); // PW3를 PW1로 설정
 
         const birthDate = new Date(year, month - 1, day);
 
@@ -123,32 +124,35 @@ const Header = () => {
         }
     };
 
+
+
     // 로그인 기능
     const onClickLoginButton = async () => {
         try {
             // 이메일과 비밀번호로 로그인 시도
             const userCredential = await signInWithEmailAndPassword(auth, Login, PW);
-
             // 로그인 성공
             console.log('로그인 성공:', userCredential.user);
-            window.location.reload(); // 페이지 새로고침
+
         } catch (error) {
             console.error('로그인 실패:', error);
             setError(error.message); // 로그인 실패 시 오류 메시지 설정
         }
+
     };
 
-    //토큰이 있나 없나 확인
-    const [user, setUser] = useState(null);
-
     useEffect(() => {
-        // Firebase 사용자 상태 변경 감지
         const unsubscribe = auth.onAuthStateChanged(currentUser => {
             setUser(currentUser);
+            console.log(currentUser);
         });
-
         return unsubscribe;
     }, []);
+
+    //토큰이 있나 없나 확인
+    const [user, setUser] = useState('');
+
+
 
     return (
         <header className={styles.header}>

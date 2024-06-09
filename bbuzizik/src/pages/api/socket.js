@@ -9,11 +9,6 @@ export default function SocketHandler(req, res) {
     let connectedClient;
 
     io.on('connection', socket => {
-        // 이미 연결된 클라이언트가 있다면 끊기
-        if (connectedClient) {
-            console.log('Disconnecting previous client...');
-            connectedClient.disconnect(true);
-        }
 
         // 새로운 클라이언트 연결 정보 저장
         connectedClient = socket;

@@ -15,6 +15,7 @@ import {
     faStar,
 } from '@fortawesome/free-solid-svg-icons';
 import Player from '../../components/Player';
+import { auth } from '../pages/api/firebase/firebasedb';
 
 export default function Live() {
     const API_KEY = process.env.NEXT_PUBLIC_SERVER_IP;
@@ -84,6 +85,20 @@ export default function Live() {
         setIsChatExpanded(true);
     };
 
+    //로그인된 사용자 정보 가져오기
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        const unsubscribe = auth.onAuthStateChanged(currentUser => {
+            if (currentUser) {
+                setUser(currentUser.uid);
+            } else {
+                setUser('');
+            }
+        });
+        return unsubscribe;
+    }, []);
+
     return (
         <>
             <Sidebar isExpanded={isExpanded} onToggle={() => setIsExpanded(!isExpanded)} />
@@ -94,10 +109,10 @@ export default function Live() {
                         !isExpanded && !isChatExpanded
                             ? livestyles.homecontainer_chatOff // 둘 다 false일 때
                             : isExpanded && !isChatExpanded
-                            ? livestyles.homecontainer_sideExpanded_chatOff // isExpanded만 true일 때
-                            : isExpanded && isChatExpanded
-                            ? livestyles.homecontainer_sideExpanded // 둘 다 true일 때
-                            : livestyles.homecontainer // isChatExpanded만 true일 때, 나머지 경우
+                                ? livestyles.homecontainer_sideExpanded_chatOff // isExpanded만 true일 때
+                                : isExpanded && isChatExpanded
+                                    ? livestyles.homecontainer_sideExpanded // 둘 다 true일 때
+                                    : livestyles.homecontainer // isChatExpanded만 true일 때, 나머지 경우
                     }
                 >
                     {/* 라이브 화면 */}
