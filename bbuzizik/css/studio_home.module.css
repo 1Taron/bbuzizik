@@ -34,7 +34,7 @@
     background-color: var(--black);
 }
 
-.studio_main > div {
+.studio_main>div {
     color: white;
 }
 
@@ -53,6 +53,7 @@
     justify-content: center;
     align-items: center;
 }
+
 .studio_main_setting {
     width: 1000px;
     height: calc(100vh - 60px - 400px);
@@ -66,10 +67,12 @@
     font-size: 20px;
     padding: 0px 10px 0px 10px;
 }
-.studio_main_setting > div:nth-child(1) {
+
+.studio_main_setting>div:nth-child(1) {
     margin-top: 0px;
 }
-.studio_main_setting > div {
+
+.studio_main_setting>div {
     height: 50px;
     margin-top: 5px;
     display: flex;
@@ -83,6 +86,7 @@
     padding: 10px;
     font-family: 'NPSfontBold';
 }
+
 .studio_main_setting_broadcastTitle_btn {
     width: 40px;
     background-color: #625fde;
@@ -96,6 +100,7 @@
     height: 25px;
     align-self: center;
 }
+
 .studio_main_setting_broadcastTitle_btn:active {
     transform: scale(0.95);
     transition: transform 0.1s;
@@ -120,6 +125,7 @@
     border: 1px solid black;
     font-family: 'NPSfontBold';
 }
+
 .studio_main_setting_broadcastCategory_btn {
     width: 40px;
     background-color: #d3d6ed;
@@ -133,10 +139,12 @@
     height: 25px;
     align-self: flex-end;
 }
+
 .studio_main_setting_broadcastCategory_btn:active {
     transform: scale(0.95);
     transition: transform 0.1s;
 }
+
 .studio_main_setting_broadcastCategory_tags {
     width: 350px;
     height: 50px;
@@ -145,6 +153,7 @@
     flex-wrap: nowrap;
     overflow: scroll;
 }
+
 .studio_main_broadcastCategory_tag {
     background-color: white;
     width: auto;
@@ -159,7 +168,8 @@
     align-self: center;
     flex-wrap: nowrap;
 }
-.studio_main_broadcastCategory_tag > p {
+
+.studio_main_broadcastCategory_tag>p {
     color: #402422;
     margin-left: 5px;
     width: auto;
@@ -176,6 +186,7 @@
     justify-content: space-between;
     padding: 0px 10px 0px 10px;
 }
+
 .studio_main_setting_streamKey_copybtn {
     height: 30px;
     width: 65px;
@@ -190,6 +201,7 @@
     margin-bottom: 5px;
     cursor: pointer;
 }
+
 .studio_main_setting_streamKey_reissuance {
     height: 30px;
     width: 65px;
@@ -204,10 +216,12 @@
     margin-bottom: 5px;
     cursor: pointer;
 }
+
 .studio_main_setting_streamKey_copybtn:active {
     transform: scale(0.95);
     transition: transform 0.1s;
 }
+
 .studio_main_setting_streamKey_reissuance:active {
     transform: scale(0.95);
     transition: transform 0.1s;
@@ -219,34 +233,39 @@
     flex-wrap: wrap;
     width: 80%;
 }
-.studio_main_setting_broadcastInfo_text > p {
+
+.studio_main_setting_broadcastInfo_text>p {
     margin-top: 10px;
     width: 50%;
 }
 
-.studio_main_setting_broadcastSetting > div {
+.studio_main_setting_broadcastSetting>div {
     /* flex: 1; */
     display: flex;
 }
+
 .studio_main_setting_broadcastSetting_title {
     width: 120px;
     height: 100%;
     /* width: 20%; */
 }
+
 .studio_main_setting_broadcastSetting_property {
     width: 80%;
 }
+
 .studio_main_setting_broadcastSetting_property_checkboxes {
     display: flex;
     flex-wrap: wrap;
     width: 470px;
 }
-.studio_main_setting_broadcastSetting_property_checkboxes > * {
+
+.studio_main_setting_broadcastSetting_property_checkboxes>* {
     width: 25%;
     margin-bottom: 20px;
 }
 
-.studio_main_setting_broadcastSetting_property_checkboxes > *:nth-child(2) {
+.studio_main_setting_broadcastSetting_property_checkboxes>*:nth-child(2) {
     width: 30%;
 }
 
@@ -254,6 +273,7 @@
     width: 50%;
     padding: 2px;
 }
+
 .studio_main_setting_broadcastSetting_property_pwBtn {
     width: 40px;
     background-color: #625fde;
@@ -265,6 +285,7 @@
     font-weight: bold;
     cursor: pointer;
 }
+
 .studio_main_setting_broadcastSetting_property_pwBtn:active {
     transform: scale(0.95);
     transition: transform 0.1s;
@@ -283,7 +304,8 @@
     display: flex;
     flex-wrap: wrap;
 }
-.studio_main_setting_chatRights_property_checkboxes > * {
+
+.studio_main_setting_chatRights_property_checkboxes>* {
     width: 50%;
     margin-bottom: 20px;
 }
@@ -300,6 +322,7 @@
     justify-content: space-evenly;
     align-items: center;
 }
+
 .studio_main_chatRole {
     width: calc(100vw - 1350px);
     height: 300px;
@@ -336,6 +359,7 @@
     line-height: 200px;
     cursor: pointer;
 }
+
 .studio_main_previewImg_box:active {
     transform: scale(0.99);
     transition: transform 0.1s;
@@ -358,16 +382,19 @@
     font-size: 14px;
     resize: none;
 }
+
 .studio_main_chatRole_box::placeholder {
     color: #868686;
     font-size: 12px;
 }
+
 .studio_main_chatRole_btnlayout {
     width: calc(100vw - 1350px);
     display: flex;
     justify-content: flex-end;
     padding-right: 50px;
 }
+
 .studio_main_chatRole_btn {
     background-color: #d3d6ed;
     border-radius: 5px;
@@ -379,6 +406,7 @@
     font-weight: bold;
     cursor: pointer;
 }
+
 .studio_main_chatRole_btn:active {
     transform: scale(0.95);
     transition: transform 0.1s;
@@ -427,7 +455,7 @@
     font-size: 12px;
 }
 
-.studio_main_banWord_tag > p {
+.studio_main_banWord_tag>p {
     color: #402422;
     font-size: 12px;
     margin-left: 5px;
@@ -445,7 +473,7 @@
     font-size: 12px;
 }
 
-.studio_main_banWord_Search > input {
+.studio_main_banWord_Search>input {
     border: none;
     background-color: transparent;
     width: 100px;
@@ -467,13 +495,15 @@
     flex-direction: column;
     right: 0;
 }
+
 .studio_chat_title {
     color: var(--white);
     /* width: 100%; */
     height: 60px;
     border-bottom: 1px solid var(--white);
 }
-.studio_chat_title > p {
+
+.studio_chat_title>p {
     font-size: 24px;
     line-height: 60px;
     padding-left: 20px;
@@ -516,11 +546,13 @@
     vertical-align: top;
     margin-right: 4px;
 }
+
 .studio_chat_username {
     font-size: 14px;
     color: #9371da;
     margin-right: 5px;
 }
+
 .studio_chat_userchat {
     font-size: 14px;
     color: var(--white);
@@ -540,12 +572,14 @@
         width: 100%;
         margin-top: 20px;
     }
+
     .studio_main_setting {
         position: static;
         height: auto;
         width: 100%;
         padding-left: 15%;
     }
+
     .studio_main {
         display: flex;
         flex-direction: column;
@@ -553,11 +587,13 @@
         overflow-y: scroll;
         position: absolute;
     }
+
     .studio_main_banWord {
         height: 200px;
         justify-content: start;
         margin-bottom: 20px;
     }
+
     .studio_main_banWord_layout {
         width: 65%;
         height: auto;
@@ -588,6 +624,7 @@
         text-align: center;
     }
 }
+
 @media (max-width: 1400px) {
     .studio_main_setting {
         padding-left: 5%;

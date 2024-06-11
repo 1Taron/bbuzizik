@@ -19,6 +19,8 @@ import J_Checkbox from '../../../components/J_Checkbox';
 import ChatPermission from '../../../components/ChatPermission';
 import BroadcastProperty from '../../../components/BroadcastProperty';
 import crypto from 'crypto';
+import { collection, getDocs, query, where } from 'firebase/firestore';
+import { auth, db } from '../api/firebase/firebasedb';
 
 export default function Home() {
     // 방송 제목
@@ -58,8 +60,50 @@ export default function Home() {
     };
 
     // 스트림키
+    //스트림키 가져오기
+    useEffect(() => {
+        const unsubscribe = auth.onAuthStateChanged(currentUser => {
+            setUser(currentUser);
+            console.log(currentUser);
+        });
+        return unsubscribe;
+    }, []);
+
+    //토큰이 있나 없나 확인
+    const [user, setUser] = useState('');
+
+    useEffect(() => {
+        const fetchUserNickname = async () => {
+            try {
+                // 'User' 컬렉션에서 'UID' 필드가 user.uid와 일치하는 문서를 찾는 쿼리 생성
+                const q = query(collection(db, 'User'), where('UID', '==', user.uid));
+                const querySnapshot = await getDocs(q);
+
+                if (!querySnapshot.empty) {
+                    // 일치하는 문서가 있는 경우, 첫 번째 문서의 데이터를 가져옴
+                    const userDoc = querySnapshot.docs[0];
+                    const userData = userDoc.data();
+                    setStreamKey(userData.newStreamKey);
+                } else {
+                    console.log('No matching documents.');
+                }
+            } catch (error) {
+                console.error('Error fetching user document:', error);
+            }
+        };
+
+        if (user && user.uid && db) {
+            fetchUserNickname();
+        }
+    }, [user, db]);
+
+
+
+
     // 일단 처음 스트림키 지정
-    const [streamKey, setStreamKey] = useState('YourInitialStreamKey');
+    const [streamKey, setStreamKey] = useState('');
+
+
     const [showKey, setShowKey] = useState(false);
     const copyToClipboard = () => {
         navigator.clipboard.writeText(streamKey);
@@ -98,6 +142,9 @@ export default function Home() {
     const ban_handleRemoveTag = index => {
         setBanTags(banTags.filter((banTags, i) => i !== index));
     };
+
+
+
 
     return (
         <>

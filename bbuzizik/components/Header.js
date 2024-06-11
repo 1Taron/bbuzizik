@@ -8,6 +8,7 @@ import { browserSessionPersistence, createUserWithEmailAndPassword, onAuthStateC
 import { addDoc, collection } from 'firebase/firestore';
 import Dropdown from '../components/DropDown';
 import { faWindows } from '@fortawesome/free-brands-svg-icons';
+import crypto from 'crypto';
 
 const Header = () => {
     const [searchTerm, setSearchTerm] = useState(''); //검색 입력력
@@ -101,12 +102,11 @@ const Header = () => {
 
         const birthDate = new Date(year, month - 1, day);
 
+        const newStreamKey = crypto.randomBytes(16).toString('hex');
+
         try {
             // Firebase Authentication을 사용하여 사용자 회원가입
             const userCredential = await createUserWithEmailAndPassword(auth, Email, PW3);
-
-            // 사용자 회원가입 성공
-            console.log('회원가입 성공', userCredential.user);
 
             // Firestore에 저장할 사용자의 추가 정보
             await addDoc(collection(db, 'User'), {
@@ -115,9 +115,8 @@ const Header = () => {
                 ID,
                 PW: PW3,
                 BirthDate: birthDate,
+                newStreamKey,
             });
-
-            console.log('Firestore에 사용자 정보 저장 성공');
             window.location.reload(); // 페이지 새로고침
         } catch (error) {
             console.error('회원가입 실패: ', error);
@@ -134,7 +133,7 @@ const Header = () => {
             const userCredential = await signInWithEmailAndPassword(auth, Login, PW);
             window.location.reload();
             // 로그인 성공
-            console.log('로그인 성공:', userCredential.user);
+            console.log('로그인 성공:');
 
         } catch (error) {
             console.error('로그인 실패:', error);
