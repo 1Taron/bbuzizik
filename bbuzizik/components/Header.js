@@ -4,9 +4,10 @@ import styles from '../css/header.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faVideo } from '@fortawesome/free-solid-svg-icons';
 import { auth, db } from '../src/pages/api/firebase/firebasedb';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth';
+import { browserSessionPersistence, createUserWithEmailAndPassword, onAuthStateChanged, setPersistence, signInWithEmailAndPassword } from 'firebase/auth';
 import { addDoc, collection } from 'firebase/firestore';
 import Dropdown from '../components/DropDown';
+import { faWindows } from '@fortawesome/free-brands-svg-icons';
 
 const Header = () => {
     const [searchTerm, setSearchTerm] = useState(''); //검색 입력력
@@ -131,6 +132,7 @@ const Header = () => {
         try {
             // 이메일과 비밀번호로 로그인 시도
             const userCredential = await signInWithEmailAndPassword(auth, Login, PW);
+            window.location.reload();
             // 로그인 성공
             console.log('로그인 성공:', userCredential.user);
 
@@ -142,17 +144,22 @@ const Header = () => {
     };
 
     useEffect(() => {
-        const unsubscribe = auth.onAuthStateChanged(currentUser => {
-            setUser(currentUser);
-            console.log(currentUser);
-        });
-        return unsubscribe;
+        setPersistence(auth, browserSessionPersistence)
+            .then(() => {
+                // 인증 상태 변화 리스너 등록
+                const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+                    setUser(currentUser);
+                });
+                // 컴포넌트 언마운트 시 리스너 해제
+                return () => unsubscribe();
+            })
+            .catch((error) => {
+                console.error('Firebase 인증 설정 오류:', error);
+            });
     }, []);
 
     //토큰이 있나 없나 확인
     const [user, setUser] = useState('');
-
-
 
     return (
         <header className={styles.header}>
