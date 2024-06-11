@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import styles from '../css/dropdown.module.css'
+import React, { useContext, useEffect, useState } from 'react';
+import styles from '../css/dropdown.module.css';
 import { auth, db } from '../src/pages/api/firebase/firebasedb';
 import { signOut } from 'firebase/auth';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 
-
 const DropdownMenu = () => {
-
     const handleLogout = async () => {
         try {
             await signOut(auth);
@@ -17,9 +15,7 @@ const DropdownMenu = () => {
         }
     };
 
-    const UserInfo = [
-        { img: '/image/profile_img.svg', name: '허니츄러스' }
-    ]
+    const UserInfo = [{ img: '/image/profile_img.svg', name: '허니츄러스' }];
 
     const [isOpen, setIsOpen] = useState(false);
 
@@ -65,7 +61,7 @@ const DropdownMenu = () => {
             fetchUserNickname();
         }
     }, [user, db]);
-
+    // const { user, nickname } = useContext(UserContext);
     return (
         <div className={styles.dropdown_container}>
             <button className={styles.dropdown_button} onClick={toggleDropdown}>
@@ -83,16 +79,18 @@ const DropdownMenu = () => {
                         </li>
                         <hr className={styles.line} />
                         <li className={styles.dropdown_item}>
-                            <a href='/'>내 채널</a>
+                            <a href="/">내 채널</a>
                         </li>
                         <li className={styles.dropdown_item}>
-                            <a href='/'>내 돈</a>
+                            <a href="/">내 돈</a>
                         </li>
                         <li className={styles.dropdown_item}>
-                            <a href='/'>팔로잉 채널</a>
+                            <a href="/">팔로잉 채널</a>
                         </li>
                         <li className={styles.dropdown_item}>
-                            <button className={styles.dropdown_item_button} onClick={handleLogout}>로그아웃</button>
+                            <button className={styles.dropdown_item_button} onClick={handleLogout}>
+                                로그아웃
+                            </button>
                         </li>
                     </ul>
                 </div>

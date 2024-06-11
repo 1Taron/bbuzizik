@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import Sidebar from '../../components/sidebar';
 import Header from '../../components/Header';
 import livestyles from '../../css/main_live.module.css';
@@ -15,11 +15,55 @@ import {
     faStar,
 } from '@fortawesome/free-solid-svg-icons';
 import Player from '../../components/Player';
-import { auth } from '../pages/api/firebase/firebasedb';
+import { auth, db } from '../pages/api/firebase/firebasedb';
+import { collection, getDocs, query, where } from 'firebase/firestore';
+import { io } from 'socket.io-client';
+
+let socket;
 
 export default function Live() {
     const API_KEY = process.env.NEXT_PUBLIC_SERVER_IP;
     const [isExpanded, setIsExpanded] = useState(true);
+
+    // const { user, nickname } = useContext(UserContext);
+    useEffect(() => {
+        const unsubscribe = auth.onAuthStateChanged(currentUser => {
+            setUser(currentUser);
+            console.log(currentUser);
+        });
+        return unsubscribe;
+    }, []);
+
+    //토큰이 있나 없나 확인
+    const [user, setUser] = useState('');
+
+    const [nickname, setNickname] = useState('');
+
+    useEffect(() => {
+        const fetchUserNickname = async () => {
+            try {
+                // 'User' 컬렉션에서 'UID' 필드가 user.uid와 일치하는 문서를 찾는 쿼리 생성
+                const q = query(collection(db, 'User'), where('UID', '==', user.uid));
+                const querySnapshot = await getDocs(q);
+
+                if (!querySnapshot.empty) {
+                    // 일치하는 문서가 있는 경우, 첫 번째 문서의 데이터를 가져옴
+                    const userDoc = querySnapshot.docs[0];
+                    const userData = userDoc.data();
+                    console.log('User document data:', userData);
+                    setNickname(userData.ID);
+                } else {
+                    console.log('No matching documents.');
+                }
+            } catch (error) {
+                console.error('Error fetching user document:', error);
+            }
+        };
+
+        if (user && user.uid && db) {
+            fetchUserNickname();
+        }
+    }, [user, db]);
 
     const messagesEndRef = useRef(null);
 
@@ -31,7 +75,12 @@ export default function Live() {
     };
     const sendChat_handleClick = () => {
         if (chatText.trim() !== '') {
-            setChatMessages(prevChatMessages => [...prevChatMessages, chatText]);
+            console.log('emitted');
+
+            socket.emit('send_message', {
+                nickname,
+                message: chatText,
+            });
             setChatText('');
         }
     };
@@ -40,6 +89,26 @@ export default function Live() {
             sendChat_handleClick();
         }
     };
+
+    useEffect(() => {
+        socketInitializer();
+    }, []);
+
+    async function socketInitializer() {
+        await fetch('/api/socket');
+
+        socket = io();
+
+        await new Promise(resolve => socket.on('connect', resolve)); // socket 객체가 준비될 때까지 기다림
+
+        // 기존에 등록된 'receive_message' 이벤트 핸들러가 있는지 확인하고, 없으면 새로 등록
+        if (!socket.hasListeners('receive_message')) {
+            socket.on('receive_message', data => {
+                console.log(data);
+                setChatMessages(pre => [...pre, data]);
+            });
+        }
+    }
 
     // 채팅 메시지 상태가 변경될 때마다 스크롤을 최하단으로 이동
     useEffect(() => {
@@ -85,20 +154,6 @@ export default function Live() {
         setIsChatExpanded(true);
     };
 
-    //로그인된 사용자 정보 가져오기
-    const [user, setUser] = useState(null);
-
-    useEffect(() => {
-        const unsubscribe = auth.onAuthStateChanged(currentUser => {
-            if (currentUser) {
-                setUser(currentUser.uid);
-            } else {
-                setUser('');
-            }
-        });
-        return unsubscribe;
-    }, []);
-
     return (
         <>
             <Sidebar isExpanded={isExpanded} onToggle={() => setIsExpanded(!isExpanded)} />
@@ -109,10 +164,10 @@ export default function Live() {
                         !isExpanded && !isChatExpanded
                             ? livestyles.homecontainer_chatOff // 둘 다 false일 때
                             : isExpanded && !isChatExpanded
-                                ? livestyles.homecontainer_sideExpanded_chatOff // isExpanded만 true일 때
-                                : isExpanded && isChatExpanded
-                                    ? livestyles.homecontainer_sideExpanded // 둘 다 true일 때
-                                    : livestyles.homecontainer // isChatExpanded만 true일 때, 나머지 경우
+                            ? livestyles.homecontainer_sideExpanded_chatOff // isExpanded만 true일 때
+                            : isExpanded && isChatExpanded
+                            ? livestyles.homecontainer_sideExpanded // 둘 다 true일 때
+                            : livestyles.homecontainer // isChatExpanded만 true일 때, 나머지 경우
                     }
                 >
                     {/* 라이브 화면 */}
@@ -290,8 +345,17 @@ export default function Live() {
                     {/* 채팅 뷰 영역 */}
                     <div className={isChatExpanded ? livestyles.live_chat_layout : livestyles.live_chat_hidden}>
                         <div className={livestyles.live_chat_viewWrapper}>
+                            {user ? (
+                                <div className={`default_font ${livestyles.live_chat_loginNotice}`}>
+                                    로그인 되었습니다 : {nickname}
+                                </div>
+                            ) : (
+                                <div className={`default_font ${livestyles.live_chat_loginNotice}`}>
+                                    로그인 해주세요.
+                                </div>
+                            )}
                             {/* 채팅 MAP */}
-                            {chatMessages.map((message, index) => (
+                            {chatMessages.map(({ nickname, message }, index) => (
                                 <span key={index} className={livestyles.live_chat_chatting}>
                                     {/* 채팅 말풍선 */}
                                     <span style={{ display: 'inline-block' }}>
@@ -299,7 +363,7 @@ export default function Live() {
                                         <span className={livestyles.live_chat_badge} />
                                         {/* 유저 이름 */}
                                         <span className={`default_font ${livestyles.live_chat_username}`}>
-                                            이름일이삼사오육칠팔구십
+                                            {nickname}
                                         </span>
                                     </span>
                                     {/* 채팅 내용 */}
