@@ -8,19 +8,18 @@ import { collection, getDocs } from 'firebase/firestore';
 export default function Category({ isExpanded }) {
     //firestore에서 img 및 name 가져오기
     const [categories, setCategories] = useState([]);
-    const [isLoading, setLoading] = useState(true)
+    const [isLoading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchCategories = async () => {
             try {
                 const categoryRef = collection(db, 'Category');
                 const snapshot = await getDocs(categoryRef);
-                const data = snapshot.docs.map((doc) => ({
+                const data = snapshot.docs.map(doc => ({
                     id: doc.id,
                     ...doc.data(),
                 }));
                 setCategories(data);
-
             } catch (error) {
                 console.error('Error fetching categories:', error);
             }
@@ -28,9 +27,7 @@ export default function Category({ isExpanded }) {
         fetchCategories();
     }, [db]);
 
-
-
-    const formatViewers = (viewers) => {
+    const formatViewers = viewers => {
         const numViewers = Number(viewers);
         if (numViewers >= 10000) {
             return `${(numViewers / 10000).toFixed(1)}만명`;
@@ -89,7 +86,6 @@ export default function Category({ isExpanded }) {
             }
         }
         setDisplayCategories(randomCategories.slice(0, numberOfCategoriesToShow));
-
     };
 
     useEffect(() => {

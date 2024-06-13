@@ -45,3 +45,32 @@ const clientId = socket.id;
             });
     }
     
+
+
+
+        // 채팅 보내기
+    const sendChat_handleClick12 = async () => {
+        if (chatText.trim() !== '') {
+            console.log('emitted');
+
+            socket.emit('send_message', {
+                UID: user.uid, // 생성된 사용자 UID
+                NickName: nickname,
+                Message: chatText,
+                StreamKey: userData.newStreamKey,
+            });
+            setChatText('');
+        }
+
+        try {
+            // Firestore에 저장할 사용자의 추가 정보
+            await addDoc(collection(db, 'Chat'), {
+                UID: user.uid, // 생성된 사용자 UID
+                NickName: nickname,
+                Message: chatText,
+                StreamKey: userData.newStreamKey,
+            });
+        } catch (error) {
+            console.error('Chat에 보내기 실패 : ', error);
+        }
+    };

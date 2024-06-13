@@ -15,7 +15,7 @@ const DropdownMenu = () => {
         }
     };
 
-    const UserInfo = [{ img: '/image/profile_img.svg', name: '허니츄러스' }];
+    const UserInfo = [{ img: '/images/profile_img.svg', name: '허니츄러스' }];
 
     const [isOpen, setIsOpen] = useState(false);
 

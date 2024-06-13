@@ -97,12 +97,8 @@ export default function Home() {
         }
     }, [user, db]);
 
-
-
-
     // 일단 처음 스트림키 지정
     const [streamKey, setStreamKey] = useState('');
-
 
     const [showKey, setShowKey] = useState(false);
     const copyToClipboard = () => {
@@ -142,9 +138,6 @@ export default function Home() {
     const ban_handleRemoveTag = index => {
         setBanTags(banTags.filter((banTags, i) => i !== index));
     };
-
-
-
 
     return (
         <>

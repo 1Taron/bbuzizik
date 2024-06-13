@@ -28,13 +28,13 @@ export default function Streaming() {
                                         pathname: '/live',
                                     }}
                                 >
-                                    <img src="/image/thumnail.jpeg" alt="thumnail" className={styles.Img} />
+                                    <img src="/images/thumnail.jpeg" alt="thumnail" className={styles.Img} />
                                 </Link>
                                 <div className={styles.video_card_wrapper}>
                                     <div className={styles.video_card_img}>
                                         <img
                                             className={styles.video_card_title}
-                                            src="/image/profile_img.svg"
+                                            src="/images/profile_img.svg"
                                             alt="video_card_img"
                                         />
                                     </div>

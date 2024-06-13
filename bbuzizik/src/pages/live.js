@@ -4,7 +4,6 @@ import Header from '../../components/Header';
 import livestyles from '../../css/main_live.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFaceSmile } from '@fortawesome/free-regular-svg-icons';
-import shit from '../../public/shit01.png';
 import {
     faBell,
     faCommentDots,
@@ -16,7 +15,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import Player from '../../components/Player';
 import { auth, db } from '../pages/api/firebase/firebasedb';
-import { collection, getDocs, query, where } from 'firebase/firestore';
+import { collection, getDocs, onSnapshot, orderBy, query, where } from 'firebase/firestore';
 import { io } from 'socket.io-client';
 
 let socket;
@@ -38,6 +37,7 @@ export default function Live() {
     const [user, setUser] = useState('');
 
     const [nickname, setNickname] = useState('');
+    const [streamKey, setStreamKey] = useState('');
 
     useEffect(() => {
         const fetchUserNickname = async () => {
@@ -52,6 +52,7 @@ export default function Live() {
                     const userData = userDoc.data();
                     console.log('User document data:', userData);
                     setNickname(userData.ID);
+                    setStreamKey(userData.newStreamKey);
                 } else {
                     console.log('No matching documents.');
                 }
@@ -73,17 +74,24 @@ export default function Live() {
     const chat_handleChange = e => {
         setChatText(e.target.value);
     };
+
+    // --------------------
+    // --------------------
+
     const sendChat_handleClick = () => {
         if (chatText.trim() !== '') {
-            console.log('emitted');
+            console.log(`sendChat : ${user.uid}, ${nickname}, ${chatText}, ${streamKey}`);
 
             socket.emit('send_message', {
-                nickname,
-                message: chatText,
+                uid: user.uid,
+                nickName: nickname,
+                chatText: chatText,
+                streamKey: streamKey,
             });
             setChatText('');
         }
     };
+
     const chat_handleKeyDown = event => {
         if (event.key === 'Enter') {
             sendChat_handleClick();
@@ -103,17 +111,13 @@ export default function Live() {
 
         // 기존에 등록된 'receive_message' 이벤트 핸들러가 있는지 확인하고, 없으면 새로 등록
         if (!socket.hasListeners('receive_message')) {
-            socket.on('receive_message', data => {
-                console.log(data);
-                setChatMessages(pre => [...pre, data]);
+            socket.on('receive_message', () => {
+                // console.log(data);
+                // setChatMessages(pre => [...pre, data]);
+                console.log('receive_message');
             });
         }
     }
-
-    // 채팅 메시지 상태가 변경될 때마다 스크롤을 최하단으로 이동
-    useEffect(() => {
-        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-    }, [chatMessages]);
 
     // 정보란 버튼
     const infoFollow_handleClick = () => {
@@ -154,6 +158,30 @@ export default function Live() {
         setIsChatExpanded(true);
     };
 
+    const [chats, setChats] = useState([]);
+
+    useEffect(() => {
+        const cq = query(collection(db, 'Chat'), orderBy('Timestamp', 'asc'));
+        const unsubscribe = onSnapshot(
+            cq,
+            snapshot => {
+                const chatDoc = snapshot.docs.map(doc => doc.data());
+                console.log('Chat document data:', chatDoc);
+                setChats(chatDoc);
+            },
+            error => {
+                console.error('Error fetching chat document:', error);
+            }
+        );
+
+        return () => unsubscribe();
+    }, []);
+
+    // 채팅 메시지 상태가 변경될 때마다 스크롤을 최하단으로 이동
+    useEffect(() => {
+        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }, [chats]);
+
     return (
         <>
             <Sidebar isExpanded={isExpanded} onToggle={() => setIsExpanded(!isExpanded)} />
@@ -173,11 +201,11 @@ export default function Live() {
                     {/* 라이브 화면 */}
                     <div className={livestyles.livecontainer}>
                         {/* <ReactPlayer url="https://www.youtube.com/watch?v=LXb3EKWsInQ" /> */}
-                        <Player
+                        {/* <Player
                             src={`http://${API_KEY}:8080/hls/bbbbb/index.m3u8`}
                             type="m3u8"
                             className={livestyles.hlsplayer}
-                        />
+                        /> */}
                         {!isChatExpanded ? (
                             <FontAwesomeIcon
                                 icon={faCommentDots}
@@ -311,7 +339,7 @@ export default function Live() {
                             />
                             {/* nextjs이미지 */}
                             <img
-                                src="../public/shit01.png"
+                                src="/images/shit01.png"
                                 style={{
                                     position: 'absolute',
                                     top: '14px',
@@ -355,7 +383,7 @@ export default function Live() {
                                 </div>
                             )}
                             {/* 채팅 MAP */}
-                            {chatMessages.map(({ nickname, message }, index) => (
+                            {chats.map((chat, index) => (
                                 <span key={index} className={livestyles.live_chat_chatting}>
                                     {/* 채팅 말풍선 */}
                                     <span style={{ display: 'inline-block' }}>
@@ -363,11 +391,13 @@ export default function Live() {
                                         <span className={livestyles.live_chat_badge} />
                                         {/* 유저 이름 */}
                                         <span className={`default_font ${livestyles.live_chat_username}`}>
-                                            {nickname}
+                                            {chat.NickName}
                                         </span>
                                     </span>
                                     {/* 채팅 내용 */}
-                                    <span className={`default_font ${livestyles.live_chat_userchat}`}>{message}</span>
+                                    <span className={`default_font ${livestyles.live_chat_userchat}`}>
+                                        {chat.Message}
+                                    </span>
                                 </span>
                             ))}
                             <span ref={messagesEndRef} />

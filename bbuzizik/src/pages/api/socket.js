@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
 import { Server } from 'socket.io';
+import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
+import { db } from '../api/firebase/firebasedb';
 
 export default function SocketHandler(req, res) {
     console.log('Setting Socket');
@@ -9,7 +11,6 @@ export default function SocketHandler(req, res) {
     let connectedClient;
 
     io.on('connection', socket => {
-
         // 새로운 클라이언트 연결 정보 저장
         connectedClient = socket;
 
@@ -25,11 +26,28 @@ export default function SocketHandler(req, res) {
 
         // 메시지
         socket.on('send_message', obj => {
-            console.log('send client before', socket.id, obj);
-            io.emit('receive_message', obj);
-            console.log('send client after', socket.id, obj);
+            console.log('send client', socket.id, obj);
+            sendChat(obj);
+            // io.emit('receive_message', obj);
+            io.emit('receive_message');
+            // console.log('send client after', socket.id, obj);
         });
     });
 
     res.end();
 }
+
+const sendChat = async obj => {
+    try {
+        // Firestore에 저장할 사용자의 추가 정보
+        await addDoc(collection(db, 'Chat'), {
+            UID: obj.uid,
+            NickName: obj.nickName,
+            Message: obj.chatText,
+            StreamKey: obj.streamKey,
+            Timestamp: serverTimestamp(),
+        });
+    } catch (error) {
+        console.error('Chat에 보내기 실패 : ', error);
+    }
+};

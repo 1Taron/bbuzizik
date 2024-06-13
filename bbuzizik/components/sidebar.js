@@ -13,21 +13,21 @@ export default function Sidebar({ isExpanded, onToggle }) {
     }, [isExpanded]);
 
     const followChannels = [
-        { img: '/image/profile_img.svg', name: '허니츄러스', game: 'talk', viewers: 1000, Info: '안녕하세요' },
-        { img: '/image/profile_img.svg', name: '채널2', game: '게임2', viewers: 2000, Info: '반갑꼬리' },
+        { img: '/images/profile_img.svg', name: '허니츄러스', game: 'talk', viewers: 1000, Info: '안녕하세요' },
+        { img: '/images/profile_img.svg', name: '채널2', game: '게임2', viewers: 2000, Info: '반갑꼬리' },
         {
-            img: '/image/profile_img.svg',
+            img: '/images/profile_img.svg',
             name: '채널3',
             game: '게임3',
             viewers: 3000,
             Info: '안녕하세요, 안녕하세요, 안녕하세요',
         },
-        { img: '/image/profile_img.svg', name: '허니츄러스', game: 'talk', viewers: 1000, Info: '안녕하세요' },
-        { img: '/image/profile_img.svg', name: '채널2', game: '게임2', viewers: 2000, Info: '안녕하세요' },
-        { img: '/image/profile_img.svg', name: '채널3', game: '게임3', viewers: 3000, Info: '안녕하세요' },
-        { img: '/image/profile_img.svg', name: '허니츄러스', game: 'talk', viewers: 1000, Info: '안녕하세요' },
-        { img: '/image/profile_img.svg', name: '채널2', game: '게임2', viewers: 2000, Info: '안녕하세요' },
-        { img: '/image/profile_img.svg', name: '채널3', game: '게임3', viewers: 3000, Info: '안녕하세요' },
+        { img: '/images/profile_img.svg', name: '허니츄러스', game: 'talk', viewers: 1000, Info: '안녕하세요' },
+        { img: '/images/profile_img.svg', name: '채널2', game: '게임2', viewers: 2000, Info: '안녕하세요' },
+        { img: '/images/profile_img.svg', name: '채널3', game: '게임3', viewers: 3000, Info: '안녕하세요' },
+        { img: '/images/profile_img.svg', name: '허니츄러스', game: 'talk', viewers: 1000, Info: '안녕하세요' },
+        { img: '/images/profile_img.svg', name: '채널2', game: '게임2', viewers: 2000, Info: '안녕하세요' },
+        { img: '/images/profile_img.svg', name: '채널3', game: '게임3', viewers: 3000, Info: '안녕하세요' },
     ];
 
     const channelsToShow = showAll ? followChannels : followChannels.slice(0, 5);
@@ -78,14 +78,14 @@ export default function Sidebar({ isExpanded, onToggle }) {
                             <div className={styles.ShowButton_container}>
                                 <button onClick={() => setShowAll(false)} className={styles.showMoreButton}>
                                     <div className={styles.show_text}>접기</div>
-                                    <img className={styles.arrowReversal} src="/image/arrow.svg" alt="arrow"></img>
+                                    <img className={styles.arrowReversal} src="/images/arrow.svg" alt="arrow"></img>
                                 </button>
                             </div>
                         ) : (
                             <div className={styles.ShowButton_container}>
                                 <button onClick={() => setShowAll(true)} className={styles.showMoreButton}>
                                     <div className={styles.show_text}>더보기</div>
-                                    <img className={styles.arrow} src="/image/arrow.svg" alt="arrow"></img>
+                                    <img className={styles.arrow} src="/images/arrow.svg" alt="arrow"></img>
                                 </button>
                             </div>
                         )}
