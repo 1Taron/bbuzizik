@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import J_Checkbox from './J_Checkbox';
 import styles from "../css/studio_home.module.css";
+import { useContext } from "react";
+import { GlobalContext } from '../src/pages/Studio/home'
 
 function BroadcastProperty() {
   const [checkboxStates, setCheckboxStates] = useState({
@@ -10,7 +12,7 @@ function BroadcastProperty() {
     '비밀번호 설정': false,
   });
 
-  const [password, setPassword] = useState(''); 
+  const [password, setPassword] = useState('');
 
   const handleCheckChange = (label, isChecked) => {
     setCheckboxStates({
@@ -20,7 +22,7 @@ function BroadcastProperty() {
   };
 
   const handlePasswordChange = (event) => {
-    setPassword(event.target.value); 
+    setPassword(event.target.value);
   };
 
   const handlePasswordSave = () => {
@@ -30,6 +32,13 @@ function BroadcastProperty() {
       console.log('비밀번호 설정 체크박스가 체크되어 있지 않습니다.');
     }
   };
+
+  //usecontext
+  const { broadcast, setbroadcast } = useContext(GlobalContext);
+  const { broadcastpw, setbroadcastpw } = useContext(GlobalContext);
+
+  setbroadcast(checkboxStates);
+  setbroadcastpw(password);
 
   return (
     <div style={{ paddingTop: "10px" }}>
@@ -47,15 +56,15 @@ function BroadcastProperty() {
             />
           ))}
 
-          <input 
-            type="text" 
+          <input
+            type="text"
             className={styles.studio_main_setting_broadcastSetting_property_pwText}
-            value={password} 
-            onChange={handlePasswordChange} 
+            value={password}
+            onChange={handlePasswordChange}
           />
-          <input 
-            type="button" 
-            className={styles.studio_main_setting_broadcastSetting_property_pwBtn} 
+          <input
+            type="button"
+            className={styles.studio_main_setting_broadcastSetting_property_pwBtn}
             onClick={handlePasswordSave}
             value="저장"
           />

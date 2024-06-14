@@ -21,6 +21,10 @@ import BroadcastProperty from '../../../components/BroadcastProperty';
 import crypto from 'crypto';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { auth, db } from '../api/firebase/firebasedb';
+import { GlobalLayoutRouterContext } from 'next/dist/shared/lib/app-router-context.shared-runtime';
+import { createContext } from 'react';
+
+export const GlobalContext = createContext();
 
 export default function Home() {
     // 방송 제목
@@ -139,6 +143,36 @@ export default function Home() {
         setBanTags(banTags.filter((banTags, i) => i !== index));
     };
 
+    //db에 studio 업로드
+    const onClickUpLoadButton = async () => {
+        try {
+            await addDoc(collection(db, 'Studio'), {
+                UID: user.uid, // 생성된 사용자 UID
+                streamKey: streamKey,
+                title: TitleText,
+                category: categories,
+                chatRole: chatRoleText,
+                banTags: banTags,
+                ChettingPermission: globalState,
+                broadcastsetting: broadcast,
+                broadcastpw: broadcastpw,
+            });
+        }
+        catch (error) {
+            console.log('업로드 실패', error);
+        }
+    }
+
+    //chatpermissions state 관리
+    const [globalState, setGlobalState] = useState('모든 사용자');
+
+    //broadcast setting state 관리
+    const [broadcast, setbroadcast] = useState('');
+    const [broadcastpw, setbroadcastpw] = useState('');
+
+    console.log('broadcast : ', broadcast);
+    console.log('broadcastpw : ', broadcastpw);
+
     return (
         <>
             <div className={styles.studio_test} style={{ paddingTop: '60px' }}>
@@ -148,6 +182,8 @@ export default function Home() {
                         BBUZIZIK
                     </a>
                     <p className={`logo_font ${styles.studio_header_subtitle}`}>STUDIO</p>
+                    <button>저장</button>
+                    <button>취소</button>
                 </div>
 
                 {/* 메인 */}
@@ -236,8 +272,12 @@ export default function Home() {
 
                         {/* 방송속성 or 채팅권한 */}
                         <div className={styles.studio_main_setting_broadcastSetting} style={{ height: '100px' }}>
-                            <BroadcastProperty />
-                            <ChatPermission />
+                            <GlobalContext.Provider value={{ broadcast, setbroadcast, broadcastpw, setbroadcastpw }}>
+                                <BroadcastProperty />
+                            </GlobalContext.Provider>
+                            <GlobalContext.Provider value={{ globalState, setGlobalState }}>
+                                <ChatPermission />
+                            </GlobalContext.Provider>
                         </div>
 
                         <div className={styles.studio_main_setting_streamKey}>

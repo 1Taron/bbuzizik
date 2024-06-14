@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useTransition } from 'react';
 import styles from '../css/header.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faVideo } from '@fortawesome/free-solid-svg-icons';
@@ -41,6 +41,8 @@ const Header = () => {
     const [PW3, setPW3] = useState(''); // Firestore에 저장될 비밀번호
 
     const [error, setError] = useState(''); // 에러 메시지 상태
+
+    const [isPending, startTransition] = useTransition();
 
     const PW2Change = event => {
         setPW2(event.target.value);
@@ -104,24 +106,26 @@ const Header = () => {
 
         const newStreamKey = crypto.randomBytes(16).toString('hex');
 
-        try {
-            // Firebase Authentication을 사용하여 사용자 회원가입
-            const userCredential = await createUserWithEmailAndPassword(auth, Email, PW3);
+        startTransition(async () => {
+            try {
+                // Firebase Authentication을 사용하여 사용자 회원가입
+                const userCredential = await createUserWithEmailAndPassword(auth, Email, PW3);
 
-            // Firestore에 저장할 사용자의 추가 정보
-            await addDoc(collection(db, 'User'), {
-                UID: userCredential.user.uid, // 생성된 사용자 UID
-                Email,
-                ID,
-                PW: PW3,
-                BirthDate: birthDate,
-                newStreamKey,
-            });
-            window.location.reload(); // 페이지 새로고침
-        } catch (error) {
-            console.error('회원가입 실패: ', error);
-            setError(error.message); // 오류 메시지 설정
-        }
+                // Firestore에 저장할 사용자의 추가 정보
+                await addDoc(collection(db, 'User'), {
+                    UID: userCredential.user.uid, // 생성된 사용자 UID
+                    Email,
+                    ID,
+                    PW: PW3,
+                    BirthDate: birthDate,
+                    newStreamKey,
+                });
+                window.location.reload(); // 페이지 새로고침
+            } catch (error) {
+                console.error('회원가입 실패: ', error);
+                setError(error.message); // 오류 메시지 설정
+            }
+        });
     };
 
 
@@ -264,7 +268,7 @@ const Header = () => {
                             </>
                         ) : (
                             <>
-                                <form onSubmit={event => event.preventDefault()}>
+                                <form onSubmit={onClickUpLoadButton}>
                                     <div className={styles.Res_container}>
                                         <div className={styles.Email_text}>이메일</div>
                                         <input
@@ -332,9 +336,13 @@ const Header = () => {
                                             ))}
                                         </select>
                                     </div>
-                                    <button className={styles.Button3} type="submit" onClick={onClickUpLoadButton}>
-                                        완료
-                                    </button>
+                                    {isPending ?
+                                        <p>Loading....</p>
+                                        :
+                                        <button className={styles.Button3} type="submit">
+                                            완료
+                                        </button>
+                                    }
                                 </form>
                             </>
                         )}
