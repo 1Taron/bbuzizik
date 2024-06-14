@@ -173,12 +173,17 @@ export default function Home() {
             <div className={styles.studio_test} style={{ paddingTop: '60px' }}>
                 {/* 헤더 */}
                 <div className={styles.studio_header} style={{ top: '0px' }}>
-                    <a className={`logo_font ${styles.studio_header_maintitle}`} href="/">
-                        BBUZIZIK
-                    </a>
-                    <p className={`logo_font ${styles.studio_header_subtitle}`}>STUDIO</p>
-                    <button>저장</button>
-                    <button>취소</button>
+                    <div className={`logo_font ${styles.studio_header_titlelayout}`}>
+                        <p className={`logo_font ${styles.studio_header_maintitle}`}>
+                            <a href="/">BBUZIZIK</a>
+                        </p>
+                        <p className={`logo_font ${styles.studio_header_subtitle}`}>STUDIO</p>
+                    </div>
+
+                    <div className={styles.studio_header_btnlayout}>
+                        <button className={styles.studio_header_btn1}>저장</button>
+                        <button className={styles.studio_header_btn2}>취소</button>
+                    </div>
                 </div>
 
                 {/* 메인 */}

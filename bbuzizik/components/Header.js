@@ -4,7 +4,13 @@ import styles from '../css/header.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faVideo } from '@fortawesome/free-solid-svg-icons';
 import { auth, db } from '../src/pages/api/firebase/firebasedb';
-import { browserSessionPersistence, createUserWithEmailAndPassword, onAuthStateChanged, setPersistence, signInWithEmailAndPassword } from 'firebase/auth';
+import {
+    browserSessionPersistence,
+    createUserWithEmailAndPassword,
+    onAuthStateChanged,
+    setPersistence,
+    signInWithEmailAndPassword,
+} from 'firebase/auth';
 import { addDoc, collection } from 'firebase/firestore';
 import Dropdown from '../components/DropDown';
 import { faWindows } from '@fortawesome/free-brands-svg-icons';
@@ -101,7 +107,6 @@ const Header = () => {
             setPW3(PW1); // PW3를 PW1로 설정
         }
 
-
         const birthDate = new Date(year, month - 1, day);
 
         const newStreamKey = crypto.randomBytes(16).toString('hex');
@@ -128,8 +133,6 @@ const Header = () => {
         });
     };
 
-
-
     // 로그인 기능
     const onClickLoginButton = async () => {
         try {
@@ -138,25 +141,23 @@ const Header = () => {
             window.location.reload();
             // 로그인 성공
             console.log('로그인 성공:');
-
         } catch (error) {
             console.error('로그인 실패:', error);
             setError(error.message); // 로그인 실패 시 오류 메시지 설정
         }
-
     };
 
     useEffect(() => {
         setPersistence(auth, browserSessionPersistence)
             .then(() => {
                 // 인증 상태 변화 리스너 등록
-                const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+                const unsubscribe = onAuthStateChanged(auth, currentUser => {
                     setUser(currentUser);
                 });
                 // 컴포넌트 언마운트 시 리스너 해제
                 return () => unsubscribe();
             })
-            .catch((error) => {
+            .catch(error => {
                 console.error('Firebase 인증 설정 오류:', error);
             });
     }, []);
@@ -188,7 +189,7 @@ const Header = () => {
                             placeholder="스티리머, 게임 영상 검색"
                         />
                         <button className={styles.button} type="submit">
-                            <img src="/image/serch_icon.svg" alt="serch_icon"></img>
+                            <img src="/images/serch_icon.svg" alt="serch_icon"></img>
                         </button>
                     </div>
                 </form>
@@ -336,13 +337,13 @@ const Header = () => {
                                             ))}
                                         </select>
                                     </div>
-                                    {isPending ?
+                                    {isPending ? (
                                         <p>Loading....</p>
-                                        :
+                                    ) : (
                                         <button className={styles.Button3} type="submit">
                                             완료
                                         </button>
-                                    }
+                                    )}
                                 </form>
                             </>
                         )}
