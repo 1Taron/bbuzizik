@@ -108,11 +108,7 @@ export default function Home() {
     const copyToClipboard = () => {
         navigator.clipboard.writeText(streamKey);
     };
-    const reissue = () => {
-        // const newStreamKey = Math.random().toString(36).substring(2, 15);
-        const newStreamKey = crypto.randomBytes(16).toString('hex');
-        setStreamKey(newStreamKey);
-    };
+
     const toggleShowKey = () => {
         setShowKey(!showKey);
     };
@@ -157,11 +153,10 @@ export default function Home() {
                 broadcastsetting: broadcast,
                 broadcastpw: broadcastpw,
             });
-        }
-        catch (error) {
+        } catch (error) {
             console.log('업로드 실패', error);
         }
-    }
+    };
 
     //chatpermissions state 관리
     const [globalState, setGlobalState] = useState('모든 사용자');
@@ -297,9 +292,6 @@ export default function Home() {
                             </div>
                             <div className={styles.studio_main_setting_streamKey_copybtn} onClick={copyToClipboard}>
                                 복사
-                            </div>
-                            <div className={styles.studio_main_setting_streamKey_reissuance} onClick={reissue}>
-                                재발급
                             </div>
                         </div>
 

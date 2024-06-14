@@ -1,21 +1,30 @@
-import React, { useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
+import { pageNameState } from '../../states';
+import Link from 'next/link';
 
 const Test = () => {
+    const [pageName, setPageName] = useRecoilState(pageNameState);
+
     return (
         <div>
-            <h1>Test</h1>
-            <img
-                src="/images/shit01.png"
-                style={{
-                    position: 'absolute',
-                    top: '14px',
-                    right: '40px',
-                    width: '20px',
-                    height: '20px',
-                    cursor: 'pointer',
-                }}
-                alt="description"
-            />
+            <div>
+                <h1>Index Page!</h1>
+            </div>
+            <div>
+                <span>pageName 상태: {pageName}</span>
+            </div>
+            <div>
+                <button
+                    onClick={() => {
+                        setPageName('Test');
+                    }}
+                >
+                    현재 페이지 이름으로 상태 변경
+                </button>
+                <Link href="/post">
+                    <button>Post Pages 이동</button>
+                </Link>
+            </div>
         </div>
     );
 };
