@@ -19,7 +19,7 @@ import J_Checkbox from '../../../components/J_Checkbox';
 import ChatPermission from '../../../components/ChatPermission';
 import BroadcastProperty from '../../../components/BroadcastProperty';
 import crypto from 'crypto';
-import { collection, getDocs, query, where } from 'firebase/firestore';
+import { addDoc, collection, getDocs, query, where } from 'firebase/firestore';
 import { auth, db } from '../api/firebase/firebasedb';
 import { GlobalLayoutRouterContext } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 import { createContext } from 'react';
@@ -181,8 +181,8 @@ export default function Home() {
                     </div>
 
                     <div className={styles.studio_header_btnlayout}>
-                        <button className={styles.studio_header_btn1}>저장</button>
-                        <button className={styles.studio_header_btn2}>취소</button>
+                        <button className={styles.studio_header_btn1} type="submit" onClick={onClickUpLoadButton}>저장</button>
+                        <button className={styles.studio_header_btn2} type="button" onclick="location.href='/'">취소</button>
                     </div>
                 </div>
 
