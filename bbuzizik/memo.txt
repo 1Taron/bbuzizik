@@ -74,3 +74,36 @@ const clientId = socket.id;
             console.error('Chat에 보내기 실패 : ', error);
         }
     };
+
+
+
+
+                            {/* 채팅 말풍선 */}
+                        <span className={styles.studio_chat_chatting}>
+                            <span style={{ display: 'inline-block' }}>
+                                {/* 뱃지 */}
+                                <span className={styles.studio_chat_badge} />
+                                {/* 유저 이름 */}
+                                <span className={`default_font ${styles.studio_chat_username}`}>
+                                    이름일이삼사오육칠팔구십
+                                </span>
+                            </span>
+                            {/* 채팅 내용 */}
+                            <span className={`default_font ${styles.studio_chat_userchat}`}>테스트 채팅 입니다.</span>
+                        </span>
+
+                        {/* 채팅 말풍선 2*/}
+                        <span className={styles.studio_chat_chatting}>
+                            <span style={{ display: 'inline-block' }}>
+                                {/* 뱃지 */}
+                                <span className={styles.studio_chat_badge} />
+                                {/* 유저 이름 */}
+                                <span className={`default_font ${styles.studio_chat_username}`}>
+                                    이름일이삼사오육칠팔구십
+                                </span>
+                            </span>
+                            {/* 채팅 내용 */}
+                            <span className={`default_font ${styles.studio_chat_userchat}`}>
+                                이것은 테스트 채팅 입니다. ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ
+                            </span>
+                        </span>

@@ -19,10 +19,11 @@ import J_Checkbox from '../../../components/J_Checkbox';
 import ChatPermission from '../../../components/ChatPermission';
 import BroadcastProperty from '../../../components/BroadcastProperty';
 import crypto from 'crypto';
-import { addDoc, collection, getDocs, query, where } from 'firebase/firestore';
+import { addDoc, collection, getDocs, onSnapshot, orderBy, query, where } from 'firebase/firestore';
 import { auth, db } from '../api/firebase/firebasedb';
 import { GlobalLayoutRouterContext } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 import { createContext } from 'react';
+import livestyles from '../../../css/main_live.module.css';
 
 export const GlobalContext = createContext();
 
@@ -168,6 +169,31 @@ export default function Home() {
     console.log('broadcast : ', broadcast);
     console.log('broadcastpw : ', broadcastpw);
 
+    const messagesEndRef = useRef(null);
+    const [chats, setChats] = useState([]);
+
+    useEffect(() => {
+        const cq = query(collection(db, 'Chat'), orderBy('Timestamp', 'asc'));
+        const unsubscribe = onSnapshot(
+            cq,
+            snapshot => {
+                const chatDoc = snapshot.docs.map(doc => doc.data());
+                console.log('Chat document data:', chatDoc);
+                setChats(chatDoc);
+            },
+            error => {
+                console.error('Error fetching chat document:', error);
+            }
+        );
+
+        return () => unsubscribe();
+    }, []);
+
+    // 채팅 메시지 상태가 변경될 때마다 스크롤을 최하단으로 이동
+    useEffect(() => {
+        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }, [chats]);
+
     return (
         <>
             <div className={styles.studio_test} style={{ paddingTop: '60px' }}>
@@ -181,8 +207,20 @@ export default function Home() {
                     </div>
 
                     <div className={styles.studio_header_btnlayout}>
-                        <button className={styles.studio_header_btn1} type="submit" onClick={onClickUpLoadButton}>저장</button>
-                        <button className={styles.studio_header_btn2} type="button" onclick="location.href='/'">취소</button>
+                        <button
+                            className={`logo_font ${styles.studio_header_btn1}`}
+                            type="submit"
+                            onClick={onClickUpLoadButton}
+                        >
+                            저장
+                        </button>
+                        <button
+                            className={`logo_font ${styles.studio_header_btn2}`}
+                            type="button"
+                            onclick="location.href='/'"
+                        >
+                            취소
+                        </button>
                     </div>
                 </div>
 
@@ -387,35 +425,36 @@ export default function Home() {
                     </div>
                     {/* 채팅 뷰 영역 */}
                     <div className={styles.studio_chat_layout}>
-                        {/* 채팅 말풍선 */}
-                        <span className={styles.studio_chat_chatting}>
-                            <span style={{ display: 'inline-block' }}>
-                                {/* 뱃지 */}
-                                <span className={styles.studio_chat_badge} />
-                                {/* 유저 이름 */}
-                                <span className={`default_font ${styles.studio_chat_username}`}>
-                                    이름일이삼사오육칠팔구십
+                        <div className={styles.studio_chat_viewWrapper}>
+                            {user ? (
+                                <div className={`default_font ${livestyles.live_chat_loginNotice}`}>
+                                    로그인 되었습니다 : {nickname}
+                                </div>
+                            ) : (
+                                <div className={`default_font ${livestyles.live_chat_loginNotice}`}>
+                                    로그인 해주세요.
+                                </div>
+                            )}
+                            {/* 채팅 MAP */}
+                            {chats.map((chat, index) => (
+                                <span key={index} className={livestyles.live_chat_chatting}>
+                                    {/* 채팅 말풍선 */}
+                                    <span style={{ display: 'inline-block' }}>
+                                        {/* 뱃지 */}
+                                        <span className={livestyles.live_chat_badge} />
+                                        {/* 유저 이름 */}
+                                        <span className={`default_font ${livestyles.live_chat_username}`}>
+                                            {chat.NickName}
+                                        </span>
+                                    </span>
+                                    {/* 채팅 내용 */}
+                                    <span className={`default_font ${livestyles.live_chat_userchat}`}>
+                                        {chat.Message}
+                                    </span>
                                 </span>
-                            </span>
-                            {/* 채팅 내용 */}
-                            <span className={`default_font ${styles.studio_chat_userchat}`}>테스트 채팅 입니다.</span>
-                        </span>
-
-                        {/* 채팅 말풍선 2*/}
-                        <span className={styles.studio_chat_chatting}>
-                            <span style={{ display: 'inline-block' }}>
-                                {/* 뱃지 */}
-                                <span className={styles.studio_chat_badge} />
-                                {/* 유저 이름 */}
-                                <span className={`default_font ${styles.studio_chat_username}`}>
-                                    이름일이삼사오육칠팔구십
-                                </span>
-                            </span>
-                            {/* 채팅 내용 */}
-                            <span className={`default_font ${styles.studio_chat_userchat}`}>
-                                이것은 테스트 채팅 입니다. ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ
-                            </span>
-                        </span>
+                            ))}
+                            <span ref={messagesEndRef} />
+                        </div>
                     </div>
                 </div>
             </div>
