@@ -99,7 +99,7 @@ const Header = () => {
     const days = Array.from({ length: daysInMonth }, (_, i) => 1 + i);
 
     // 회원가입 기능 및 firestore에 사용자 정보 저장
-    const onClickUpLoadButton = async (event) => {
+    const onClickUpLoadButton = async event => {
         event.preventDefault();
         if (PW1 !== PW2) {
             setError('비밀번호가 일치하지 않습니다.');
@@ -230,7 +230,7 @@ const Header = () => {
                         </div>
                         <div className={styles.modal_button_container}>
                             <button className={styles.modal_button} onClick={() => setIsModalOpen(false)}>
-                                <img src="/image/close_button.svg" alt="닫기" />
+                                <img src="/images/close_button.svg" alt="닫기" />
                             </button>
                         </div>
                         {activeTab === '로그인' ? (

@@ -7,6 +7,7 @@ import Category from '../../components/Category';
 import Streaming from '../../components/Streaming';
 import { collection, getDocs, onSnapshot, orderBy, query, where } from 'firebase/firestore';
 import { db } from './api/firebase/firebasedb';
+import Link from 'next/link';
 
 export default function Home() {
     const [isExpanded, setIsExpanded] = useState(true);
@@ -57,17 +58,29 @@ export default function Home() {
                     <Category isExpanded={isExpanded} />
                 </div>
                 <div className={styles.Section_contents}>
-                    {streamingUsers ? (
-                        <>
-                            {streamingUsers?.map((user, index) => (
-                                <div key={index}>
-                                    <Streaming USER={user} />
-                                </div>
-                            ))}{' '}
-                        </>
-                    ) : (
-                        <div style={{ width: '100%', height: '300px' }}>no streamKeys</div>
-                    )}
+                    <div className={styles.Section}>
+                        <h2 className={styles.h2}>추천</h2>
+                        <Link
+                            href={{
+                                pathname: '/',
+                            }}
+                        >
+                            <p className={styles.all_category}>전체보기</p>
+                        </Link>
+                    </div>
+                    <ul className={styles.Section_List}>
+                        {streamingUsers ? (
+                            <>
+                                {streamingUsers?.map((user, index) => (
+                                    <div key={index} className={styles.Section_ListLayout}>
+                                        <Streaming USER={user} />
+                                    </div>
+                                ))}{' '}
+                            </>
+                        ) : (
+                            <div style={{ width: '100%', height: '300px' }}>no streamKeys</div>
+                        )}
+                    </ul>
                 </div>
             </div>
         </>

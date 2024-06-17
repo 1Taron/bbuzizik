@@ -1,5 +1,5 @@
 .Contents_container {
-    background-color: #261A1A;
+    background-color: #261a1a;
 }
 
 .homecontainer {
@@ -21,9 +21,69 @@
 }
 
 .Section_contents {
-
     align-items: center;
     display: flex;
+    width: 100%;
     padding: 0px 50px 0px 50px;
     z-index: 1;
+    flex-direction: column;
+}
+
+.Section_container {
+    width: 100%;
+    min-width: 600px;
+    display: flex;
+}
+
+.Section {
+    display: flex;
+    width: 100%;
+    margin-bottom: 10px;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'NPSfontBold';
+}
+
+.h2 {
+    color: white;
+    font-family: 'NPSfontBold';
+}
+
+.all_category {
+    color: white;
+    font-family: 'NPSfontBold';
+    font-size: 15px;
+}
+
+.Section_List {
+    display: flex;
+    flex-wrap: wrap;
+    /* width: 100%; */
+    margin: 15px 0px 0px 0;
+    flex-direction: row;
+}
+
+.Section_ListLayout {
+    width: 25%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media screen and (max-width: 1200px) {
+    .Section_ListLayout {
+        width: 33.33333%;
+    }
+}
+
+@media screen and (max-width: 990px) {
+    .Section_ListLayout {
+        width: 50%;
+    }
+}
+
+@media screen and (max-width: 750px) {
+    .Section_ListLayout {
+        width: 100%;
+    }
 }
