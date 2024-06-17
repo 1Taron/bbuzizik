@@ -102,6 +102,37 @@ export default function Home() {
         }
     }, [user, db]);
 
+    useEffect(() => {
+        const fetchStudioSetting = async () => {
+            try {
+                // 'User' 컬렉션에서 'UID' 필드가 user.uid와 일치하는 문서를 찾는 쿼리 생성
+                const q = query(collection(db, 'Studio'), where('UID', '==', user.uid));
+                const querySnapshot = await getDocs(q);
+
+                if (!querySnapshot.empty) {
+                    // 일치하는 문서가 있는 경우, 첫 번째 문서의 데이터를 가져옴
+                    const userDoc = querySnapshot.docs[0];
+                    const userData = userDoc.data();
+                    setBanTags(userData.banTags);
+                    setCategories(userData.category);
+                    setTitleText(userData.title);
+                    setChatRoleText(userData.chatRole);
+                    setGlobalState(userData.ChettingPermission);
+                    setbroadcast1(userData.broadcastsetting);
+                    setbreadcastpw1(userData.broadcastpw);
+                } else {
+                    console.log('No matching documents.');
+                }
+            } catch (error) {
+                console.error('Error fetching user document:', error);
+            }
+        };
+
+        if (user && user.uid && db) {
+            fetchStudioSetting();
+        }
+    }, [user, db]);
+
     // 일단 처음 스트림키 지정
     const [streamKey, setStreamKey] = useState('');
 
@@ -126,6 +157,7 @@ export default function Home() {
     // 금칙어 설정
     const [banText, setBanText] = useState('');
     const [banTags, setBanTags] = useState([]);
+
 
     const ban_handleChange = e => {
         setBanText(e.target.value);
@@ -158,34 +190,39 @@ export default function Home() {
             console.log('업로드 실패', error);
         }
     };
-    //내가 설정한 studiosetting 가져오기
-    useEffect(() => {
+
+    //db에 Studio 수정
+    const onClickUpDateButton = async () => {
         try {
-            const q = query(collection(db, 'Studio'), where('UID', '==', user.uid));
-            const querySnapshot = getDocs(q);
-
-            if (!querySnapshot.empty) {
-                const userDoc = querySnapshot.docs[0];
-                const userData = userDoc.data();
-                setStudioSetting(userData);
-            } else {
-                console.log('No matching documents.');
-            }
+            await addDoc(collection(db, 'Studio'), {
+                UID: user.uid, // 생성된 사용자 UID
+                streamKey: streamKey,
+                title: TitleText,
+                category: categories,
+                chatRole: chatRoleText,
+                banTags: banTags,
+                ChettingPermission: globalState,
+                broadcastsetting: broadcast,
+                broadcastpw: broadcastpw,
+            });
         } catch (error) {
-            console.error('Error fetching user document:', error);
+            console.log('업로드 실패', error);
         }
-    }, []);
+    };
 
-    const [StudioSetting, setStudioSetting] = useState('');
-    console.log(StudioSetting);
 
     //chatpermissions state 관리
-    const [globalState, setGlobalState] = useState('모든 사용자');
+    const [globalState, setGlobalState] = useState('');
+    const [globalState1, setGlobalState1] = useState('');
 
     //broadcast setting state 관리
     const [broadcast, setbroadcast] = useState('');
     const [broadcastpw, setbroadcastpw] = useState('');
 
+    const [broadcast1, setbroadcast1] = useState('');
+    const [breadcastpw1, setbreadcastpw1] = useState('');
+
+    //chatting 관리
     const messagesEndRef = useRef(null);
     const [chats, setChats] = useState([]);
 
@@ -234,9 +271,8 @@ export default function Home() {
                         <button
                             className={`logo_font ${styles.studio_header_btn2}`}
                             type="button"
-                            onClick="location.href='/'"
                         >
-                            취소
+                            <a href="/">취소</a>
                         </button>
                     </div>
                 </div>
@@ -328,10 +364,16 @@ export default function Home() {
                         {/* 방송속성 or 채팅권한 */}
                         <div className={styles.studio_main_setting_broadcastSetting} style={{ height: '100px' }}>
                             <GlobalContext.Provider value={{ broadcast, setbroadcast, broadcastpw, setbroadcastpw }}>
-                                <BroadcastProperty />
+                                <BroadcastProperty
+                                    broadcast1={broadcast1}
+                                    setbroadcast1={setbroadcast1}
+                                    breadcastpw1={breadcastpw1}
+                                    setbreadcastpw1={setbreadcastpw1} />
                             </GlobalContext.Provider>
                             <GlobalContext.Provider value={{ globalState, setGlobalState }}>
-                                <ChatPermission />
+                                <ChatPermission
+                                    globalState1={globalState1}
+                                    setGlobalState1={setGlobalState1} />
                             </GlobalContext.Provider>
                         </div>
 
@@ -443,6 +485,15 @@ export default function Home() {
                     {/* 채팅 뷰 영역 */}
                     <div className={styles.studio_chat_layout}>
                         <div className={styles.studio_chat_viewWrapper}>
+                            {user ? (
+                                <div className={`default_font ${livestyles.live_chat_loginNotice}`}>
+                                    로그인 되었습니다 :
+                                </div>
+                            ) : (
+                                <div className={`default_font ${livestyles.live_chat_loginNotice}`}>
+                                    로그인 해주세요.
+                                </div>
+                            )}
                             {/* 채팅 MAP */}
                             {chats.map((chat, index) => (
                                 <span key={index} className={livestyles.live_chat_chatting}>

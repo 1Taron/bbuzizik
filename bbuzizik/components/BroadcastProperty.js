@@ -4,7 +4,7 @@ import styles from '../css/studio_home.module.css';
 import { useContext } from 'react';
 import { GlobalContext } from '../src/pages/Studio/home';
 
-function BroadcastProperty() {
+function BroadcastProperty({ broadcast1, setbroadcast1, breadcastpw1, setbreadcastpw1 }) {
     const [checkboxStates, setCheckboxStates] = useState({
         '방송 숨김 설정': false,
         '유료 광고 포함 표시': false,
@@ -37,11 +37,11 @@ function BroadcastProperty() {
             <p className={styles.studio_main_setting_broadcastSetting_title}>방송속성</p>
             <div className={styles.studio_main_setting_broadcastSetting_property}>
                 <div className={styles.studio_main_setting_broadcastSetting_property_checkboxes}>
-                    {Object.keys(checkboxStates).map(label => (
+                    {Object.keys(broadcast).map(label => (
                         <J_Checkbox
                             key={label}
                             label={label}
-                            checked={checkboxStates[label]}
+                            checked={broadcast1[label]}
                             onCheckChange={isChecked => handleCheckChange(label, isChecked)}
                         />
                     ))}
@@ -49,9 +49,9 @@ function BroadcastProperty() {
                     <input
                         type="text"
                         className={styles.studio_main_setting_broadcastSetting_property_pwText}
-                        value={password}
+                        value={breadcastpw1}
                         onChange={handlePasswordChange}
-                        disabled={!checkboxStates['비밀번호 설정']}
+                        disabled={!broadcast1['비밀번호 설정']}
                     />
                 </div>
             </div>
