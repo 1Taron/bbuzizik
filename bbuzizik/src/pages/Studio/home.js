@@ -158,6 +158,26 @@ export default function Home() {
             console.log('업로드 실패', error);
         }
     };
+    //내가 설정한 studiosetting 가져오기
+    useEffect(() => {
+        try {
+            const q = query(collection(db, 'Studio'), where('UID', '==', user.uid));
+            const querySnapshot = getDocs(q);
+
+            if (!querySnapshot.empty) {
+                const userDoc = querySnapshot.docs[0];
+                const userData = userDoc.data();
+                setStudioSetting(userData);
+            } else {
+                console.log('No matching documents.');
+            }
+        } catch (error) {
+            console.error('Error fetching user document:', error);
+        }
+    }, []);
+
+    const [StudioSetting, setStudioSetting] = useState('');
+    console.log(StudioSetting);
 
     //chatpermissions state 관리
     const [globalState, setGlobalState] = useState('모든 사용자');
@@ -165,9 +185,6 @@ export default function Home() {
     //broadcast setting state 관리
     const [broadcast, setbroadcast] = useState('');
     const [broadcastpw, setbroadcastpw] = useState('');
-
-    console.log('broadcast : ', broadcast);
-    console.log('broadcastpw : ', broadcastpw);
 
     const messagesEndRef = useRef(null);
     const [chats, setChats] = useState([]);
@@ -217,7 +234,7 @@ export default function Home() {
                         <button
                             className={`logo_font ${styles.studio_header_btn2}`}
                             type="button"
-                            onclick="location.href='/'"
+                            onClick="location.href='/'"
                         >
                             취소
                         </button>
@@ -428,7 +445,7 @@ export default function Home() {
                         <div className={styles.studio_chat_viewWrapper}>
                             {user ? (
                                 <div className={`default_font ${livestyles.live_chat_loginNotice}`}>
-                                    로그인 되었습니다 : {nickname}
+                                    로그인 되었습니다 :
                                 </div>
                             ) : (
                                 <div className={`default_font ${livestyles.live_chat_loginNotice}`}>

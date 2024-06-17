@@ -15,6 +15,7 @@ import { addDoc, collection } from 'firebase/firestore';
 import Dropdown from '../components/DropDown';
 import { faWindows } from '@fortawesome/free-brands-svg-icons';
 import crypto from 'crypto';
+import e from 'cors';
 
 const Header = () => {
     const [searchTerm, setSearchTerm] = useState(''); //검색 입력력
@@ -98,7 +99,8 @@ const Header = () => {
     const days = Array.from({ length: daysInMonth }, (_, i) => 1 + i);
 
     // 회원가입 기능 및 firestore에 사용자 정보 저장
-    const onClickUpLoadButton = async () => {
+    const onClickUpLoadButton = async (event) => {
+        event.preventDefault();
         if (PW1 !== PW2) {
             setError('비밀번호가 일치하지 않습니다.');
             return;
@@ -125,7 +127,8 @@ const Header = () => {
                     BirthDate: birthDate,
                     newStreamKey,
                 });
-                window.location.reload(); // 페이지 새로고침
+                console.log('회원가입 성공');
+                window.location.reload();
             } catch (error) {
                 console.error('회원가입 실패: ', error);
                 setError(error.message); // 오류 메시지 설정
