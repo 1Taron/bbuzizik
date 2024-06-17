@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import Sidebar from '../../components/sidebar';
-import Header from '../../components/Header';
-import livestyles from '../../css/main_live.module.css';
+import Sidebar from '../../../components/sidebar';
+import Header from '../../../components/Header';
+import livestyles from '../../../css/main_live.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFaceSmile } from '@fortawesome/free-regular-svg-icons';
 import {
@@ -13,10 +13,11 @@ import {
     faPaperPlane,
     faStar,
 } from '@fortawesome/free-solid-svg-icons';
-import Player from '../../components/Player';
-import { auth, db } from '../pages/api/firebase/firebasedb';
+import Player from '../../../components/Player';
+import { auth, db } from '../api/firebase/firebasedb';
 import { collection, getDocs, onSnapshot, orderBy, query, where } from 'firebase/firestore';
 import { io } from 'socket.io-client';
+import { useRouter } from 'next/router';
 
 let socket;
 
@@ -24,7 +25,34 @@ export default function Live() {
     const API_KEY = process.env.NEXT_PUBLIC_SERVER_IP;
     const [isExpanded, setIsExpanded] = useState(true);
 
-    // const { user, nickname } = useContext(UserContext);
+    // 스트리머 정보
+    const router = useRouter();
+    const { slug } = router.query;
+    const [streamerData, setStreamerData] = useState(null);
+
+    useEffect(() => {
+        if (slug && slug.length > 0) {
+            const streamingKey = slug[0]; // slug 배열에서 streamingKey 추출
+            const fetchData = async () => {
+                try {
+                    const querySnapshot = await getDocs(collection(db, 'User'));
+                    querySnapshot.forEach(doc => {
+                        if (doc.data().newStreamKey === streamingKey) {
+                            setStreamerData(doc.data());
+                            console.log('Streamer data : ', doc.data());
+                        }
+                    });
+                } catch (error) {
+                    console.error('Error fetching streamer data:', error);
+                }
+            };
+
+            fetchData();
+        }
+    }, [slug]);
+
+    console.log('router : ', router);
+
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(currentUser => {
             setUser(currentUser);
@@ -192,20 +220,19 @@ export default function Live() {
                         !isExpanded && !isChatExpanded
                             ? livestyles.homecontainer_chatOff // 둘 다 false일 때
                             : isExpanded && !isChatExpanded
-                                ? livestyles.homecontainer_sideExpanded_chatOff // isExpanded만 true일 때
-                                : isExpanded && isChatExpanded
-                                    ? livestyles.homecontainer_sideExpanded // 둘 다 true일 때
-                                    : livestyles.homecontainer // isChatExpanded만 true일 때, 나머지 경우
+                            ? livestyles.homecontainer_sideExpanded_chatOff // isExpanded만 true일 때
+                            : isExpanded && isChatExpanded
+                            ? livestyles.homecontainer_sideExpanded // 둘 다 true일 때
+                            : livestyles.homecontainer // isChatExpanded만 true일 때, 나머지 경우
                     }
                 >
                     {/* 라이브 화면 */}
                     <div className={livestyles.livecontainer}>
-                        {/* <ReactPlayer url="https://www.youtube.com/watch?v=LXb3EKWsInQ" /> */}
-                        <Player
+                        {/* <Player
                             src={`http://${API_KEY}:8080/hls/bbbbb/index.m3u8`}
                             type="m3u8"
                             className={livestyles.hlsplayer}
-                        />
+                        /> */}
                         {!isChatExpanded ? (
                             <FontAwesomeIcon
                                 icon={faCommentDots}
@@ -229,7 +256,7 @@ export default function Live() {
                             <div className={livestyles.infobox_content}>
                                 <div className={livestyles.infobox_content_profile}></div>
                                 <div className={livestyles.infobox_content_remain}>
-                                    <div className={livestyles.infobox_content_remain_name}>이름</div>
+                                    <div className={livestyles.infobox_content_remain_name}>{streamerData?.ID}</div>
                                     <div className={livestyles.infobox_content_remain_info}>
                                         <p>824,824</p>
                                         <p>824</p>
@@ -237,7 +264,7 @@ export default function Live() {
                                     </div>
                                     <div className={livestyles.infobox_content_remain_category}>Just Chatting</div>
                                     <div className={livestyles.infobox_content_remain_btns}>
-                                        {/* 더보기 버튼*/}
+                                        {/* 더보기 버튼 */}
                                         <button
                                             type="button"
                                             className={`${livestyles.infobox_content_remain_ellipsislBtn} ${livestyles.btn_borderNone}`}

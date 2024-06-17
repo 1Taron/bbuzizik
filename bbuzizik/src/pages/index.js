@@ -5,9 +5,42 @@ import styles from '../../css/main.module.css';
 import MySwiper from '../../components/MySwiper';
 import Category from '../../components/Category';
 import Streaming from '../../components/Streaming';
+import { collection, getDocs, onSnapshot, orderBy, query, where } from 'firebase/firestore';
+import { db } from './api/firebase/firebasedb';
 
 export default function Home() {
     const [isExpanded, setIsExpanded] = useState(true);
+
+    // 스트리밍 목록
+
+    const [nicknames, setNicknames] = useState([]);
+    const [streamKeys, setStreamKeys] = useState([]);
+
+    const [streamingUsers, setStreamingUsers] = useState([]);
+
+    useEffect(() => {
+        const q = query(collection(db, 'User'));
+        const unsubscribe = onSnapshot(
+            q,
+            snapshot => {
+                const allUserDoc = snapshot.docs.map(doc => doc.data());
+
+                console.log('AllUserDoc document data:', allUserDoc);
+
+                setStreamingUsers(allUserDoc);
+                // const nicknamesArray = allUserDoc.map(user => user.ID);
+                // const streamKeysArray = allUserDoc.map(user => user.newStreamKey);
+
+                // setNicknames(nicknamesArray);
+                // setStreamKeys(streamKeysArray);
+                // console.log('streamKeys :', streamKeysArray);
+            },
+            error => {
+                console.error('Error fetching chat document:', error);
+            }
+        );
+        return () => unsubscribe();
+    }, []);
 
     return (
         <>
@@ -24,7 +57,17 @@ export default function Home() {
                     <Category isExpanded={isExpanded} />
                 </div>
                 <div className={styles.Section_contents}>
-                    <Streaming />
+                    {streamingUsers ? (
+                        <>
+                            {streamingUsers?.map((user, index) => (
+                                <div key={index}>
+                                    <Streaming USER={user} />
+                                </div>
+                            ))}{' '}
+                        </>
+                    ) : (
+                        <div style={{ width: '100%', height: '300px' }}>no streamKeys</div>
+                    )}
                 </div>
             </div>
         </>

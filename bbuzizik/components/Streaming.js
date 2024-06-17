@@ -2,8 +2,8 @@ import React from 'react';
 import styles from '../css/streaming.module.css';
 import Link from 'next/link';
 
-export default function Streaming() {
-    const Section_List = [{ name: '괴물쥐', category: 'talk', viewers: 1000, title: '반갑꼬리' }];
+export default function Streaming({ USER }) {
+    const Section_List = [{ name: `${USER.ID}`, category: 'talk', viewers: 1000, title: '반갑꼬리' }];
 
     return (
         <>
@@ -25,7 +25,7 @@ export default function Streaming() {
                                 <Link
                                     className={styles.Video_card}
                                     href={{
-                                        pathname: '/live',
+                                        pathname: `/live/${USER.newStreamKey}`,
                                     }}
                                 >
                                     <img src="/images/thumnail.jpeg" alt="thumnail" className={styles.Img} />
@@ -42,7 +42,7 @@ export default function Streaming() {
                                         <Link
                                             className={styles.video_card_title_link}
                                             href={{
-                                                pathname: '/live',
+                                                pathname: `/live/${USER.newStreamKey}`,
                                             }}
                                         >
                                             {item.title}

@@ -443,15 +443,6 @@ export default function Home() {
                     {/* 채팅 뷰 영역 */}
                     <div className={styles.studio_chat_layout}>
                         <div className={styles.studio_chat_viewWrapper}>
-                            {user ? (
-                                <div className={`default_font ${livestyles.live_chat_loginNotice}`}>
-                                    로그인 되었습니다 :
-                                </div>
-                            ) : (
-                                <div className={`default_font ${livestyles.live_chat_loginNotice}`}>
-                                    로그인 해주세요.
-                                </div>
-                            )}
                             {/* 채팅 MAP */}
                             {chats.map((chat, index) => (
                                 <span key={index} className={livestyles.live_chat_chatting}>
