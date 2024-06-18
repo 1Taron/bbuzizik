@@ -26,8 +26,14 @@ function BroadcastProperty() {
         setPassword(event.target.value);
     };
 
-    //usecontext
+    //Globalcontext
     const { broadcast, setbroadcast, broadcastpw, setbroadcastpw } = useContext(GlobalContext);
+
+    useEffect(() => {
+        setbroadcast(checkboxStates);
+        setbroadcastpw(password);
+    }, [checkboxStates, password, setbroadcast, setbroadcastpw]);
+
 
     return (
         <div style={{ paddingTop: '10px' }}>
