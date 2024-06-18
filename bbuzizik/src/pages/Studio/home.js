@@ -19,7 +19,7 @@ import J_Checkbox from '../../../components/J_Checkbox';
 import ChatPermission from '../../../components/ChatPermission';
 import BroadcastProperty from '../../../components/BroadcastProperty';
 import crypto from 'crypto';
-import { addDoc, collection, getDocs, onSnapshot, orderBy, query, where } from 'firebase/firestore';
+import { addDoc, collection, getDocs, onSnapshot, orderBy, query, updateDoc, where } from 'firebase/firestore';
 import { auth, db } from '../api/firebase/firebasedb';
 import { GlobalLayoutRouterContext } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 import { createContext } from 'react';
@@ -118,8 +118,8 @@ export default function Home() {
                     setTitleText(userData.title);
                     setChatRoleText(userData.chatRole);
                     setGlobalState(userData.ChettingPermission);
-                    setbroadcast1(userData.broadcastsetting);
-                    setbreadcastpw1(userData.broadcastpw);
+                    setbroadcast(userData.broadcastsetting);
+                    setbroadcastpw(userData.broadcastpw);
                 } else {
                     console.log('No matching documents.');
                 }
@@ -172,44 +172,49 @@ export default function Home() {
         setBanTags(banTags.filter((banTags, i) => i !== index));
     };
 
-    //db에 studio 업로드
-    const onClickUpLoadButton = async () => {
+    const onClickUploadOrUpdateButton = async () => {
         try {
-            await addDoc(collection(db, 'Studio'), {
-                UID: user.uid, // 생성된 사용자 UID
-                streamKey: streamKey,
-                title: TitleText,
-                category: categories,
-                chatRole: chatRoleText,
-                banTags: banTags,
-                ChettingPermission: globalState,
-                broadcastsetting: broadcast,
-                broadcastpw: broadcastpw,
-            });
+            // 현재 사용자의 uid 가져오기
+            const user = await auth.currentUser;
+            const currentUserUid = user.uid;
+
+            // 현재 사용자의 문서 참조 가져오기
+            const q = query(collection(db, 'Studio'), where('UID', '==', user.uid));
+            const userDocSnapshot = await getDocs(q);
+
+            if (!userDocSnapshot.empty) {
+                // 문서가 존재하면 업데이트
+                const userDoc = userDocSnapshot.docs[0];
+                await updateDoc(userDoc.ref, {
+                    streamKey: streamKey,
+                    title: TitleText,
+                    category: categories,
+                    chatRole: chatRoleText,
+                    banTags: banTags,
+                    ChettingPermission: globalState,
+                    broadcastsetting: broadcast,
+                    broadcastpw: broadcastpw,
+                });
+                console.log('문서 업데이트 완료');
+            } else {
+                // 문서가 존재하지 않으면 새로 생성
+                await addDoc(collection(db, 'Studio'), {
+                    UID: currentUserUid,
+                    streamKey: streamKey,
+                    title: TitleText,
+                    category: categories,
+                    chatRole: chatRoleText,
+                    banTags: banTags,
+                    ChettingPermission: globalState,
+                    broadcastsetting: broadcast,
+                    broadcastpw: broadcastpw,
+                });
+                console.log('문서 생성 완료');
+            }
         } catch (error) {
-            console.log('업로드 실패', error);
+            console.log('작업 실패', error);
         }
     };
-
-    //db에 Studio 수정
-    const onClickUpDateButton = async () => {
-        try {
-            await addDoc(collection(db, 'Studio'), {
-                UID: user.uid, // 생성된 사용자 UID
-                streamKey: streamKey,
-                title: TitleText,
-                category: categories,
-                chatRole: chatRoleText,
-                banTags: banTags,
-                ChettingPermission: globalState,
-                broadcastsetting: broadcast,
-                broadcastpw: broadcastpw,
-            });
-        } catch (error) {
-            console.log('업로드 실패', error);
-        }
-    };
-
 
     //chatpermissions state 관리
     const [globalState, setGlobalState] = useState('');
@@ -218,9 +223,6 @@ export default function Home() {
     //broadcast setting state 관리
     const [broadcast, setbroadcast] = useState('');
     const [broadcastpw, setbroadcastpw] = useState('');
-
-    const [broadcast1, setbroadcast1] = useState('');
-    const [breadcastpw1, setbreadcastpw1] = useState('');
 
     //chatting 관리
     const messagesEndRef = useRef(null);
@@ -264,7 +266,7 @@ export default function Home() {
                         <button
                             className={`logo_font ${styles.studio_header_btn1}`}
                             type="submit"
-                            onClick={onClickUpLoadButton}
+                            onClick={onClickUploadOrUpdateButton}
                         >
                             저장
                         </button>
@@ -364,11 +366,7 @@ export default function Home() {
                         {/* 방송속성 or 채팅권한 */}
                         <div className={styles.studio_main_setting_broadcastSetting} style={{ height: '100px' }}>
                             <GlobalContext.Provider value={{ broadcast, setbroadcast, broadcastpw, setbroadcastpw }}>
-                                <BroadcastProperty
-                                    broadcast1={broadcast1}
-                                    setbroadcast1={setbroadcast1}
-                                    breadcastpw1={breadcastpw1}
-                                    setbreadcastpw1={setbreadcastpw1} />
+                                <BroadcastProperty />
                             </GlobalContext.Provider>
                             <GlobalContext.Provider value={{ globalState, setGlobalState }}>
                                 <ChatPermission
