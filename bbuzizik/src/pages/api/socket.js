@@ -28,9 +28,7 @@ export default function SocketHandler(req, res) {
         socket.on('send_message', obj => {
             console.log('send client', socket.id, obj);
             sendChat(obj);
-            // io.emit('receive_message', obj);
             io.emit('receive_message');
-            // console.log('send client after', socket.id, obj);
         });
     });
 
@@ -39,12 +37,14 @@ export default function SocketHandler(req, res) {
 
 const sendChat = async obj => {
     try {
+        console.log(`firebase Chat check : , Chat-${obj.streamerKey}`);
         // Firestore에 저장할 사용자의 추가 정보
-        await addDoc(collection(db, 'Chat'), {
+        await addDoc(collection(db, `Chat-${obj.streamerKey}`), {
             UID: obj.uid,
             NickName: obj.nickName,
             Message: obj.chatText,
             StreamKey: obj.streamKey,
+            StreamerKey: obj.streamerKey,
             Timestamp: serverTimestamp(),
         });
     } catch (error) {

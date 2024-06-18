@@ -36,22 +36,49 @@ export default function Live() {
             const fetchData = async () => {
                 try {
                     const querySnapshot = await getDocs(collection(db, 'User'));
+                    let foundStreamerData = null;
                     querySnapshot.forEach(doc => {
                         if (doc.data().newStreamKey === streamingKey) {
-                            setStreamerData(doc.data());
-                            console.log('Streamer data : ', doc.data());
+                            foundStreamerData = doc.data();
                         }
                     });
+
+                    if (foundStreamerData) {
+                        setStreamerData(foundStreamerData);
+                        console.log('Streamer data : ', foundStreamerData);
+
+                        // Streamer data를 가져온 후에 Chat data를 실시간으로 가져옴 streamerData의 undefined 방지
+                        const cq = query(
+                            collection(db, `Chat-${foundStreamerData?.newStreamKey}`),
+                            orderBy('Timestamp', 'asc')
+                        );
+                        const unsubscribe = onSnapshot(
+                            cq,
+                            snapshot => {
+                                const chatDoc = snapshot.docs.map(doc => doc.data());
+                                console.log(`Chat-${foundStreamerData?.newStreamKey} document data: `, chatDoc);
+                                setChats(chatDoc);
+                            },
+                            error => {
+                                console.error('Error fetching chat document:', error);
+                            }
+                        );
+
+                        return () => unsubscribe();
+                    } else {
+                        setStreamerData(null);
+                        console.log('No streamer data found for key:', streamingKey);
+                    }
                 } catch (error) {
                     console.error('Error fetching streamer data:', error);
                 }
             };
 
             fetchData();
+        } else {
+            setStreamerData(null); // slug가 없을 때 streamerData를 초기화
         }
     }, [slug]);
-
-    console.log('router : ', router);
 
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(currentUser => {
@@ -106,15 +133,19 @@ export default function Live() {
     // --------------------
     // --------------------
 
+    // 채팅 보내기
     const sendChat_handleClick = () => {
         if (chatText.trim() !== '') {
-            console.log(`sendChat : ${user.uid}, ${nickname}, ${chatText}, ${streamKey}`);
+            console.log(
+                `sendChat : ${user.uid}, ${nickname}, ${chatText}, ${streamKey}, ${streamerData?.newStreamKey}`
+            );
 
             socket.emit('send_message', {
                 uid: user.uid,
                 nickName: nickname,
                 chatText: chatText,
                 streamKey: streamKey,
+                streamerKey: streamerData?.newStreamKey,
             });
             setChatText('');
         }
@@ -131,7 +162,7 @@ export default function Live() {
     }, []);
 
     async function socketInitializer() {
-        await fetch('/api/socket');
+        await fetch('../api/socket');
 
         socket = io();
 
@@ -141,7 +172,6 @@ export default function Live() {
         if (!socket.hasListeners('receive_message')) {
             socket.on('receive_message', () => {
                 // console.log(data);
-                // setChatMessages(pre => [...pre, data]);
                 console.log('receive_message');
             });
         }
@@ -186,24 +216,8 @@ export default function Live() {
         setIsChatExpanded(true);
     };
 
+    // 채팅 받기
     const [chats, setChats] = useState([]);
-
-    useEffect(() => {
-        const cq = query(collection(db, 'Chat'), orderBy('Timestamp', 'asc'));
-        const unsubscribe = onSnapshot(
-            cq,
-            snapshot => {
-                const chatDoc = snapshot.docs.map(doc => doc.data());
-                console.log('Chat document data:', chatDoc);
-                setChats(chatDoc);
-            },
-            error => {
-                console.error('Error fetching chat document:', error);
-            }
-        );
-
-        return () => unsubscribe();
-    }, []);
 
     // 채팅 메시지 상태가 변경될 때마다 스크롤을 최하단으로 이동
     useEffect(() => {

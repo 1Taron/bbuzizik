@@ -4,7 +4,6 @@ import styles from '../css/studio_home.module.css';
 import { useContext } from 'react';
 import { GlobalContext } from '../src/pages/Studio/home';
 
-
 function BroadcastProperty() {
     const [checkboxStates, setCheckboxStates] = useState({
         '방송 숨김 설정': false,
@@ -34,13 +33,12 @@ function BroadcastProperty() {
         setbroadcastpw(password);
     }, [checkboxStates, password, setbroadcast, setbroadcastpw]);
 
-
     return (
         <div style={{ paddingTop: '10px' }}>
             <p className={styles.studio_main_setting_broadcastSetting_title}>방송속성</p>
             <div className={styles.studio_main_setting_broadcastSetting_property}>
                 <div className={styles.studio_main_setting_broadcastSetting_property_checkboxes}>
-                    {Object.keys(broadcast).map(label => (
+                    {Object.keys(checkboxStates).map(label => (
                         <J_Checkbox
                             key={label}
                             label={label}
