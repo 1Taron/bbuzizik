@@ -177,6 +177,8 @@
     /* color: #a4a6aa; */
     color: white;
     letter-spacing: 2px;
+    margin-top: 5px;
+    font-style: italic;
 }
 
 .modal_login_container {

@@ -158,7 +158,6 @@ export default function Home() {
     const [banText, setBanText] = useState('');
     const [banTags, setBanTags] = useState([]);
 
-
     const ban_handleChange = e => {
         setBanText(e.target.value);
     };
@@ -255,11 +254,11 @@ export default function Home() {
             <div className={styles.studio_test} style={{ paddingTop: '60px' }}>
                 {/* 헤더 */}
                 <div className={styles.studio_header} style={{ top: '0px' }}>
-                    <div className={`logo_font ${styles.studio_header_titlelayout}`}>
-                        <p className={`logo_font ${styles.studio_header_maintitle}`}>
-                            <a href="/">BBUZIZIK</a>
+                    <div className={`logo_font2 ${styles.studio_header_titlelayout}`}>
+                        <p className={`logo_font2 ${styles.studio_header_maintitle}`}>
+                            <a href="/">뿌지직</a>
                         </p>
-                        <p className={`logo_font ${styles.studio_header_subtitle}`}>STUDIO</p>
+                        <p className={`logo_font2 ${styles.studio_header_subtitle}`}>STUDIO</p>
                     </div>
 
                     <div className={styles.studio_header_btnlayout}>
@@ -270,10 +269,7 @@ export default function Home() {
                         >
                             저장
                         </button>
-                        <button
-                            className={`logo_font ${styles.studio_header_btn2}`}
-                            type="button"
-                        >
+                        <button className={`logo_font ${styles.studio_header_btn2}`} type="button">
                             <a href="/">취소</a>
                         </button>
                     </div>
@@ -369,9 +365,7 @@ export default function Home() {
                                 <BroadcastProperty />
                             </GlobalContext.Provider>
                             <GlobalContext.Provider value={{ globalState, setGlobalState }}>
-                                <ChatPermission
-                                    globalState1={globalState1}
-                                    setGlobalState1={setGlobalState1} />
+                                <ChatPermission globalState1={globalState1} setGlobalState1={setGlobalState1} />
                             </GlobalContext.Provider>
                         </div>
 

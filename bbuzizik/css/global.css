@@ -1,71 +1,92 @@
 :root {
-  --black: #261a1a;
-  --white: #ffffff;
-  --gray: #f2f0f0;
-  --gray2: #d9d9d9;
-  --brown1: #8c6961;
-  --brown2: #402422;
-  --orange: #d97652;
+    --black: #261a1a;
+    --white: #ffffff;
+    --gray: #f2f0f0;
+    --gray2: #d9d9d9;
+    --brown1: #8c6961;
+    --brown2: #402422;
+    --orange: #d97652;
 }
 
 * {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
 }
 
 a {
-  text-decoration: none;
-  color: inherit;
+    text-decoration: none;
+    color: inherit;
 }
 
 /* Chrome, Edge, Safari */
 ::-webkit-scrollbar {
-  display: none;
+    display: none;
 }
 
 /* Firefox */
 html {
-  scrollbar-width: none;
+    scrollbar-width: none;
 }
 
 /* Internet Explorer */
 body {
-  -ms-overflow-style: none;
+    -ms-overflow-style: none;
 }
 
 /* logo 폰트 */
 @font-face {
-  font-family: "PartialSansKR-Regular";
-  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-1@1.1/PartialSansKR-Regular.woff2")
-    format("woff2");
-  font-weight: normal;
-  font-style: normal;
+    font-family: 'PartialSansKR-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-1@1.1/PartialSansKR-Regular.woff2')
+        format('woff2');
+    font-weight: normal;
+    font-style: normal;
 }
 .logo_font {
-  font-family: "PartialSansKR-Regular", sans-serif;
+    font-family: 'PartialSansKR-Regular', sans-serif;
 }
 
 /* 일반  */
 @font-face {
-  font-family: "NPSfontBold";
-  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2310@1.0/NPSfontBold.woff2")
-    format("woff2");
-  /* 700 or 800 */
-  font-weight: 700;
-  font-style: normal;
+    font-family: 'NPSfontBold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2310@1.0/NPSfontBold.woff2') format('woff2');
+    /* 700 or 800 */
+    font-weight: 700;
+    font-style: normal;
 }
 .default_font {
-  font-family: "NPSfontBold", sans-serif;
+    font-family: 'NPSfontBold', sans-serif;
 }
 
 @font-face {
-  font-family: "omyu_pretty";
-  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/omyu_pretty.woff2")
-    format("woff2");
-  font-weight: normal;
-  font-style: normal;
+    font-family: 'omyu_pretty';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/omyu_pretty.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
 }
 .default_font2 {
-  font-family: "omyu_pretty", sans-serif;
+    font-family: 'omyu_pretty', sans-serif;
+}
+
+/* 태나다체 */
+@font-face {
+    font-family: 'Tenada';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2210-2@1.0/Tenada.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.logo_font2 {
+    font-family: 'Tenada', sans-serif;
+}
+
+/* 메이플체 */
+@font-face {
+    font-family: 'MaplestoryOTFBold';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/MaplestoryOTFBold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+.logo_font3 {
+    font-family: 'MaplestoryOTFBold', sans-serif;
 }

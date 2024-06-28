@@ -173,7 +173,7 @@ const Header = () => {
             <h1 className={styles.logo_bar}>
                 <Link href="/" className={styles.Link_a}>
                     {/* <img src="/image/Logo11.svg" alt="Logo" /> */}
-                    <p className={`logo_font ${styles.modal_logotitle}`}>BBUZIZIK</p>
+                    <p className={`logo_font2 ${styles.modal_logotitle}`}>뿌지직</p>
                 </Link>
             </h1>
             <div className={styles.center_bar}>

@@ -13,17 +13,20 @@
 }
 
 .studio_header_maintitle {
-    font-size: 30px;
+    font-size: 32px;
     align-self: center;
     padding-left: 70px;
     color: #261a1a;
+    margin-top: 5px;
+    letter-spacing: 2px;
+    font-style: italic;
 }
 
 .studio_header_subtitle {
-    font-size: 18px;
+    font-size: 24px;
     color: var(--white);
-    line-height: 70px;
-    margin-left: 5px;
+    line-height: 65px;
+    margin-left: 10px;
 }
 
 .studio_header_btnlayout {
