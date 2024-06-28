@@ -1,6 +1,7 @@
 .OpenSidebar {
     height: 100vh;
-    background-color: #261a1a;
+    /* background-color: #261a1a; */
+    background-color: #1c1a19;
     color: white;
     position: fixed;
     left: 0;
@@ -23,7 +24,8 @@
 .CloseSidebar {
     width: 66px;
     height: 100vh;
-    background-color: #261a1a;
+    /* background-color: #261a1a; */
+    background-color: #1c1a19;
     color: white;
     position: fixed;
     left: 0;
@@ -46,7 +48,8 @@
     margin: auto;
     border: 0px;
     border-radius: 0px;
-    background-color: #261a1a;
+    /* background-color: #261a1a; */
+    background-color: #1c1a19;
     position: relative;
 }
 
@@ -115,7 +118,8 @@
     border: 0px;
     text-align: left;
     border-radius: 0px;
-    background-color: #261a1a;
+    /* background-color: #261a1a; */
+    background-color: #1c1a19;
     cursor: pointer;
 }
 
@@ -176,7 +180,8 @@
     border-radius: 10px;
     width: 80px;
     height: 25px;
-    background-color: #402422;
+    /* background-color: #402422; */
+    background-color: #302c2a;
     color: rgb(199, 199, 199);
     cursor: pointer;
     font-size: 12px;

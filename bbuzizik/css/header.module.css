@@ -1,7 +1,8 @@
 .header {
     width: 100%;
     height: 61px;
-    background-color: #261a1a;
+    /* background-color: #261a1a; */
+    background-color: #1c1a19;
     top: 0;
     position: fixed;
     margin-left: 60px;
@@ -59,13 +60,15 @@
     font-size: 15px;
     height: 100%;
     outline: none;
-    background-color: #261a1a;
+    /* background-color: #261a1a; */
+    background-color: #1c1a19;
     border: 0;
 }
 
 .button {
     cursor: pointer;
-    background-color: #261a1a;
+    /* background-color: #261a1a; */
+    background-color: #1c1a19;
     border: 0;
     align-items: center;
     display: flex;
@@ -81,7 +84,8 @@
     height: 30px;
     width: 50px;
     color: #dfe2ea;
-    background-color: #261a1a;
+    /* background-color: #261a1a; */
+    background-color: #1c1a19;
     border: 1px solid #dfe2ea;
     cursor: pointer;
     text-align: center;
@@ -93,7 +97,8 @@
     height: 30px;
     padding: 0 10px;
     color: #dfe2ea;
-    background-color: #261a1a;
+    /* background-color: #261a1a; */
+    background-color: #1c1a19;
     border: 1px solid #dfe2ea;
     cursor: pointer;
 }
@@ -167,8 +172,11 @@
 }
 
 .modal_logotitle {
-    font-size: 32px;
+    font-size: 30px;
     align-self: center;
+    /* color: #a4a6aa; */
+    color: white;
+    letter-spacing: 2px;
 }
 
 .modal_login_container {

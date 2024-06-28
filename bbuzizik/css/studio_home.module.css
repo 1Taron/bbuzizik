@@ -16,6 +16,7 @@
     font-size: 30px;
     align-self: center;
     padding-left: 70px;
+    color: #261a1a;
 }
 
 .studio_header_subtitle {
@@ -73,7 +74,8 @@
     min-height: calc(100vh - 60px);
     width: calc(100vw - 350px);
     position: fixed;
-    background-color: var(--black);
+    /* background-color: var(--black); */
+    background-color: #1c1a19;
 }
 
 .studio_main > div {

@@ -173,12 +173,7 @@ const Header = () => {
             <h1 className={styles.logo_bar}>
                 <Link href="/" className={styles.Link_a}>
                     {/* <img src="/image/Logo11.svg" alt="Logo" /> */}
-                    <p
-                        className={`logo_font ${styles.modal_logotitle}`}
-                        style={{ color: '#a4a6aa', fontSize: '30px', letterSpacing: '2px' }}
-                    >
-                        BBUZIZIK
-                    </p>
+                    <p className={`logo_font ${styles.modal_logotitle}`}>BBUZIZIK</p>
                 </Link>
             </h1>
             <div className={styles.center_bar}>
