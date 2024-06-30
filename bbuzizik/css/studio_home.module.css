@@ -6,6 +6,7 @@
     position: fixed;
     z-index: 100;
 }
+
 .studio_header_titlelayout {
     display: flex;
     flex-direction: row;
@@ -47,6 +48,7 @@
     margin-right: 10px;
     letter-spacing: 1px;
 }
+
 .studio_header_btn1:hover {
     background-color: #6a68df;
 }
@@ -62,6 +64,7 @@
     margin-right: 10px;
     letter-spacing: 1px;
 }
+
 .studio_header_btn2:hover {
     background-color: #dfe0ec;
 }
@@ -81,7 +84,7 @@
     background-color: #1c1a19;
 }
 
-.studio_main > div {
+.studio_main>div {
     color: white;
 }
 
@@ -115,11 +118,11 @@
     padding: 0px 10px 0px 10px;
 }
 
-.studio_main_setting > div:nth-child(1) {
+.studio_main_setting>div:nth-child(1) {
     margin-top: 0px;
 }
 
-.studio_main_setting > div {
+.studio_main_setting>div {
     height: 50px;
     margin-top: 5px;
     display: flex;
@@ -216,7 +219,7 @@
     flex-wrap: nowrap;
 }
 
-.studio_main_broadcastCategory_tag > p {
+.studio_main_broadcastCategory_tag>p {
     color: #402422;
     margin-left: 5px;
     width: auto;
@@ -281,12 +284,12 @@
     width: 80%;
 }
 
-.studio_main_setting_broadcastInfo_text > p {
+.studio_main_setting_broadcastInfo_text>p {
     margin-top: 10px;
     width: 50%;
 }
 
-.studio_main_setting_broadcastSetting > div {
+.studio_main_setting_broadcastSetting>div {
     /* flex: 1; */
     display: flex;
 }
@@ -307,12 +310,12 @@
     width: 470px;
 }
 
-.studio_main_setting_broadcastSetting_property_checkboxes > * {
+.studio_main_setting_broadcastSetting_property_checkboxes>* {
     width: 25%;
     margin-bottom: 20px;
 }
 
-.studio_main_setting_broadcastSetting_property_checkboxes > *:nth-child(2) {
+.studio_main_setting_broadcastSetting_property_checkboxes>*:nth-child(2) {
     width: 30%;
 }
 
@@ -352,7 +355,7 @@
     flex-wrap: wrap;
 }
 
-.studio_main_setting_chatRights_property_checkboxes > * {
+.studio_main_setting_chatRights_property_checkboxes>* {
     width: 50%;
     margin-bottom: 20px;
 }
@@ -502,7 +505,7 @@
     font-size: 12px;
 }
 
-.studio_main_banWord_tag > p {
+.studio_main_banWord_tag>p {
     color: #402422;
     font-size: 12px;
     margin-left: 5px;
@@ -520,7 +523,7 @@
     font-size: 12px;
 }
 
-.studio_main_banWord_Search > input {
+.studio_main_banWord_Search>input {
     border: none;
     background-color: transparent;
     width: 100px;
@@ -550,7 +553,7 @@
     border-bottom: 1px solid var(--white);
 }
 
-.studio_chat_title > p {
+.studio_chat_title>p {
     font-size: 24px;
     line-height: 60px;
     padding-left: 20px;
@@ -684,4 +687,50 @@
     .studio_main_setting {
         padding-left: 5%;
     }
+}
+
+.switchButton_header {
+    font-size: 18px;
+    font-weight: bold;
+    position: relative;
+    font-family: NPSfontBold;
+    align-self: center;
+    margin-right: 12px;
+}
+
+.switchButton {
+    width: 60px;
+    height: 30px;
+    background-color: #ccc;
+    border-radius: 0px;
+    position: relative;
+    cursor: pointer;
+    border-radius: 10px;
+    margin-right: 10px;
+}
+
+.switchButton .slider {
+    position: absolute;
+    font-family: NPSfontBold;
+    align-self: center;
+    top: 2.5px;
+    left: 2.5px;
+    width: 30px;
+    height: 25px;
+    background-color: #fff;
+    border-radius: 0px;
+    transition: all 0.3s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    color: #333;
+    border-radius: 10px;
+    font-size: 12px;
+}
+
+.switchButton .slider.active {
+    background-color: #4CAF50;
+    color: #fff;
+    transform: translateX(25px);
 }

@@ -120,6 +120,7 @@ export default function Home() {
                     setGlobalState(userData.ChettingPermission);
                     setbroadcast(userData.broadcastsetting);
                     setbroadcastpw(userData.broadcastpw);
+                    setIsOn(userData.isOn);
                 } else {
                     console.log('No matching documents.');
                 }
@@ -193,7 +194,10 @@ export default function Home() {
                     ChettingPermission: globalState,
                     broadcastsetting: broadcast,
                     broadcastpw: broadcastpw,
+                    isOn: isOn,
                 });
+
+                window.location.reload();
                 console.log('문서 업데이트 완료');
             } else {
                 // 문서가 존재하지 않으면 새로 생성
@@ -207,7 +211,9 @@ export default function Home() {
                     ChettingPermission: globalState,
                     broadcastsetting: broadcast,
                     broadcastpw: broadcastpw,
+                    isOn: isOn,
                 });
+                window.location.reload();
                 console.log('문서 생성 완료');
             }
         } catch (error) {
@@ -249,6 +255,13 @@ export default function Home() {
         messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
     }, [chats]);
 
+    //스위치 관리
+    const [isOn, setIsOn] = useState(false);
+
+    const handleClick = () => {
+        setIsOn(!isOn);
+    };
+
     return (
         <>
             <div className={styles.studio_test} style={{ paddingTop: '60px' }}>
@@ -260,8 +273,18 @@ export default function Home() {
                         </p>
                         <p className={`logo_font2 ${styles.studio_header_subtitle}`}>STUDIO</p>
                     </div>
-
                     <div className={styles.studio_header_btnlayout}>
+                        <div className={styles.switchButton_header}>
+                            송출 설정
+                        </div>
+                        <div
+                            className={`${styles.switchButton} ${isOn ? styles.active : ''}`}
+                            onClick={handleClick}
+                        >
+                            <div className={`${styles.slider} ${isOn ? styles.active : ''}`}>
+                                {isOn ? 'ON' : 'OFF'}
+                            </div>
+                        </div>
                         <button
                             className={`logo_font ${styles.studio_header_btn1}`}
                             type="submit"
