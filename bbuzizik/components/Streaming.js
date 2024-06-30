@@ -3,7 +3,10 @@ import styles from '../css/streaming.module.css';
 import Link from 'next/link';
 
 export default function Streaming({ USER }) {
-    const Section_List = [{ name: `${USER.ID}`, category: 'talk', viewers: 1000, title: '반갑꼬리' }];
+    // USER 객체에 studioInfo가 존재하고, studioInfo 안에 category 배열이 있으면 그 배열을 사용하고, 그렇지 않으면 빈 배열
+    const categories = USER.studioInfo?.category || [];
+    const roomTitle = USER.studioInfo?.title || '';
+    const Section_List = [{ name: `${USER.ID}`, category: categories, viewers: 1000, title: roomTitle }];
 
     return (
         <>

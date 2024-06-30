@@ -29,25 +29,41 @@ export default function Live() {
     const router = useRouter();
     const { slug } = router.query;
     const [streamerData, setStreamerData] = useState(null);
+    const [filteredStreamingUser, setFilteredStreamingUser] = useState(null);
 
     useEffect(() => {
         if (slug && slug.length > 0) {
             const streamingKey = slug[0]; // slug 배열에서 streamingKey 추출
             const fetchData = async () => {
                 try {
-                    const querySnapshot = await getDocs(collection(db, 'User'));
+                    const userQuerySnapshot = await getDocs(collection(db, 'User'));
+                    const studioQuerySnapshot = await getDocs(collection(db, 'Studio'));
+
                     let foundStreamerData = null;
-                    querySnapshot.forEach(doc => {
+                    let foundStudioData = null;
+
+                    userQuerySnapshot.forEach(doc => {
                         if (doc.data().newStreamKey === streamingKey) {
                             foundStreamerData = doc.data();
                         }
                     });
 
-                    if (foundStreamerData) {
-                        setStreamerData(foundStreamerData);
-                        console.log('Streamer data : ', foundStreamerData);
+                    studioQuerySnapshot.forEach(doc => {
+                        if (doc.data().streamKey === streamingKey) {
+                            foundStudioData = doc.data();
+                        }
+                    });
 
-                        // Streamer data를 가져온 후에 Chat data를 실시간으로 가져옴 streamerData의 undefined 방지
+                    if (foundStreamerData && foundStudioData) {
+                        const combinedData = {
+                            ...foundStreamerData,
+                            studioInfo: foundStudioData,
+                        };
+                        setFilteredStreamingUser(combinedData);
+                        setStreamerData(foundStreamerData);
+                        console.log('Filtered streaming users data: ', combinedData);
+
+                        // Streamer data를 가져온 후에 Chat data를 실시간으로 가져옴
                         const cq = query(
                             collection(db, `Chat-${foundStreamerData?.newStreamKey}`),
                             orderBy('Timestamp', 'asc')
@@ -67,16 +83,18 @@ export default function Live() {
                         return () => unsubscribe();
                     } else {
                         setStreamerData(null);
-                        console.log('No streamer data found for key:', streamingKey);
+                        setFilteredStreamingUser(null);
+                        console.log('No streamer or studio data found for key:', streamingKey);
                     }
                 } catch (error) {
-                    console.error('Error fetching streamer data:', error);
+                    console.error('Error fetching streamer or studio data:', error);
                 }
             };
 
             fetchData();
         } else {
             setStreamerData(null); // slug가 없을 때 streamerData를 초기화
+            setFilteredStreamingUser(null); // slug가 없을 때 filteredStreamingUsers를 초기화
         }
     }, [slug]);
 
@@ -266,7 +284,7 @@ export default function Live() {
                     </div>
                     <div className={livestyles.infocontainer}>
                         <div className={livestyles.infobox}>
-                            <p className={livestyles.infobox_liveTitle}>방 제목</p>
+                            <p className={livestyles.infobox_liveTitle}>{filteredStreamingUser?.studioInfo?.title}</p>
                             <div className={livestyles.infobox_content}>
                                 <div className={livestyles.infobox_content_profile}></div>
                                 <div className={livestyles.infobox_content_remain}>
@@ -276,7 +294,9 @@ export default function Live() {
                                         <p>824</p>
                                         <p className={livestyles.infobox_content_remain_info_streaming}>03:30:50</p>
                                     </div>
-                                    <div className={livestyles.infobox_content_remain_category}>Just Chatting</div>
+                                    <div className={livestyles.infobox_content_remain_category}>
+                                        {filteredStreamingUser?.studioInfo?.category}
+                                    </div>
                                     <div className={livestyles.infobox_content_remain_btns}>
                                         {/* 더보기 버튼 */}
                                         <button

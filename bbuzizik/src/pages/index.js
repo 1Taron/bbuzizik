@@ -13,15 +13,16 @@ export default function Home() {
     const [isExpanded, setIsExpanded] = useState(true);
 
     // 스트리밍 목록
-
-    const [nicknames, setNicknames] = useState([]);
-    const [streamKeys, setStreamKeys] = useState([]);
-
     const [streamingUsers, setStreamingUsers] = useState([]);
+    const [streamingStudios, setStreamingStudios] = useState([]);
+    const [filteredStreamingUsers, setFilteredStreamingUsers] = useState([]);
 
     useEffect(() => {
+        // User 데이터
         const q = query(collection(db, 'User'));
-        const unsubscribe = onSnapshot(
+        // Studio 데이터
+        const qs = query(collection(db, 'Studio'));
+        const unsubscribeUsers = onSnapshot(
             q,
             snapshot => {
                 const allUserDoc = snapshot.docs.map(doc => doc.data());
@@ -29,19 +30,44 @@ export default function Home() {
                 console.log('AllUserDoc document data:', allUserDoc);
 
                 setStreamingUsers(allUserDoc);
-                // const nicknamesArray = allUserDoc.map(user => user.ID);
-                // const streamKeysArray = allUserDoc.map(user => user.newStreamKey);
-
-                // setNicknames(nicknamesArray);
-                // setStreamKeys(streamKeysArray);
-                // console.log('streamKeys :', streamKeysArray);
             },
             error => {
                 console.error('Error fetching chat document:', error);
             }
         );
-        return () => unsubscribe();
+        const unsubscribeStudios = onSnapshot(
+            qs,
+            snapshot => {
+                const allStudioDoc = snapshot.docs.map(doc => doc.data());
+
+                console.log('AllStudioDoc document data:', allStudioDoc);
+
+                setStreamingStudios(allStudioDoc);
+            },
+            error => {
+                console.error('Error fetching chat document:', error);
+            }
+        );
+        return () => {
+            unsubscribeUsers();
+            unsubscribeStudios();
+        };
     }, []);
+
+    useEffect(() => {
+        const activeStudios = streamingStudios.filter(studio => studio.isOn);
+        const combinedData = activeStudios.flatMap(studio => {
+            return streamingUsers
+                .filter(user => user.UID === studio.UID)
+                .map(user => ({
+                    ...user,
+                    studioInfo: studio,
+                }));
+        });
+        setFilteredStreamingUsers(combinedData);
+        console.log('filteredStreamingUsers :', combinedData);
+    }, [streamingUsers, streamingStudios]);
+    // user.studioInfo.가져올 데이터
 
     return (
         <>
@@ -69,14 +95,12 @@ export default function Home() {
                         </Link>
                     </div>
                     <ul className={styles.Section_List}>
-                        {streamingUsers ? (
-                            <>
-                                {streamingUsers?.map((user, index) => (
-                                    <div key={index} className={styles.Section_ListLayout}>
-                                        <Streaming USER={user} />
-                                    </div>
-                                ))}{' '}
-                            </>
+                        {filteredStreamingUsers.length > 0 ? (
+                            filteredStreamingUsers.map((user, index) => (
+                                <div key={index} className={styles.Section_ListLayout}>
+                                    <Streaming USER={user} />
+                                </div>
+                            ))
                         ) : (
                             <div style={{ width: '100%', height: '300px' }}>no streamKeys</div>
                         )}
