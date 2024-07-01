@@ -193,9 +193,16 @@ const Header = () => {
                 </form>
             </div>
             <div className={styles.right_bar}>
-                <a className={styles.button_studio} href="/Studio/home">
-                    <FontAwesomeIcon icon={faVideo} />
-                </a>
+                {user ? (
+                    <a className={styles.button_studio} href="/Studio/home">
+                        <FontAwesomeIcon icon={faVideo} />
+                    </a>
+                ) : (
+                    <>
+
+                    </>
+                )}
+
                 <div>
                     {user ? (
                         <>

@@ -102,7 +102,7 @@ export default function Category({ isExpanded }) {
                     <h2 className={styles.h2}>카테고리</h2>
                     <Link
                         href={{
-                            pathname: '/all_category',
+                            pathname: '/Category_all',
                         }}
                     >
                         <p className={styles.all_category}>전체보기</p>
