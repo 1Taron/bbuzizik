@@ -286,7 +286,13 @@ export default function Live() {
                         <div className={livestyles.infobox}>
                             <p className={livestyles.infobox_liveTitle}>{filteredStreamingUser?.studioInfo?.title}</p>
                             <div className={livestyles.infobox_content}>
-                                <div className={livestyles.infobox_content_profile}></div>
+                                <div className={livestyles.infobox_content_profile}>
+                                    <img
+                                        className={livestyles.infobox_content_profile_img}
+                                        src="/images/profile_img.svg"
+                                        alt="video_card_img"
+                                    />
+                                </div>
                                 <div className={livestyles.infobox_content_remain}>
                                     <div className={livestyles.infobox_content_remain_name}>{streamerData?.ID}</div>
                                     <div className={livestyles.infobox_content_remain_info}>
@@ -294,8 +300,12 @@ export default function Live() {
                                         <p>824</p>
                                         <p className={livestyles.infobox_content_remain_info_streaming}>03:30:50</p>
                                     </div>
-                                    <div className={livestyles.infobox_content_remain_category}>
-                                        {filteredStreamingUser?.studioInfo?.category}
+                                    <div className={livestyles.infobox_content_remain_category_layout}>
+                                        {filteredStreamingUser?.studioInfo?.category.map((tag, index) => (
+                                            <div className={livestyles.infobox_content_remain_category} key={index}>
+                                                {tag}
+                                            </div>
+                                        ))}
                                     </div>
                                     <div className={livestyles.infobox_content_remain_btns}>
                                         {/* 더보기 버튼 */}

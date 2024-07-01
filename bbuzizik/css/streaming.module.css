@@ -100,9 +100,16 @@
     margin-bottom: 15px;
 }
 
+.video_card_tag_link {
+    margin-right: 5px;
+}
+
 .video_card_tag1 {
     background-color: rgba(255, 228, 196, 0.199);
     font-size: 11px;
     padding: 4px 6px;
     border-radius: 5px;
+}
+.video_card_tag1:hover {
+    background-color: rgba(255, 228, 196, 0.363);
 }

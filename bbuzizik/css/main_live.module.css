@@ -105,6 +105,15 @@
     border-radius: 50%;
     background-color: white;
 }
+.infobox_content_profile_img {
+    border-radius: 50%;
+    display: block;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    max-height: 100%;
+}
+
 .infobox_content_remain {
     width: calc(100% - 120px - 20px);
     height: 120px;
@@ -232,6 +241,11 @@
 .infobox_content_remain_followBtn:active {
     transform: scale(0.95);
     transition: transform 0.1s;
+}
+
+.infobox_content_remain_category_layout {
+    display: flex;
+    justify-content: left;
 }
 
 .infobox_content_remain_category {

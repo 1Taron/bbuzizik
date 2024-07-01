@@ -48,13 +48,17 @@ export default function Streaming({ USER }) {
                                     </Link>
                                 </div>
                                 <div className={styles.video_card_tag}>
-                                    <Link
-                                        href={{
-                                            pathname: '/',
-                                        }}
-                                    >
-                                        <span className={styles.video_card_tag1}>{item.category}</span>
-                                    </Link>
+                                    {item.category.map((tag, index) => (
+                                        <Link
+                                            href={{
+                                                pathname: `/category/${tag}`,
+                                            }}
+                                            key={index}
+                                            className={styles.video_card_tag_link}
+                                        >
+                                            <span className={styles.video_card_tag1}>{tag}</span>
+                                        </Link>
+                                    ))}
                                 </div>
                             </div>
                         </div>
