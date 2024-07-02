@@ -79,3 +79,21 @@
     top: 0;
     width: 100%;
 }
+
+.Category_name {
+    font-size: 18px;
+    font-weight: 600;
+    color: #fff;
+    line-height: 22px;
+    font-family: NPSfontBold;
+    margin-top: 5px;
+}
+
+.Category_viewer {
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    line-height: 22px;
+    font-family: NPSfontBold;
+    margin-top: 5px;
+}
