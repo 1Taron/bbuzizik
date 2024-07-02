@@ -38,12 +38,7 @@ export default function Home() {
     };
 
     // 카테고리
-    const [categoryText, setCategoryText] = useState('');
     const [categories, setCategories] = useState([]);
-
-    const category_handleChange = e => {
-        setCategoryText(e.target.value);
-    };
 
     const category_handleClick = () => {
         setCategories([...categories, categoryText]);
@@ -262,6 +257,43 @@ export default function Home() {
         setIsOn(!isOn);
     };
 
+    // Category 받아오기
+    const [category_data, setcategory_data] = useState([]);
+
+    useEffect(() => {
+        const fetchCategories = async () => {
+            try {
+                const categoryRef = collection(db, 'Category');
+                const snapshot = await getDocs(categoryRef);
+                const data = snapshot.docs.map(doc => ({
+                    id: doc.id,
+                    ...doc.data(),
+                }));
+                setcategory_data(data);
+            } catch (error) {
+                console.error('Error fetching categories:', error);
+            }
+        };
+        fetchCategories();
+    }, [db]);
+
+    //카테고리 text 상태관리
+    const [categoryText, setCategoryText] = useState('');
+
+    const category_handleChange = e => {
+        setCategoryText(e.target.value);
+    };
+
+    //category 검색 기능
+    const filteredData = category_data.filter((item) =>
+        item.name.toLowerCase().includes(categoryText.toLowerCase())
+    );
+
+    const Category_Click = (item) => {
+        setCategoryText(item.name);
+    };
+
+
     return (
         <>
             <div className={styles.studio_test} style={{ paddingTop: '60px' }}>
@@ -349,6 +381,11 @@ export default function Home() {
                                     onChange={category_handleChange}
                                     style={{ paddingLeft: '40px' }}
                                 />
+                                <ul className={`${styles.categoryList} ${categoryText.length > 0 ? '' : styles.categoryListHidden}`}>
+                                    {filteredData.map((item) => (
+                                        <li onClick={() => Category_Click(item)} className={styles.categoryList_name} key={item.id}>{item.name}</li>
+                                    ))}
+                                </ul>
                                 <input
                                     type="button"
                                     className={styles.studio_main_setting_broadcastCategory_btn}

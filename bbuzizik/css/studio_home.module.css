@@ -734,3 +734,23 @@
     color: #fff;
     transform: translateX(25px);
 }
+
+.categoryList {
+    list-style-type: none;
+    padding: 0;
+    background-color: white;
+    position: absolute;
+    top: 100%;
+    left: 9%;
+}
+
+.categoryListHidden {
+    display: none;
+}
+
+.categoryList_name {
+    font-family: NPSfontBold;
+    color: black;
+    font-size: 16px;
+    cursor: pointer;
+}
