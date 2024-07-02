@@ -3,24 +3,6 @@
     width: 95%;
 }
 
-/* @media screen and (min-width: 1790px) {
-    .Section_Item {
-        width: 95%;
-    }
-} */
-
-/* @media screen and (min-width: 1490px) {
-    .Section_Item {
-        width: 95%;
-    }
-} */
-
-/* @media screen and (min-width: 1200px) {
-    .Section_Item {
-        width: 95%;
-    }
-} */
-
 .Video_card_container {
     word-wrap: break-word;
     height: 100%;
@@ -60,19 +42,48 @@
 }
 
 .video_card_title_link {
+    width: 100%;
     font-weight: 600;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
     color: white;
     font-size: 15px;
     line-height: 21px;
+    position: relative;
+    display: inline-block;
+}
+
+.video_card_title_link > p {
+    width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.video_card_title_link:hover::after {
+    content: attr(data-tooltip); /* data-tooltip 속성값을 툴팁 내용으로 사용 */
+    position: absolute;
+    bottom: 100%; /* 툴팁을 텍스트 위에 표시 */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #422d2dde;
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    white-space: nowrap;
+    z-index: 10;
+    font-size: 12px;
+    pointer-events: none; /* 툴팁이 마우스 이벤트를 받지 않도록 설정 */
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.video_card_title_link:hover::after {
+    opacity: 1;
 }
 
 .video_card_title_container {
     color: white;
     min-width: 0;
+    width: 100%;
 }
 
 .video_card_name {

@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import styles from '../css/sidebar.module.css';
 import Link from 'next/link';
 import { faRotate } from '@fortawesome/free-solid-svg-icons';
+import { collection, getDocs, onSnapshot, orderBy, query, where } from 'firebase/firestore';
+import { db } from '../src/pages/api/firebase/firebasedb';
 
 export default function Sidebar({ isExpanded, onToggle }) {
     const [showAll, setShowAll] = useState(false);
@@ -12,25 +14,111 @@ export default function Sidebar({ isExpanded, onToggle }) {
         }
     }, [isExpanded]);
 
-    const followChannels = [
-        { img: '/images/profile_img.svg', name: '허니츄러스', game: 'talk', viewers: 1000, Info: '안녕하세요' },
-        { img: '/images/profile_img.svg', name: '채널2', game: '게임2', viewers: 2000, Info: '반갑꼬리' },
-        {
-            img: '/images/profile_img.svg',
-            name: '채널3',
-            game: '게임3',
-            viewers: 3000,
-            Info: '안녕하세요, 안녕하세요, 안녕하세요',
-        },
-        { img: '/images/profile_img.svg', name: '허니츄러스', game: 'talk', viewers: 1000, Info: '안녕하세요' },
-        { img: '/images/profile_img.svg', name: '채널2', game: '게임2', viewers: 2000, Info: '안녕하세요' },
-        { img: '/images/profile_img.svg', name: '채널3', game: '게임3', viewers: 3000, Info: '안녕하세요' },
-        { img: '/images/profile_img.svg', name: '허니츄러스', game: 'talk', viewers: 1000, Info: '안녕하세요' },
-        { img: '/images/profile_img.svg', name: '채널2', game: '게임2', viewers: 2000, Info: '안녕하세요' },
-        { img: '/images/profile_img.svg', name: '채널3', game: '게임3', viewers: 3000, Info: '안녕하세요' },
-    ];
+    // 스트리밍 목록
+    const [streamingUsers, setStreamingUsers] = useState([]);
+    const [streamingStudios, setStreamingStudios] = useState([]);
+    const [filteredStreamingUsers, setFilteredStreamingUsers] = useState([]);
+    const [inactiveStreamingUsers, setInactiveStreamingUsers] = useState([]);
+
+    useEffect(() => {
+        // User 데이터
+        const q = query(collection(db, 'User'));
+        // Studio 데이터
+        const qs = query(collection(db, 'Studio'));
+        const unsubscribeUsers = onSnapshot(
+            q,
+            snapshot => {
+                const allUserDoc = snapshot.docs.map(doc => doc.data());
+
+                console.log('AllUserDoc document data:', allUserDoc);
+
+                setStreamingUsers(allUserDoc);
+            },
+            error => {
+                console.error('Error fetching chat document:', error);
+            }
+        );
+        const unsubscribeStudios = onSnapshot(
+            qs,
+            snapshot => {
+                const allStudioDoc = snapshot.docs.map(doc => doc.data());
+
+                console.log('AllStudioDoc document data:', allStudioDoc);
+
+                setStreamingStudios(allStudioDoc);
+            },
+            error => {
+                console.error('Error fetching chat document:', error);
+            }
+        );
+        return () => {
+            unsubscribeUsers();
+            unsubscribeStudios();
+        };
+    }, []);
+
+    useEffect(() => {
+        const activeStudios = streamingStudios.filter(studio => studio.isOn);
+        const inactiveStudios = streamingStudios.filter(studio => !studio.isOn);
+
+        const combinedData = activeStudios.flatMap(studio => {
+            return streamingUsers
+                .filter(user => user.UID === studio.UID)
+                .map(user => ({
+                    ...user,
+                    studioInfo: studio,
+                }));
+        });
+        setFilteredStreamingUsers(combinedData);
+        console.log('filteredStreamingUsers :', combinedData);
+
+        const combinedInactiveData = inactiveStudios.flatMap(studio => {
+            return streamingUsers
+                .filter(user => user.UID === studio.UID)
+                .map(user => ({
+                    ...user,
+                    studioInfo: studio,
+                }));
+        });
+        setInactiveStreamingUsers(combinedInactiveData);
+        console.log('inactiveStreamingUsers:', combinedInactiveData);
+    }, [streamingUsers, streamingStudios]);
+
+    const [followChannels, setFollowChannels] = useState([]);
+    const [offlineChannels, setOfflineChannels] = useState([]);
+
+    useEffect(() => {
+        if (filteredStreamingUsers && filteredStreamingUsers.length > 0) {
+            const streamingChannels = filteredStreamingUsers.map((user, index) => ({
+                img: user?.profileImage || '/images/profile_img.svg', // 프로필 이미지가 없을 경우 기본 이미지 설정
+                name: user?.ID || `이름 없음`, // 이름이 없을 경우 이름 없음 설정
+                game: Array.isArray(user?.studioInfo?.category)
+                    ? user?.studioInfo?.category.join(' ')
+                    : user?.studioInfo?.category || '', // 게임 정보가 없을 공백, 배열일 경우 띄어쓰기 설정
+                viewers: user?.studioInfo?.viewers || 0, // 시청자 수가 없을 경우 0으로 설정
+                Info: user?.studioInfo?.title || '', // 정보가 없을 경우 공백 설정
+            }));
+            setFollowChannels(streamingChannels);
+        }
+    }, [filteredStreamingUsers]);
+
+    useEffect(() => {
+        if (inactiveStreamingUsers && inactiveStreamingUsers.length > 0) {
+            const offlineChannels = inactiveStreamingUsers.map((user, index) => ({
+                img: user?.profileImage || '/images/profile_img.svg', // 프로필 이미지가 없을 경우 기본 이미지 설정
+                name: user?.ID || `이름 없음`, // 이름이 없을 경우 이름 없음 설정
+                game: Array.isArray(user?.studioInfo?.category)
+                    ? user?.studioInfo?.category.join(' ')
+                    : user?.studioInfo?.category || '', // 게임 정보가 없을 공백, 배열일 경우 띄어쓰기 설정
+                viewers: user?.studioInfo?.viewers || 0, // 시청자 수가 없을 경우 0으로 설정
+                Info: user?.studioInfo?.title || '', // 정보가 없을 경우 공백 설정
+            }));
+            setOfflineChannels(offlineChannels);
+        }
+    }, [inactiveStreamingUsers]);
 
     const channelsToShow = showAll ? followChannels : followChannels.slice(0, 5);
+    const channelsToShowOff = showAll ? offlineChannels : offlineChannels.slice(0, 5);
 
     return (
         <div
@@ -73,6 +161,16 @@ export default function Sidebar({ isExpanded, onToggle }) {
                                     </div>
                                 </li>
                             ))}
+                            {channelsToShowOff.map((channel, index) => (
+                                <li className={styles.Channel_info} key={index}>
+                                    <Link href="/live" passHref>
+                                        <button className={styles.Offline_profile_button}>
+                                            <img className={styles.Profile_img} src={channel.img} alt="profile_icon" />
+                                            <div className={styles.Offline_Profile_name}>{channel.name}</div>
+                                        </button>
+                                    </Link>
+                                </li>
+                            ))}
                         </ul>
                         {showAll ? (
                             <div className={styles.ShowButton_container}>
@@ -111,6 +209,21 @@ export default function Sidebar({ isExpanded, onToggle }) {
                                             <div className={styles.Channel_viewer_dot}></div>
                                             <div>{channel.viewers}</div>
                                         </div>
+                                    </div>
+                                </li>
+                            ))}
+                            {channelsToShowOff.map((channel, index) => (
+                                <li className={styles.Offline_Channel_info1} key={index}>
+                                    <Link href="/live" passHref>
+                                        <img
+                                            className={styles.Offline_Profile_img1}
+                                            src={channel.img}
+                                            alt="profile_icon"
+                                        />
+                                        {/* <div className={styles.Offline_Profile_name}>{channel.name}</div> */}
+                                    </Link>
+                                    <div className={styles.Offline_followPopup}>
+                                        <div className={styles.Offline_Profile_name1}>{channel.name}</div>
                                     </div>
                                 </li>
                             ))}

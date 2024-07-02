@@ -16,6 +16,7 @@ export default function Home() {
     const [streamingUsers, setStreamingUsers] = useState([]);
     const [streamingStudios, setStreamingStudios] = useState([]);
     const [filteredStreamingUsers, setFilteredStreamingUsers] = useState([]);
+    const [inactiveStreamingUsers, setInactiveStreamingUsers] = useState([]);
 
     useEffect(() => {
         // User 데이터
@@ -56,6 +57,8 @@ export default function Home() {
 
     useEffect(() => {
         const activeStudios = streamingStudios.filter(studio => studio.isOn);
+        const inactiveStudios = streamingStudios.filter(studio => !studio.isOn);
+
         const combinedData = activeStudios.flatMap(studio => {
             return streamingUsers
                 .filter(user => user.UID === studio.UID)
@@ -66,6 +69,17 @@ export default function Home() {
         });
         setFilteredStreamingUsers(combinedData);
         console.log('filteredStreamingUsers :', combinedData);
+
+        const combinedInactiveData = inactiveStudios.flatMap(studio => {
+            return streamingUsers
+                .filter(user => user.UID === studio.UID)
+                .map(user => ({
+                    ...user,
+                    studioInfo: studio,
+                }));
+        });
+        setInactiveStreamingUsers(combinedInactiveData);
+        console.log('inactiveStreamingUsers:', combinedInactiveData);
     }, [streamingUsers, streamingStudios]);
     // user.studioInfo.가져올 데이터
 

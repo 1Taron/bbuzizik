@@ -35,8 +35,9 @@ export default function Streaming({ USER }) {
                                     href={{
                                         pathname: `/live/${USER.newStreamKey}`,
                                     }}
+                                    data-tooltip={item.title}
                                 >
-                                    {item.title}
+                                    <p>{item.title}</p>
                                 </Link>
                                 <div className={styles.video_card_name}>
                                     <Link
