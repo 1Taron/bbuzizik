@@ -10,7 +10,6 @@ export default function MySwiper() {
 
     useEffect(() => {
         const updateVisibleSlides = () => {
-
             setVisibleSlides([
                 slides[(slideIndex - 2 + slides.length) % slides.length], // 왼쪽에서 두 번째
                 slides[(slideIndex - 1 + slides.length) % slides.length], // 왼쪽에서 첫 번째
@@ -30,7 +29,7 @@ export default function MySwiper() {
         setSlideIndex(slideIndex === slides.length - 1 ? 0 : slideIndex + 1);
     };
 
-    const computeStyle = (index) => {
+    const computeStyle = index => {
         const centerIndex = Math.floor(visibleSlides.length / 2);
         const offset = Math.abs(index - centerIndex);
         const zIndex = visibleSlides.length - offset;
@@ -52,19 +51,19 @@ export default function MySwiper() {
 
     return (
         <div className={styles.slider}>
-            <button className={styles.left_right_button} onClick={prevSlide}>◀</button>
+            <button className={styles.left_right_button} onClick={prevSlide}>
+                ◀
+            </button>
             {visibleSlides.map((slide, index) => (
-                <div
-                    key={slide}
-                    className={styles.slide}
-                    style={computeStyle(index)}
-                >
+                <div key={slide} className={styles.slide} style={computeStyle(index)}>
                     <h2>채널 {slide + 1}</h2>
                     <p>게임 {slide + 1}</p>
                     <span>시청자수 {slide + 1}</span>
                 </div>
             ))}
-            <button className={styles.left_right_button} onClick={nextSlide}>▶</button>
+            <button className={styles.left_right_button} onClick={nextSlide}>
+                ▶
+            </button>
         </div>
     );
 }

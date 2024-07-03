@@ -97,6 +97,7 @@ export default function Sidebar({ isExpanded, onToggle }) {
                     : user?.studioInfo?.category || '', // 게임 정보가 없을 공백, 배열일 경우 띄어쓰기 설정
                 viewers: user?.studioInfo?.viewers || 0, // 시청자 수가 없을 경우 0으로 설정
                 Info: user?.studioInfo?.title || '', // 정보가 없을 경우 공백 설정
+                url: user?.newStreamKey || '',
             }));
             setFollowChannels(streamingChannels);
         }
@@ -112,6 +113,7 @@ export default function Sidebar({ isExpanded, onToggle }) {
                     : user?.studioInfo?.category || '', // 게임 정보가 없을 공백, 배열일 경우 띄어쓰기 설정
                 viewers: user?.studioInfo?.viewers || 0, // 시청자 수가 없을 경우 0으로 설정
                 Info: user?.studioInfo?.title || '', // 정보가 없을 경우 공백 설정
+                url: user?.newStreamKey || '',
             }));
             setOfflineChannels(offlineChannels);
         }
@@ -145,7 +147,12 @@ export default function Sidebar({ isExpanded, onToggle }) {
                         <ul className={styles.Channel_info_container}>
                             {channelsToShow.map((channel, index) => (
                                 <li className={styles.Channel_info} key={index}>
-                                    <Link href="/live" passHref>
+                                    <Link
+                                        href={{
+                                            pathname: `/live/${channel.url}`,
+                                        }}
+                                        passHref
+                                    >
                                         <button className={styles.profile_button}>
                                             <img className={styles.Profile_img} src={channel.img} alt="profile_icon" />
                                             <div className={styles.Profile_name_game}>
@@ -163,7 +170,12 @@ export default function Sidebar({ isExpanded, onToggle }) {
                             ))}
                             {channelsToShowOff.map((channel, index) => (
                                 <li className={styles.Channel_info} key={index}>
-                                    <Link href="/live" passHref>
+                                    <Link
+                                        href={{
+                                            pathname: `/live/${channel.url}`,
+                                        }}
+                                        passHref
+                                    >
                                         <button className={styles.Offline_profile_button}>
                                             <img className={styles.Profile_img} src={channel.img} alt="profile_icon" />
                                             <div className={styles.Offline_Profile_name}>{channel.name}</div>
@@ -196,7 +208,12 @@ export default function Sidebar({ isExpanded, onToggle }) {
                         <ul className={styles.Channel_info_container1}>
                             {channelsToShow.map((channel, index) => (
                                 <li className={styles.Channel_info1} key={index}>
-                                    <Link href="/live" passHref>
+                                    <Link
+                                        href={{
+                                            pathname: `/live/${channel.url}`,
+                                        }}
+                                        passHref
+                                    >
                                         <img className={styles.Profile_img1} src={channel.img} alt="profile_icon" />
                                     </Link>
                                     <div className={styles.followPopup}>
@@ -214,7 +231,12 @@ export default function Sidebar({ isExpanded, onToggle }) {
                             ))}
                             {channelsToShowOff.map((channel, index) => (
                                 <li className={styles.Offline_Channel_info1} key={index}>
-                                    <Link href="/live" passHref>
+                                    <Link
+                                        href={{
+                                            pathname: `/live/${channel.url}`,
+                                        }}
+                                        passHref
+                                    >
                                         <img
                                             className={styles.Offline_Profile_img1}
                                             src={channel.img}
