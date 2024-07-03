@@ -741,7 +741,9 @@
     background-color: white;
     position: absolute;
     top: 100%;
-    left: 9%;
+    left: 7%;
+    width: 70%;
+    z-index: 5;
 }
 
 .categoryListHidden {
@@ -753,4 +755,5 @@
     color: black;
     font-size: 16px;
     cursor: pointer;
+    padding: 10px 10px 10px 10px;
 }
