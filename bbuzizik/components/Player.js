@@ -13,9 +13,9 @@ const Player = ({ src, type }) => {
     }, [src, type]);
 
     return type === 'm3u8' ? (
-        <video ref={videoRef} controls width={'100%'} height={'100%'} autoPlay />
+        <video key={src} ref={videoRef} controls width={'100%'} height={'100%'} autoPlay />
     ) : (
-        <video ref={videoRef} src={src} controls />
+        <video key={src} ref={videoRef} src={src} controls />
     );
 };
 

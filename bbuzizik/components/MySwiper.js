@@ -1,25 +1,89 @@
 import React, { useState, useEffect } from 'react';
 import styles from '../css/swiper.module.css';
+import Player from './Player';
+import { collection, getDocs, onSnapshot, orderBy, query, where } from 'firebase/firestore';
+import { db } from '../src/pages/api/firebase/firebasedb';
 
 export default function MySwiper() {
-    // 총 슬라이드 수를 5개로 확장
-    const slides = Array.from({ length: 7 }, (_, i) => i);
-    const [visibleSlides, setVisibleSlides] = useState([]);
+    const API_KEY = process.env.NEXT_PUBLIC_SERVER_IP;
 
+    const [streamingUsers, setStreamingUsers] = useState([]);
+    const [streamingStudios, setStreamingStudios] = useState([]);
+    const [filteredStreamingUsers, setFilteredStreamingUsers] = useState([]);
+
+    useEffect(() => {
+        // User 데이터
+        const q = query(collection(db, 'User'));
+        // Studio 데이터
+        const qs = query(collection(db, 'Studio'));
+        const unsubscribeUsers = onSnapshot(
+            q,
+            snapshot => {
+                const allUserDoc = snapshot.docs.map(doc => doc.data());
+
+                setStreamingUsers(allUserDoc);
+            },
+            error => {
+                console.error('Error fetching chat document:', error);
+            }
+        );
+        const unsubscribeStudios = onSnapshot(
+            qs,
+            snapshot => {
+                const allStudioDoc = snapshot.docs.map(doc => doc.data());
+
+                setStreamingStudios(allStudioDoc);
+            },
+            error => {
+                console.error('Error fetching chat document:', error);
+            }
+        );
+        return () => {
+            unsubscribeUsers();
+            unsubscribeStudios();
+        };
+    }, []);
+
+    useEffect(() => {
+        const activeStudios = streamingStudios.filter(studio => studio.isOn);
+
+        const combinedData = activeStudios.flatMap(studio => {
+            return streamingUsers
+                .filter(user => user.UID === studio.UID)
+                .map(user => ({
+                    ...user,
+                    studioInfo: studio,
+                }));
+        });
+        setFilteredStreamingUsers(combinedData);
+        console.log('MySwiper combine User Data :', combinedData);
+    }, [streamingUsers, streamingStudios]);
+
+    // Streamer 배열에서 최대 5개의 무작위 요소를 선택
+    const getRandomSlides = (arr, num) => {
+        const shuffled = [...arr].sort(() => 0.5 - Math.random());
+        return shuffled.slice(0, num);
+    };
+
+    const slides =
+        filteredStreamingUsers.length > 5 ? getRandomSlides(filteredStreamingUsers, 5) : filteredStreamingUsers;
+    const [visibleSlides, setVisibleSlides] = useState([]);
     const [slideIndex, setSlideIndex] = useState(0);
 
     useEffect(() => {
         const updateVisibleSlides = () => {
-            setVisibleSlides([
+            const newVisibleSlides = [
                 slides[(slideIndex - 2 + slides.length) % slides.length], // 왼쪽에서 두 번째
                 slides[(slideIndex - 1 + slides.length) % slides.length], // 왼쪽에서 첫 번째
                 slides[slideIndex], // 중앙
                 slides[(slideIndex + 1) % slides.length], // 오른쪽에서 첫 번째
                 slides[(slideIndex + 2) % slides.length], // 오른쪽에서 두 번째
-            ]);
+            ];
+            setVisibleSlides(newVisibleSlides);
+            console.log('Slides updated : ', newVisibleSlides);
         };
         updateVisibleSlides();
-    }, [slideIndex]); // slides를 의존성 배열에서 제거
+    }, [slideIndex, slides]); // slides를 의존성 배열에 추가
 
     const prevSlide = () => {
         setSlideIndex(slideIndex === 0 ? slides.length - 1 : slideIndex - 1);
@@ -37,7 +101,7 @@ export default function MySwiper() {
         let opacity = 1 - offset * 0.3; // 중앙 슬라이드를 더 돋보이게 하고, 양옆 슬라이드는 점점 흐리게
         if (opacity < 0) opacity = 0; // opacity가 음수가 되지 않도록 조정
 
-        const slideGap = 15;
+        const slideGap = 10;
 
         return {
             display: 'block',
@@ -54,13 +118,29 @@ export default function MySwiper() {
             <button className={styles.left_right_button} onClick={prevSlide}>
                 ◀
             </button>
-            {visibleSlides.map((slide, index) => (
-                <div key={slide} className={styles.slide} style={computeStyle(index)}>
-                    <h2>채널 {slide + 1}</h2>
-                    <p>게임 {slide + 1}</p>
-                    <span>시청자수 {slide + 1}</span>
-                </div>
-            ))}
+            {visibleSlides.map((slide, index) => {
+                const isCenter = index === Math.floor(visibleSlides.length / 2);
+                return (
+                    <div key={slide?.UID} className={styles.slide} style={computeStyle(index)}>
+                        {isCenter && (
+                            <>
+                                <Player
+                                    src={`http://${API_KEY}:8080/hls/${slide?.newStreamKey}/index.m3u8`}
+                                    type="m3u8"
+                                    className={styles.hlsplayer}
+                                />
+                                <div className={styles.player_info}>
+                                    <div>
+                                        <p>{slide?.ID}님의 </p>
+                                        <p>LIVE</p>
+                                    </div>
+                                    <p className={styles.player_title}>{slide?.studioInfo?.title}</p>
+                                </div>
+                            </>
+                        )}
+                    </div>
+                );
+            })}
             <button className={styles.left_right_button} onClick={nextSlide}>
                 ▶
             </button>
