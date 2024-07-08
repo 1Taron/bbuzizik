@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import React, { useState, useEffect, useTransition } from 'react';
+import React, { useState, useEffect, useTransition, useRef } from 'react';
 import styles from '../css/header.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faVideo } from '@fortawesome/free-solid-svg-icons';
@@ -158,18 +158,21 @@ const Header = () => {
     //토큰이 있나 없나 확인
     const [user, setUser] = useState('');
 
-    const [showDiv, setShowDiv] = useState(false);
-    const [isFocused, setIsFocused] = useState(false);
+    const [isPopupVisible, setIsPopupVisible] = useState(false);
+    const popupRef = useRef(null);
 
-    const handleInputFocus = () => {
-        setIsFocused(true);
-        setShowDiv(true);
+    const handleClickOutside = event => {
+        if (popupRef.current && !popupRef.current.contains(event.target)) {
+            setIsPopupVisible(false);
+        }
     };
 
-    const handleInputBlur = () => {
-        setIsFocused(false);
-        setShowDiv(false);
-    };
+    useEffect(() => {
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
 
     //검색기록 로컬 저장
     const [query, setQuery] = useState('');
@@ -202,6 +205,7 @@ const Header = () => {
     const handleDeleteAll = () => {
         setSearchHistory([]);
         localStorage.removeItem('searchHistory');
+
     };
 
     //검색어 삭제
@@ -230,15 +234,14 @@ const Header = () => {
                             value={query}
                             onChange={e => setQuery(e.target.value)}
                             placeholder="스티리머, 게임 영상 검색"
-                            onFocus={handleInputFocus}
-                            onBlur={handleInputBlur}
+                            onFocus={() => setIsPopupVisible(true)}
                         />
                         <button className={styles.button} type="submit">
                             <img src="/images/serch_icon.svg" alt="serch_icon"></img>
                         </button>
                     </div>
-                    {showDiv && (
-                        <div className={styles.SearchList}>
+                    {isPopupVisible && (
+                        <div ref={popupRef} className={styles.SearchList}>
                             <div className={styles.SearchLisht_Header}>
                                 <p className={styles.SearchLisht_Header_log}>최근 검색어</p>
                                 <button onClick={handleDeleteAll} className={styles.SearchLisht_Header_button}>
