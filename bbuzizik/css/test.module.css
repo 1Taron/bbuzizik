@@ -1,0 +1,55 @@
+.App {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+}
+
+.search_container {
+    position: relative;
+}
+
+.search_container input {
+    padding: 10px;
+    font-size: 16px;
+}
+
+.search_container button {
+    padding: 10px;
+    margin-left: 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.popup {
+    position: absolute;
+    top: 80px;
+    left: 0;
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    width: 300px;
+    z-index: 100;
+}
+
+.popup h3 {
+    margin: 0 0 10px 0;
+}
+
+.popup ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.popup ul li {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+}
+
+.popup ul li button {
+    background: none;
+    border: none;
+    color: red;
+    cursor: pointer;
+}
