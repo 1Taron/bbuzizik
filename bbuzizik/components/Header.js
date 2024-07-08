@@ -16,18 +16,9 @@ import Dropdown from '../components/DropDown';
 import { faWindows } from '@fortawesome/free-brands-svg-icons';
 import crypto from 'crypto';
 import e from 'cors';
+import { style } from '@mui/system';
 
 const Header = () => {
-    const [searchTerm, setSearchTerm] = useState(''); //검색 입력력
-
-    const handleChange = event => {
-        setSearchTerm(event.target.value);
-    };
-
-    // 검색 관련 코드
-    const handleSubmit = event => {
-        event.preventDefault();
-    };
 
     const [activeTab, setActiveTab] = useState('로그인'); // 현재 탭
 
@@ -168,6 +159,64 @@ const Header = () => {
     //토큰이 있나 없나 확인
     const [user, setUser] = useState('');
 
+    const [showDiv, setShowDiv] = useState(false);
+    const [isFocused, setIsFocused] = useState(false);
+
+    const handleInputFocus = () => {
+        setIsFocused(true);
+        setShowDiv(true);
+    };
+
+    const handleInputBlur = () => {
+        setIsFocused(false);
+        setShowDiv(false);
+    };
+
+    //검색기록 로컬 저장
+    const [query, setQuery] = useState('');
+    const [searchHistory, setSearchHistory] = useState([]);
+
+    useEffect(() => {
+        // 페이지 로드 시 로컬 스토리지에서 검색 기록 가져오기
+        const storedHistory = localStorage.getItem('searchHistory');
+        if (storedHistory) {
+            setSearchHistory(JSON.parse(storedHistory));
+        }
+    }, []);
+
+    const handleChange = (e) => {
+        e.preventDefault();
+        if (query.trim() !== '') {
+            // 새로운 검색어 추가
+            const updatedHistory = [...searchHistory, query];
+            setSearchHistory(updatedHistory);
+
+            // 로컬 스토리지에 검색 기록 저장
+            localStorage.setItem('searchHistory', JSON.stringify(updatedHistory));
+
+            // 검색어 초기화
+            setQuery('');
+        }
+    };
+
+    //검색 기록 전체 삭제
+    const handleDeleteAll = () => {
+        setSearchHistory([]);
+        localStorage.removeItem('searchHistory');
+    };
+
+
+
+    //검색어 삭제
+    const handleDelete = (index) => {
+        const updatedHistory = [...searchHistory];
+        updatedHistory.splice(index, 1);
+        setSearchHistory(updatedHistory);
+
+        localStorage.setItem('searchHistory', JSON.stringify(updatedHistory));
+    };
+
+
     return (
         <header className={styles.header}>
             <h1 className={styles.logo_bar}>
@@ -177,21 +226,43 @@ const Header = () => {
                 </Link>
             </h1>
             <div className={styles.center_bar}>
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleChange}>
                     <div className={styles.searchform}>
                         <input
                             className={styles.input}
                             type="text"
-                            value={searchTerm}
-                            onChange={handleChange}
+                            value={query}
+                            onChange={(e) => setQuery(e.target.value)}
                             placeholder="스티리머, 게임 영상 검색"
+                            onFocus={handleInputFocus}
+                            onBlur={handleInputBlur}
                         />
                         <button className={styles.button} type="submit">
                             <img src="/images/serch_icon.svg" alt="serch_icon"></img>
                         </button>
                     </div>
+                    {showDiv && (
+                        <div className={styles.SearchList}>
+                            <div className={styles.SearchLisht_Header}>
+                                <p className={styles.SearchLisht_Header_log}>최근 검색어</p>
+                                <button onClick={handleDeleteAll} className={styles.SearchLisht_Header_button}>전체 삭제</button>
+                            </div>
+                            {searchHistory.length > 0 && (
+                                <div>
+                                    <ul>
+                                        {searchHistory.map((term, index) => (
+                                            <li key={index}>{term}<button onClick={() => handleDelete(index)}>삭제</button></li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            )}
+                            <div className={styles.SearchList_Footer}>
+                                <button className={styles.SearchList_Footer_button}>닫기</button>
+                            </div>
+                        </div>
+                    )}
                 </form>
-            </div>
+            </div >
             <div className={styles.right_bar}>
                 {user ? (
                     <a className={styles.button_studio} href="/Studio/home">
@@ -215,147 +286,149 @@ const Header = () => {
                     )}
                 </div>
             </div>
-            {isModalOpen && (
-                <>
-                    <div className={styles.overlay}></div>
-                    <div className={styles.modal}>
-                        <div className={styles.modal_logo_container}>
-                            <p className={`logo_font ${styles.modal_logotitle}`}>BBUZIZIK</p>
-                        </div>
-                        <div className={styles.modal_login_container}>
-                            <button className={styles.login_button} onClick={() => setActiveTab('로그인')}>
-                                로그인
-                            </button>
-                            <button className={styles.res_button} onClick={() => setActiveTab('가입')}>
-                                가입
-                            </button>
-                        </div>
-                        <div className={styles.modal_button_container}>
-                            <button className={styles.modal_button} onClick={() => setIsModalOpen(false)}>
-                                <img src="/images/close_button.svg" alt="닫기" />
-                            </button>
-                        </div>
-                        {activeTab === '로그인' ? (
-                            <>
-                                <form onSubmit={event => event.preventDefault()}>
-                                    <div className={styles.Login_container}>
-                                        <div className={styles.Login_text}>이메일</div>
-                                        <input
-                                            className={styles.Login_input}
-                                            type="email"
-                                            value={Login}
-                                            onChange={LoginChange}
-                                        ></input>
-                                    </div>
-                                    <div className={styles.PW_container}>
-                                        <div className={styles.PW_text}>비밀번호</div>
-                                        <input
-                                            className={styles.PW_input}
-                                            type="password"
-                                            value={PW}
-                                            onChange={PWChange}
-                                        ></input>
-                                    </div>
-                                    <Link href="/" className={styles.Search_PW}>
-                                        비밀번호를 잊어버리셨나요?
-                                    </Link>
-                                    <button className={styles.Button} type="submit" onClick={onClickLoginButton}>
-                                        로그인
-                                    </button>
-                                </form>
-                                <div className={styles.Bar}></div>
-                                <div className={styles.Bar_}>또는</div>
-                                <button className={styles.Button_google} type="button">
-                                    Google로 로그인
+            {
+                isModalOpen && (
+                    <>
+                        <div className={styles.overlay}></div>
+                        <div className={styles.modal}>
+                            <div className={styles.modal_logo_container}>
+                                <p className={`logo_font ${styles.modal_logotitle}`}>BBUZIZIK</p>
+                            </div>
+                            <div className={styles.modal_login_container}>
+                                <button className={styles.login_button} onClick={() => setActiveTab('로그인')}>
+                                    로그인
                                 </button>
-                                <button className={styles.Button_naver} type="button">
-                                    Naver로 로그인
+                                <button className={styles.res_button} onClick={() => setActiveTab('가입')}>
+                                    가입
                                 </button>
-                            </>
-                        ) : (
-                            <>
-                                <form onSubmit={onClickUpLoadButton}>
-                                    <div className={styles.Res_container}>
-                                        <div className={styles.Email_text}>이메일</div>
-                                        <input
-                                            className={styles.Email_input}
-                                            type="email"
-                                            value={Email}
-                                            onChange={EmailChange}
-                                        ></input>
-                                        <div className={styles.Email_text}>아이디</div>
-                                        <input
-                                            className={styles.Email_input}
-                                            type="text"
-                                            value={ID}
-                                            onChange={IDChange}
-                                        ></input>
-                                        <div className={styles.Email_text}>비밀번호</div>
-                                        <input
-                                            className={styles.Email_input}
-                                            type="password"
-                                            value={PW1}
-                                            onChange={PW1Change}
-                                        ></input>
-                                        <div className={styles.Email_text}>비밀번호 확인</div>
-                                        <input
-                                            className={styles.Email_input}
-                                            type="password"
-                                            value={PW2}
-                                            onChange={PW2Change}
-                                        ></input>
-                                        <div className={styles.Email_text}>생년월일</div>
-                                    </div>
-
-                                    <div className={styles.Birth_container}>
-                                        <select
-                                            className={styles.Year}
-                                            value={year}
-                                            onChange={e => setYear(e.target.value)}
-                                        >
-                                            {years.map(year => (
-                                                <option key={year} value={year}>
-                                                    {year}
-                                                </option>
-                                            ))}
-                                        </select>
-                                        <select
-                                            className={styles.Month}
-                                            value={month}
-                                            onChange={e => setMonth(parseInt(e.target.value))}
-                                        >
-                                            {months.map(month => (
-                                                <option key={month} value={month}>
-                                                    {month}
-                                                </option>
-                                            ))}
-                                        </select>
-                                        <select
-                                            className={styles.date}
-                                            value={day}
-                                            onChange={e => setDay(parseInt(e.target.value))}
-                                        >
-                                            {days.map(day => (
-                                                <option key={day} value={day}>
-                                                    {day}
-                                                </option>
-                                            ))}
-                                        </select>
-                                    </div>
-                                    {isPending ? (
-                                        <p>Loading....</p>
-                                    ) : (
-                                        <button className={styles.Button3} type="submit">
-                                            완료
+                            </div>
+                            <div className={styles.modal_button_container}>
+                                <button className={styles.modal_button} onClick={() => setIsModalOpen(false)}>
+                                    <img src="/images/close_button.svg" alt="닫기" />
+                                </button>
+                            </div>
+                            {activeTab === '로그인' ? (
+                                <>
+                                    <form onSubmit={event => event.preventDefault()}>
+                                        <div className={styles.Login_container}>
+                                            <div className={styles.Login_text}>이메일</div>
+                                            <input
+                                                className={styles.Login_input}
+                                                type="email"
+                                                value={Login}
+                                                onChange={LoginChange}
+                                            ></input>
+                                        </div>
+                                        <div className={styles.PW_container}>
+                                            <div className={styles.PW_text}>비밀번호</div>
+                                            <input
+                                                className={styles.PW_input}
+                                                type="password"
+                                                value={PW}
+                                                onChange={PWChange}
+                                            ></input>
+                                        </div>
+                                        <Link href="/" className={styles.Search_PW}>
+                                            비밀번호를 잊어버리셨나요?
+                                        </Link>
+                                        <button className={styles.Button} type="submit" onClick={onClickLoginButton}>
+                                            로그인
                                         </button>
-                                    )}
-                                </form>
-                            </>
-                        )}
-                    </div>
-                </>
-            )}
-        </header>
+                                    </form>
+                                    <div className={styles.Bar}></div>
+                                    <div className={styles.Bar_}>또는</div>
+                                    <button className={styles.Button_google} type="button">
+                                        Google로 로그인
+                                    </button>
+                                    <button className={styles.Button_naver} type="button">
+                                        Naver로 로그인
+                                    </button>
+                                </>
+                            ) : (
+                                <>
+                                    <form onSubmit={onClickUpLoadButton}>
+                                        <div className={styles.Res_container}>
+                                            <div className={styles.Email_text}>이메일</div>
+                                            <input
+                                                className={styles.Email_input}
+                                                type="email"
+                                                value={Email}
+                                                onChange={EmailChange}
+                                            ></input>
+                                            <div className={styles.Email_text}>아이디</div>
+                                            <input
+                                                className={styles.Email_input}
+                                                type="text"
+                                                value={ID}
+                                                onChange={IDChange}
+                                            ></input>
+                                            <div className={styles.Email_text}>비밀번호</div>
+                                            <input
+                                                className={styles.Email_input}
+                                                type="password"
+                                                value={PW1}
+                                                onChange={PW1Change}
+                                            ></input>
+                                            <div className={styles.Email_text}>비밀번호 확인</div>
+                                            <input
+                                                className={styles.Email_input}
+                                                type="password"
+                                                value={PW2}
+                                                onChange={PW2Change}
+                                            ></input>
+                                            <div className={styles.Email_text}>생년월일</div>
+                                        </div>
+
+                                        <div className={styles.Birth_container}>
+                                            <select
+                                                className={styles.Year}
+                                                value={year}
+                                                onChange={e => setYear(e.target.value)}
+                                            >
+                                                {years.map(year => (
+                                                    <option key={year} value={year}>
+                                                        {year}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                            <select
+                                                className={styles.Month}
+                                                value={month}
+                                                onChange={e => setMonth(parseInt(e.target.value))}
+                                            >
+                                                {months.map(month => (
+                                                    <option key={month} value={month}>
+                                                        {month}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                            <select
+                                                className={styles.date}
+                                                value={day}
+                                                onChange={e => setDay(parseInt(e.target.value))}
+                                            >
+                                                {days.map(day => (
+                                                    <option key={day} value={day}>
+                                                        {day}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                        </div>
+                                        {isPending ? (
+                                            <p>Loading....</p>
+                                        ) : (
+                                            <button className={styles.Button3} type="submit">
+                                                완료
+                                            </button>
+                                        )}
+                                    </form>
+                                </>
+                            )}
+                        </div>
+                    </>
+                )
+            }
+        </header >
     );
 };
 
