@@ -167,6 +167,10 @@ const Header = () => {
         }
     };
 
+    const handleClickclose = event => {
+        setIsPopupVisible(false);
+    }
+
     useEffect(() => {
         document.addEventListener('mousedown', handleClickOutside);
         return () => {
@@ -217,6 +221,14 @@ const Header = () => {
         localStorage.setItem('searchHistory', JSON.stringify(updatedHistory));
     };
 
+    useEffect(() => {
+        if (searchHistory.length > 7) {
+            const updatedHistory = [...searchHistory];
+            updatedHistory.shift(); // 가장 오래된 항목 삭제
+            setSearchHistory(updatedHistory);
+        }
+    }, [searchHistory]);
+
     return (
         <header className={styles.header}>
             <h1 className={styles.logo_bar}>
@@ -250,18 +262,20 @@ const Header = () => {
                             </div>
                             {searchHistory.length > 0 && (
                                 <div>
-                                    <ul>
-                                        {searchHistory.map((term, index) => (
-                                            <li key={index}>
+                                    <ul className={styles.searchHistory_list}>
+                                        {searchHistory.slice(-7).map((term, index) => (
+                                            <li className={styles.searchHistory_list_item} key={index}>
                                                 {term}
-                                                <button onClick={() => handleDelete(index)}>삭제</button>
+                                                <button className={styles.searchHistory_list_item_button} onClick={() => handleDelete(index)}>
+                                                    <img src="/images/close_button.svg" alt="close_icon"></img>
+                                                </button>
                                             </li>
                                         ))}
                                     </ul>
                                 </div>
                             )}
                             <div className={styles.SearchList_Footer}>
-                                <button className={styles.SearchList_Footer_button}>닫기</button>
+                                <button onClick={() => handleClickclose()} className={styles.SearchList_Footer_button}>닫기</button>
                             </div>
                         </div>
                     )}
