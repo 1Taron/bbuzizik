@@ -28,8 +28,6 @@ export default function Home() {
             snapshot => {
                 const allUserDoc = snapshot.docs.map(doc => doc.data());
 
-                console.log('AllUserDoc document data:', allUserDoc);
-
                 setStreamingUsers(allUserDoc);
             },
             error => {
@@ -40,8 +38,6 @@ export default function Home() {
             qs,
             snapshot => {
                 const allStudioDoc = snapshot.docs.map(doc => doc.data());
-
-                console.log('AllStudioDoc document data:', allStudioDoc);
 
                 setStreamingStudios(allStudioDoc);
             },
@@ -68,7 +64,6 @@ export default function Home() {
                 }));
         });
         setFilteredStreamingUsers(combinedData);
-        console.log('filteredStreamingUsers :', combinedData);
 
         const combinedInactiveData = inactiveStudios.flatMap(studio => {
             return streamingUsers
@@ -79,7 +74,6 @@ export default function Home() {
                 }));
         });
         setInactiveStreamingUsers(combinedInactiveData);
-        console.log('inactiveStreamingUsers:', combinedInactiveData);
     }, [streamingUsers, streamingStudios]);
     // user.studioInfo.가져올 데이터
 

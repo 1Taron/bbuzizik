@@ -30,8 +30,6 @@ export default function Sidebar({ isExpanded, onToggle }) {
             snapshot => {
                 const allUserDoc = snapshot.docs.map(doc => doc.data());
 
-                console.log('AllUserDoc document data:', allUserDoc);
-
                 setStreamingUsers(allUserDoc);
             },
             error => {
@@ -42,8 +40,6 @@ export default function Sidebar({ isExpanded, onToggle }) {
             qs,
             snapshot => {
                 const allStudioDoc = snapshot.docs.map(doc => doc.data());
-
-                console.log('AllStudioDoc document data:', allStudioDoc);
 
                 setStreamingStudios(allStudioDoc);
             },
@@ -70,7 +66,6 @@ export default function Sidebar({ isExpanded, onToggle }) {
                 }));
         });
         setFilteredStreamingUsers(combinedData);
-        console.log('filteredStreamingUsers :', combinedData);
 
         const combinedInactiveData = inactiveStudios.flatMap(studio => {
             return streamingUsers
@@ -81,7 +76,6 @@ export default function Sidebar({ isExpanded, onToggle }) {
                 }));
         });
         setInactiveStreamingUsers(combinedInactiveData);
-        console.log('inactiveStreamingUsers:', combinedInactiveData);
     }, [streamingUsers, streamingStudios]);
 
     const [followChannels, setFollowChannels] = useState([]);

@@ -7,9 +7,13 @@ import { db } from '../src/pages/api/firebase/firebasedb';
 export default function MySwiper() {
     const API_KEY = process.env.NEXT_PUBLIC_SERVER_IP;
 
+    const [loading, setLoading] = useState(true);
     const [streamingUsers, setStreamingUsers] = useState([]);
     const [streamingStudios, setStreamingStudios] = useState([]);
     const [filteredStreamingUsers, setFilteredStreamingUsers] = useState([]);
+    const [slides, setSlides] = useState([]);
+    const [visibleSlides, setVisibleSlides] = useState([]);
+    const [slideIndex, setSlideIndex] = useState(0);
 
     useEffect(() => {
         // User 데이터
@@ -38,6 +42,7 @@ export default function MySwiper() {
                 console.error('Error fetching chat document:', error);
             }
         );
+
         return () => {
             unsubscribeUsers();
             unsubscribeStudios();
@@ -45,45 +50,57 @@ export default function MySwiper() {
     }, []);
 
     useEffect(() => {
-        const activeStudios = streamingStudios.filter(studio => studio.isOn);
-
-        const combinedData = activeStudios.flatMap(studio => {
-            return streamingUsers
-                .filter(user => user.UID === studio.UID)
-                .map(user => ({
-                    ...user,
-                    studioInfo: studio,
-                }));
-        });
-        setFilteredStreamingUsers(combinedData);
-        console.log('MySwiper combine User Data :', combinedData);
+        if (streamingUsers.length > 0 && streamingStudios.length > 0) {
+            setLoading(false);
+        }
     }, [streamingUsers, streamingStudios]);
+
+    useEffect(() => {
+        if (!loading) {
+            const activeStudios = streamingStudios.filter(studio => studio.isOn);
+            const combinedData = activeStudios.flatMap(studio => {
+                return streamingUsers
+                    .filter(user => user.UID === studio.UID)
+                    .map(user => ({
+                        ...user,
+                        studioInfo: studio,
+                    }));
+            });
+            setFilteredStreamingUsers(combinedData);
+        }
+    }, [streamingUsers, streamingStudios, loading]);
+
+    useEffect(() => {
+        const updatedSlides =
+            filteredStreamingUsers.length > 5 ? getRandomSlides(filteredStreamingUsers, 5) : filteredStreamingUsers;
+        setSlides(updatedSlides);
+    }, [filteredStreamingUsers]);
+
+    useEffect(() => {
+        if (slides.length > 0) {
+            const updateVisibleSlides = () => {
+                const newVisibleSlides = [
+                    slides[(slideIndex - 2 + slides.length) % slides.length], // 왼쪽에서 두 번째
+                    slides[(slideIndex - 1 + slides.length) % slides.length], // 왼쪽에서 첫 번째
+                    slides[slideIndex], // 중앙
+                    slides[(slideIndex + 1) % slides.length], // 오른쪽에서 첫 번째
+                    slides[(slideIndex + 2) % slides.length], // 오른쪽에서 두 번째
+                ];
+                // 중복된 슬라이드를 제거
+                const uniqueVisibleSlides = Array.from(new Set(newVisibleSlides.map(slide => slide?.UID))).map(uid =>
+                    newVisibleSlides.find(slide => slide?.UID === uid)
+                );
+                setVisibleSlides(uniqueVisibleSlides);
+            };
+            updateVisibleSlides();
+        }
+    }, [slideIndex, slides]); // slides를 의존성 배열에 추가
 
     // Streamer 배열에서 최대 5개의 무작위 요소를 선택
     const getRandomSlides = (arr, num) => {
         const shuffled = [...arr].sort(() => 0.5 - Math.random());
         return shuffled.slice(0, num);
     };
-
-    const slides =
-        filteredStreamingUsers.length > 5 ? getRandomSlides(filteredStreamingUsers, 5) : filteredStreamingUsers;
-    const [visibleSlides, setVisibleSlides] = useState([]);
-    const [slideIndex, setSlideIndex] = useState(0);
-
-    useEffect(() => {
-        const updateVisibleSlides = () => {
-            const newVisibleSlides = [
-                slides[(slideIndex - 2 + slides.length) % slides.length], // 왼쪽에서 두 번째
-                slides[(slideIndex - 1 + slides.length) % slides.length], // 왼쪽에서 첫 번째
-                slides[slideIndex], // 중앙
-                slides[(slideIndex + 1) % slides.length], // 오른쪽에서 첫 번째
-                slides[(slideIndex + 2) % slides.length], // 오른쪽에서 두 번째
-            ];
-            setVisibleSlides(newVisibleSlides);
-            console.log('Slides updated : ', newVisibleSlides);
-        };
-        updateVisibleSlides();
-    }, [slideIndex, slides]); // slides를 의존성 배열에 추가
 
     const prevSlide = () => {
         setSlideIndex(slideIndex === 0 ? slides.length - 1 : slideIndex - 1);

@@ -26,7 +26,7 @@ const DropdownMenu = () => {
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(currentUser => {
             setUser(currentUser);
-            console.log(currentUser);
+            // console.log(currentUser);
         });
         return unsubscribe;
     }, []);
@@ -47,7 +47,7 @@ const DropdownMenu = () => {
                     // 일치하는 문서가 있는 경우, 첫 번째 문서의 데이터를 가져옴
                     const userDoc = querySnapshot.docs[0];
                     const userData = userDoc.data();
-                    console.log('User document data:', userData);
+                    // console.log('User document data:', userData);
                     setNickname(userData.ID);
                 } else {
                     console.log('No matching documents.');

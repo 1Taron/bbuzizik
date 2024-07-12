@@ -20,6 +20,8 @@ import { io } from 'socket.io-client';
 import { useRouter } from 'next/router';
 
 let socket;
+let foundStreamerData = null;
+let foundStudioData = null;
 
 export default function Live() {
     const API_KEY = process.env.NEXT_PUBLIC_SERVER_IP;
@@ -38,9 +40,6 @@ export default function Live() {
                 try {
                     const userQuerySnapshot = await getDocs(collection(db, 'User'));
                     const studioQuerySnapshot = await getDocs(collection(db, 'Studio'));
-
-                    let foundStreamerData = null;
-                    let foundStudioData = null;
 
                     userQuerySnapshot.forEach(doc => {
                         if (doc.data().newStreamKey === streamingKey) {
@@ -79,7 +78,7 @@ export default function Live() {
                                 console.error('Error fetching chat document:', error);
                             }
                         );
-
+                        console.log(`TEST Streamerkey - ${foundStreamerData?.newStreamKey}`);
                         return () => unsubscribe();
                     } else {
                         setStreamerData(null);
@@ -90,7 +89,6 @@ export default function Live() {
                     console.error('Error fetching streamer or studio data:', error);
                 }
             };
-
             fetchData();
         } else {
             setStreamerData(null); // slug가 없을 때 streamerData를 초기화
@@ -260,11 +258,11 @@ export default function Live() {
                 >
                     {/* 라이브 화면 */}
                     <div className={livestyles.livecontainer}>
-                        {/* <Player
-                            src={`http://${API_KEY}:8080/hls/bbbbb/index.m3u8`}
+                        <Player
+                            src={`http://${API_KEY}:8080/hls/${foundStreamerData?.newStreamKey}/index.m3u8`}
                             type="m3u8"
                             className={livestyles.hlsplayer}
-                        /> */}
+                        />
                         {!isChatExpanded ? (
                             <FontAwesomeIcon
                                 icon={faCommentDots}
