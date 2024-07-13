@@ -138,7 +138,11 @@ export default function MySwiper() {
             {visibleSlides.map((slide, index) => {
                 const isCenter = index === Math.floor(visibleSlides.length / 2);
                 return (
-                    <div key={slide?.UID} className={styles.slide} style={computeStyle(index)}>
+                    <div
+                        key={slide?.UID}
+                        className={`${styles.slide} ${isCenter ? styles.slide1 : ''}`}
+                        style={computeStyle(index)}
+                    >
                         {isCenter && (
                             <>
                                 <Player
@@ -161,6 +165,7 @@ export default function MySwiper() {
             <button className={styles.left_right_button} onClick={nextSlide}>
                 ▶
             </button>
+            <div className={styles.backgroud}></div>
         </div>
     );
 }
