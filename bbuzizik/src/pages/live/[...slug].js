@@ -60,7 +60,7 @@ export default function Live() {
                         };
                         setFilteredStreamingUser(combinedData);
                         setStreamerData(foundStreamerData);
-                        console.log('Filtered streaming users data: ', combinedData);
+
 
                         // Streamer data를 가져온 후에 Chat data를 실시간으로 가져옴
                         const cq = query(
@@ -71,22 +71,22 @@ export default function Live() {
                             cq,
                             snapshot => {
                                 const chatDoc = snapshot.docs.map(doc => doc.data());
-                                console.log(`Chat-${foundStreamerData?.newStreamKey} document data: `, chatDoc);
+
                                 setChats(chatDoc);
                             },
                             error => {
-                                console.error('Error fetching chat document:', error);
+
                             }
                         );
-                        console.log(`TEST Streamerkey - ${foundStreamerData?.newStreamKey}`);
+
                         return () => unsubscribe();
                     } else {
                         setStreamerData(null);
                         setFilteredStreamingUser(null);
-                        console.log('No streamer or studio data found for key:', streamingKey);
+
                     }
                 } catch (error) {
-                    console.error('Error fetching streamer or studio data:', error);
+
                 }
             };
             fetchData();
@@ -99,7 +99,6 @@ export default function Live() {
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(currentUser => {
             setUser(currentUser);
-            console.log(currentUser);
         });
         return unsubscribe;
     }, []);
@@ -121,14 +120,13 @@ export default function Live() {
                     // 일치하는 문서가 있는 경우, 첫 번째 문서의 데이터를 가져옴
                     const userDoc = querySnapshot.docs[0];
                     const userData = userDoc.data();
-                    console.log('User document data:', userData);
                     setNickname(userData.ID);
                     setStreamKey(userData.newStreamKey);
                 } else {
-                    console.log('No matching documents.');
+
                 }
             } catch (error) {
-                console.error('Error fetching user document:', error);
+
             }
         };
 
@@ -250,10 +248,10 @@ export default function Live() {
                         !isExpanded && !isChatExpanded
                             ? livestyles.homecontainer_chatOff // 둘 다 false일 때
                             : isExpanded && !isChatExpanded
-                            ? livestyles.homecontainer_sideExpanded_chatOff // isExpanded만 true일 때
-                            : isExpanded && isChatExpanded
-                            ? livestyles.homecontainer_sideExpanded // 둘 다 true일 때
-                            : livestyles.homecontainer // isChatExpanded만 true일 때, 나머지 경우
+                                ? livestyles.homecontainer_sideExpanded_chatOff // isExpanded만 true일 때
+                                : isExpanded && isChatExpanded
+                                    ? livestyles.homecontainer_sideExpanded // 둘 다 true일 때
+                                    : livestyles.homecontainer // isChatExpanded만 true일 때, 나머지 경우
                     }
                 >
                     {/* 라이브 화면 */}

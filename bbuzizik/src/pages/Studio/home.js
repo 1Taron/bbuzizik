@@ -33,9 +33,7 @@ export default function Home() {
     const title_handleChange = e => {
         setTitleText(e.target.value);
     };
-    const title_handleClick = () => {
-        console.log(TitleText);
-    };
+
 
     // 카테고리
     const [categories, setCategories] = useState([]);
@@ -64,7 +62,6 @@ export default function Home() {
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(currentUser => {
             setUser(currentUser);
-            console.log(currentUser);
         });
         return unsubscribe;
     }, []);
@@ -85,10 +82,8 @@ export default function Home() {
                     const userData = userDoc.data();
                     setStreamKey(userData.newStreamKey);
                 } else {
-                    console.log('No matching documents.');
                 }
             } catch (error) {
-                console.error('Error fetching user document:', error);
             }
         };
 
@@ -117,10 +112,8 @@ export default function Home() {
                     setbroadcastpw(userData.broadcastpw);
                     setIsOn(userData.isOn);
                 } else {
-                    console.log('No matching documents.');
                 }
             } catch (error) {
-                console.error('Error fetching user document:', error);
             }
         };
 
@@ -147,7 +140,6 @@ export default function Home() {
         setChatRoleText(e.target.value);
     };
     const chatRole_handleClick = () => {
-        console.log(chatRoleText);
     };
 
     // 금칙어 설정
@@ -193,7 +185,6 @@ export default function Home() {
                 });
 
                 window.location.reload();
-                console.log('문서 업데이트 완료');
             } else {
                 // 문서가 존재하지 않으면 새로 생성
                 await addDoc(collection(db, 'Studio'), {
@@ -209,10 +200,8 @@ export default function Home() {
                     isOn: isOn,
                 });
                 window.location.reload();
-                console.log('문서 생성 완료');
             }
         } catch (error) {
-            console.log('작업 실패', error);
         }
     };
 
@@ -234,11 +223,9 @@ export default function Home() {
             cq,
             snapshot => {
                 const chatDoc = snapshot.docs.map(doc => doc.data());
-                console.log('Chat document data:', chatDoc);
                 setChats(chatDoc);
             },
             error => {
-                console.error('Error fetching chat document:', error);
             }
         );
 
@@ -271,7 +258,7 @@ export default function Home() {
                 }));
                 setcategory_data(data);
             } catch (error) {
-                console.error('Error fetching categories:', error);
+
             }
         };
         fetchCategories();
@@ -349,12 +336,6 @@ export default function Home() {
                                 className={styles.studio_main_setting_broadcastTitle_inputbox}
                                 value={TitleText}
                                 onChange={title_handleChange}
-                            />
-                            <input
-                                type="button"
-                                className={styles.studio_main_setting_broadcastTitle_btn}
-                                onClick={title_handleClick}
-                                value="저장"
                             />
                         </div>
 
@@ -496,12 +477,7 @@ export default function Home() {
               존중해 주세요. 3. 친목 금지입니다."
                         />
                         <div className={styles.studio_main_chatRole_btnlayout}>
-                            <input
-                                type="button"
-                                className={styles.studio_main_chatRole_btn}
-                                onClick={chatRole_handleClick}
-                                value="저장"
-                            />
+
                         </div>
                     </div>
 

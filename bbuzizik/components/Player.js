@@ -7,7 +7,6 @@ const Player = ({ src, type }) => {
     useEffect(() => {
         if (type === 'm3u8' && Hls.isSupported()) {
             const hls = new Hls();
-            hls.loadSource(src);
             hls.attachMedia(videoRef.current);
         }
     }, [src, type]);
