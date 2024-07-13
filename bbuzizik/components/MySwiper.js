@@ -162,10 +162,10 @@ export default function MySwiper() {
                     </div>
                 );
             })}
+            <div className={styles.backgroud} />
             <button className={styles.left_right_button} onClick={nextSlide}>
                 ▶
             </button>
-            <div className={styles.backgroud}></div>
         </div>
     );
 }
