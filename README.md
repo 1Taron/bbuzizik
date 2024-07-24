@@ -23,6 +23,7 @@
 - 버전 관리 : Github
 - 협업 툴 : Discord, KakaoTalk
 - 디자인 : [Figma](https://www.figma.com/design/RqYVbSBQFPcTh8lnbyH5I4/%EB%BF%8C%EC%A7%80%EC%A7%81?node-id=0-1&t=spbKPSRw52L4k4CB-0)
+- 송출 프로그램 : OBS
 
 <br>
 
