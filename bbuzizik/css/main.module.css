@@ -45,6 +45,7 @@
     justify-content: space-between;
     align-items: center;
     font-family: 'NPSfontBold';
+    max-width: 1900px;
 }
 
 .h2 {
@@ -62,9 +63,13 @@
     display: flex;
     flex-wrap: wrap;
     width: 100%;
+<<<<<<< Updated upstream
     max-width: 1900px;
+=======
+>>>>>>> Stashed changes
     margin: 15px 0px 0px 0;
     flex-direction: row;
+    max-width: 1900px;
 }
 
 .Section_ListLayout {
